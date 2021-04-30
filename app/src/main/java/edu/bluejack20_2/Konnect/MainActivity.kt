@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
                 "b" to "basd",
                 "c" to "casd"
         )
+        // test push ke branch
+        // apakah aku berhasil jadi cabang nico
         FirebaseFirestore.getInstance().collection("Test").add(data)
     }
 }
