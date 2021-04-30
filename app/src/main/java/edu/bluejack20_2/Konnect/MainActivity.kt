@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
                 "b" to "basd",
                 "c" to "casd"
         )
+        // test push ke branch
         FirebaseFirestore.getInstance().collection("Test").add(data)
     }
 }
