@@ -19,9 +19,9 @@ class MainActivity : AppCompatActivity() {
 //        myRef.setValue("Hello, World!")
         // Create a new user with a first and last name
         val data = hashMapOf(
-                "a" to "a",
-                "b" to "b",
-                "c" to "c"
+                "a" to "aasd",
+                "b" to "basd",
+                "c" to "casd"
         )
         FirebaseFirestore.getInstance().collection("Test").add(data)
     }
