@@ -1,4 +1,4 @@
-package edu.bluejack20_2.Konnect
+package edu.bluejack20_2.Konnect.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.ktx.Firebase
+import edu.bluejack20_2.Konnect.R
 
 class LoginActivity : AppCompatActivity() {
 
