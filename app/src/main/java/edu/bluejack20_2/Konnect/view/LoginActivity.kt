@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -93,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun init(){
+    private fun init(){
         btnSignIn = findViewById(R.id.btnGoogle)
 
     }
