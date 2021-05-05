@@ -25,14 +25,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val check = checkAuth()
+        if(check){
+            return;
+        }
+        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        auth = FirebaseAuth.getInstance()
-        if(auth.currentUser != null){
-            goToHome(auth.currentUser)
-        }else{
-            Toast.makeText(applicationContext, "test", Toast.LENGTH_SHORT).show()
-        }
         init()
         val googleSignIn = GoogleSignInOptions.Builder(
             GoogleSignInOptions.DEFAULT_SIGN_IN
@@ -45,6 +44,16 @@ class LoginActivity : AppCompatActivity() {
             val intent: Intent = googleClient.signInIntent
             startActivityForResult(intent, 100)
         })
+
+    }
+
+    private fun checkAuth(): Boolean{
+        auth = FirebaseAuth.getInstance()
+        if(auth.currentUser != null){
+            goToHome(auth.currentUser)
+            return true;
+        }
+        return false;
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -86,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
     private fun goToHome(user: FirebaseUser){
         if(user != null){
 
-            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
         }else{
             Toast.makeText(this, "U didnt signed in", Toast.LENGTH_SHORT).show()
