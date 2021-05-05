@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Konnect</string>
     <string name="hello">Hello World!</string>
+    <string name="login_hint_username">Username or Email</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_login_btn">Login</string>
 </resources>
