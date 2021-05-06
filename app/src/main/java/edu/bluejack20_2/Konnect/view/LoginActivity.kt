@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.repositories.UserRepository
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,12 +27,14 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val check = checkAuth()
-        if(check){
-            return;
-        }
+
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
         super.onCreate(savedInstanceState)
+        val check = checkAuth()
+        if(check){
+            finish()
+            return;
+        }
         setContentView(R.layout.activity_login)
         init()
         val googleSignIn = GoogleSignInOptions.Builder(
@@ -84,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("Tag", "signInWithCredential:success")
                         val user = auth.currentUser
+                        UserRepository.createUserFirebase(user)
                         goToHome(user)
                     } else {
                         // If sign in fails, display a message to the user.
@@ -98,6 +102,7 @@ class LoginActivity : AppCompatActivity() {
 
 //            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }else{
             Toast.makeText(this, "U didnt signed in", Toast.LENGTH_SHORT).show()
         }
