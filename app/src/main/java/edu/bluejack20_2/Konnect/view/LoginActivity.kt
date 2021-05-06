@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.repositories.UserRepository
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,14 +27,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        auth = FirebaseAuth.getInstance()
-        if(auth.currentUser != null){
-            goToHome(auth.currentUser)
-        }else{
-            Toast.makeText(applicationContext, "test", Toast.LENGTH_SHORT).show()
+        val check = checkAuth()
+        if(check){
+            finish()
+            return;
         }
+        setContentView(R.layout.activity_login)
         init()
         val googleSignIn = GoogleSignInOptions.Builder(
             GoogleSignInOptions.DEFAULT_SIGN_IN
@@ -46,6 +48,16 @@ class LoginActivity : AppCompatActivity() {
             val intent: Intent = googleClient.signInIntent
             startActivityForResult(intent, 100)
         })
+
+    }
+
+    private fun checkAuth(): Boolean{
+        auth = FirebaseAuth.getInstance()
+        if(auth.currentUser != null){
+            goToHome(auth.currentUser)
+            return true;
+        }
+        return false;
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("Tag", "signInWithCredential:success")
                         val user = auth.currentUser
+                        UserRepository.createUserFirebase(user)
                         goToHome(user)
                     } else {
                         // If sign in fails, display a message to the user.
@@ -87,8 +100,9 @@ class LoginActivity : AppCompatActivity() {
     private fun goToHome(user: FirebaseUser){
         if(user != null){
 
-            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }else{
             Toast.makeText(this, "U didnt signed in", Toast.LENGTH_SHORT).show()
         }
