@@ -14,9 +14,8 @@ object UserRepository {
         val findDoc = db.collection("users").document(user.uid)
         findDoc.get()
                 .addOnSuccessListener { document ->
-//                    Log.wtf("test","masuk sa = " + (document.data?.size))
                     if(!document.exists()){
-//                        Log.wtf("test", "DocumentSnapshot data: ${document.get("name")}")
+                        // Create new user
                         val data = hashMapOf(
                                 "name" to user.displayName,
                                 "email" to user.email,
@@ -25,6 +24,7 @@ object UserRepository {
                         )
                         db.collection("users").document(user.uid).set(data)
                     }else{
+                        // User already exists
                         Log.wtf("test", "DocumentSnapshot data: ${document.get("name")}")
                     }
                 }
