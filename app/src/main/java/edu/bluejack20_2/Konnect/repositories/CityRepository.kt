@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 object CityRepository {
 
     private var db = FirebaseFirestore.getInstance()
-    val TAG = "CITYREPOSITORY"
+    val TAG = "CITY_REPOSITORY"
 
     // Get all cities data from firebase
     fun getAll(): CollectionReference {

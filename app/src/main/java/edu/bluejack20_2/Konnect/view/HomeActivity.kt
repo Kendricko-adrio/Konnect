@@ -3,8 +3,10 @@ package edu.bluejack20_2.Konnect.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -13,22 +15,33 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.models.City
+import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
 
+    private val TAG = "HOME_ACTIVITY"
+
     private lateinit var btnLogOut: Button
+    private val homeViewModel = HomeViewModel()
+
+    private var cities: List<City> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
 //        firebaseAuthentication()
-//        initializeComponents()
+        initializeComponents()
         initializeBottomNavbar()
     }
 
     private fun initializeComponents() {
-        btnLogOut = findViewById(R.id.btnSignOut)
+//        btnLogOut = findViewById(R.id.btnSignOut)
+        homeViewModel.getAllCities()
+//        for (city in cities) {
+//            Log.wtf(TAG, city.name)
+//        }
     }
 
     private fun initializeBottomNavbar() {
