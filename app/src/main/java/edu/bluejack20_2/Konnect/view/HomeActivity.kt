@@ -15,12 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
-<<<<<<< HEAD
 import edu.bluejack20_2.Konnect.models.City
 import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
-=======
-import edu.bluejack20_2.Konnect.repositories.ChatRepository
->>>>>>> 384a508ce2fe80c093fa680045fc0ecf04ae7c38
 
 class HomeActivity : AppCompatActivity() {
 
