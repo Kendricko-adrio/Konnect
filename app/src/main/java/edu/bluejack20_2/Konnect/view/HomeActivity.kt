@@ -5,17 +5,43 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.repositories.ChatRepository
 
 class HomeActivity : AppCompatActivity() {
+
     private lateinit var btnLogOut: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+//        firebaseAuthentication()
+//        initializeComponents()
+        initializeBottomNavbar()
+    }
+
+    private fun initializeComponents() {
         btnLogOut = findViewById(R.id.btnSignOut)
+    }
+
+    private fun initializeBottomNavbar() {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.mainBottomNavigation)
+        val navController = findNavController(R.id.fragment)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.networkFragment, R.id.postFragment, R.id.notificationFragment, R.id.settingFragment))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        bottomNavigationView.setupWithNavController(navController)
+    }
+
+    private fun firebaseAuthentication() {
         btnLogOut.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this, LoginActivity::class.java))
