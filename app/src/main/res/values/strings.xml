@@ -4,6 +4,7 @@
     <string name="login_hint_username">Username or Email</string>
     <string name="login_hint_password">Password</string>
     <string name="login_login_btn">Login</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

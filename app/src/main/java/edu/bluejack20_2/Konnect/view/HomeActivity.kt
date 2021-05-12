@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.repositories.ChatRepository
 
 class HomeActivity : AppCompatActivity() {
 
@@ -22,14 +23,11 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-//        firebaseAuthentication()
-//        initializeComponents()
+        firebaseAuthentication()
         initializeBottomNavbar()
     }
 
-    private fun initializeComponents() {
-        btnLogOut = findViewById(R.id.btnSignOut)
-    }
+
 
     private fun initializeBottomNavbar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.mainBottomNavigation)
@@ -41,9 +39,15 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun firebaseAuthentication() {
+        btnLogOut = findViewById(R.id.btnSignOut)
         btnLogOut.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this, LoginActivity::class.java))
         })
+        var btnChat = findViewById<Button>(R.id.btn_chat)
+        btnChat.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this, ChatActivity::class.java))
+        })
+
     }
 }

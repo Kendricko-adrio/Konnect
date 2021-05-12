@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             startActivityForResult(intent, 100)
         })
 
+
     }
 
     private fun checkAuth(): Boolean{
