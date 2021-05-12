@@ -21,35 +21,49 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="113dp">
 
-            <ImageView
-                android:id="@+id/ivUserPhoto"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:layout_constraintVertical_bias="0.51">
+
+                <ImageView
+                    android:id="@+id/ivUserPhoto"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:id="@+id/ivUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="28dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/ivUserPhoto"
+                app:layout_constraintStart_toEndOf="@+id/cardView2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/ivUserLastMsg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="28dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/ivUserPhoto"
-                app:layout_constraintTop_toBottomOf="@+id/ivUserName" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserName"
+                app:layout_constraintVertical_bias="0.157" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

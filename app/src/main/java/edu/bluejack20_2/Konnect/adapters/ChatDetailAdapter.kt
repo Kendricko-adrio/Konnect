@@ -1,15 +1,21 @@
 package edu.bluejack20_2.Konnect.adapters
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.google.common.collect.ImmutableList
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import edu.bluejack20_2.Konnect.R
-import edu.bluejack20_2.Konnect.models.Chat
 import edu.bluejack20_2.Konnect.models.ChatDetail
-import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.view.ChatDetailActivity
 
 
 class ChatDetailAdapter(private val userChats: ArrayList<ChatDetail>) : RecyclerView.Adapter<ChatDetailHolder>() {
@@ -27,6 +33,15 @@ class ChatDetailAdapter(private val userChats: ArrayList<ChatDetail>) : Recycler
     override fun onBindViewHolder(holder: ChatDetailHolder, position: Int) {
         val user: ChatDetail = userChats[position]
         holder.name.text = user.connectionName
+        holder.lastMessage.text = user.lastMessage
+        Glide.with(holder.itemView).load(user.photoURL).apply(RequestOptions().override(150, 150)).into(holder.photoURL)
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            Toast.makeText(holder.itemView.context , "untuk orang : " + user.connectionName +
+                    " dengan doc : " + user.connectionDoc, Toast.LENGTH_SHORT).show()
+            var chatDetail = Intent(holder.itemView.context, ChatDetailActivity::class.java)
+            chatDetail.putExtra("chat_detail", user)
+            holder.itemView.context.startActivity(chatDetail)
+        })
     }
 
 }
@@ -34,8 +49,11 @@ class ChatDetailAdapter(private val userChats: ArrayList<ChatDetail>) : Recycler
 class ChatDetailHolder(view: View): RecyclerView.ViewHolder(view){
 
     public lateinit var name: TextView
-
+    public lateinit var photoURL: ImageView
+    public lateinit var lastMessage: TextView
     init {
         name = view.findViewById(R.id.ivUserName)
+        photoURL = view.findViewById(R.id.ivUserPhoto)
+        lastMessage = view.findViewById(R.id.ivUserLastMsg)
     }
 }

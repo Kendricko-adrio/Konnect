@@ -31,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+<<<<<<< HEAD
 //        firebaseAuthentication()
         initializeComponents()
         initializeBottomNavbar()
@@ -43,6 +44,13 @@ class HomeActivity : AppCompatActivity() {
 //            Log.wtf(TAG, city.name)
 //        }
     }
+=======
+        firebaseAuthentication()
+        initializeBottomNavbar()
+    }
+
+
+>>>>>>> c88a55a138b19ff1929a7baa031a6cb040d8497e
 
     private fun initializeBottomNavbar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.mainBottomNavigation)
@@ -54,6 +62,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun firebaseAuthentication() {
+        btnLogOut = findViewById(R.id.btnSignOut)
         btnLogOut.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this, LoginActivity::class.java))

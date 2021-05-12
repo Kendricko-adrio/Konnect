@@ -30,7 +30,6 @@ class ChatListFragment : Fragment() {
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     //    @SuppressLint("WrongConstant")
@@ -59,7 +58,15 @@ class ChatListFragment : Fragment() {
                     val chatDetail = ChatDetail()
                     Log.wtf("data id", id)
                     UserRepository.getUserByDoc(id).addOnSuccessListener { document->
+                        // insert data
                         chatDetail.connectionName = document["name"] as String
+                        chatDetail.photoURL = document["photoURL"] as String
+                        chatDetail.connectionDoc = id
+
+                        val test = doc.data["messages"] as List<Map<String, String>>
+
+                        chatDetail.lastMessage = test[test.lastIndex]["text"] as String
+                        Log.wtf("last message ", chatDetail.lastMessage)
                         Log.wtf("data ", document["name"] as String)
                         connectionList += chatDetail
                         val adapter = ChatDetailAdapter(connectionList)
