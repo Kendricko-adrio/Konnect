@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.repositories.ChatRepository
 
 class HomeActivity : AppCompatActivity() {
 
@@ -45,5 +46,10 @@ class HomeActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this, LoginActivity::class.java))
         })
+        var btnChat = findViewById<Button>(R.id.btn_chat)
+        btnChat.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this, ChatActivity::class.java))
+        })
+
     }
 }
