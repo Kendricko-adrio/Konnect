@@ -10,16 +10,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.common.collect.ImmutableList
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.ChatDetailAdapter
-import edu.bluejack20_2.Konnect.adapters.ChatTabAdapter
 import edu.bluejack20_2.Konnect.models.ChatDetail
-import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.repositories.ChatRepository
-import edu.bluejack20_2.Konnect.repositories.UserRepository
 
 
 class ChatListFragment : Fragment() {
@@ -48,31 +45,53 @@ class ChatListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
         val connectionList = ArrayList<ChatDetail>()
-        ChatRepository.loadConnection().addOnSuccessListener { document ->
+        ChatRepository.loadLastChat().addOnSuccessListener { document ->
 
             for (doc in document){
-                val test: List<String> = doc.data["members"] as List<String>
+                val test = doc.data["members"] as List<DocumentReference>
+                Log.wtf("id dari docnya ", doc.id)
                 for(id in test)
                 {
-                    if(id.equals(fbUser.uid)) continue
+                    if(id.id.equals(fbUser.uid)) continue
                     val chatDetail = ChatDetail()
-                    Log.wtf("data id", id)
-                    UserRepository.getUserByDoc(id).addOnSuccessListener { document->
-                        // insert data
-                        chatDetail.connectionName = document["name"] as String
-                        chatDetail.photoURL = document["photoURL"] as String
-                        chatDetail.connectionDoc = id
 
-                        val test = doc.data["messages"] as List<Map<String, String>>
+                    id.get().addOnSuccessListener { it ->
+                        chatDetail.chatRoomDoc = doc.id
+                        chatDetail.connectionName = it["name"] as String
+                        chatDetail.connectionDoc = id.id
+                        chatDetail.photoURL = it["photoUrl"] as String
 
-                        chatDetail.lastMessage = test[test.lastIndex]["text"] as String
-                        Log.wtf("last message ", chatDetail.lastMessage)
-                        Log.wtf("data ", document["name"] as String)
-                        connectionList += chatDetail
-                        val adapter = ChatDetailAdapter(connectionList)
-                        recyclerView.adapter = adapter
-                        recyclerView.setHasFixedSize(true)
+                        ChatRepository.getLastMessage(doc.id).addOnSuccessListener { lastmsg ->
+                            Log.wtf("apakah ada data", lastmsg.isEmpty.toString())
+                            for (msg in lastmsg){
+                                Log.wtf("apakah ada data", msg["text"] as String)
+                                chatDetail.lastMessage = msg["text"] as String
+                            }
+                            connectionList += chatDetail
+                            val adapter = ChatDetailAdapter(connectionList)
+                            recyclerView.adapter = adapter
+                            recyclerView.setHasFixedSize(true)
+                        }
+
                     }
+
+//                    UserRepository.getUserByDoc(id).addOnSuccessListener { document->
+//                        // insert data
+//                        chatDetail.chatRoomDoc = doc.id
+//                        chatDetail.connectionName = document["name"] as String
+//                        chatDetail.photoURL = document["photoUrl"] as String
+//                        chatDetail.connectionDoc = id
+//
+//                        val test = doc.data["messages"] as List<Map<String, String>>
+//
+//                        chatDetail.lastMessage = test[test.lastIndex]["text"] as String
+//                        Log.wtf("last message ", chatDetail.lastMessage)
+//                        Log.wtf("data ", document["name"] as String)
+//                        connectionList += chatDetail
+//                        val adapter = ChatDetailAdapter(connectionList)
+//                        recyclerView.adapter = adapter
+//                        recyclerView.setHasFixedSize(true)
+//                    }
 //                    Log.wtf("data ", id)
 //                    val user = User(id)
 //                    users += user
