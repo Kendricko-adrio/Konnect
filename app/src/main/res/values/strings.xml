@@ -96,4 +96,6 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="invitations">Invitations</string>
+    <string name="manage_my_network">Manage My Network</string>
 </resources>
