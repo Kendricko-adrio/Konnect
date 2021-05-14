@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.Chat
 
-class ChatTextAdapter(var chatArr: ArrayList<Chat>) : RecyclerView.Adapter<ChatTextHolder>() {
+class ChatTextAdapter(var chatArr: MutableList<Chat>) : RecyclerView.Adapter<ChatTextHolder>() {
 
     private val MSG_TYPE_LEFT = 0
     private val MSG_TYPE_RIGHT = 1
