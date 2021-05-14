@@ -1,22 +1,21 @@
 package edu.bluejack20_2.Konnect.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.City
 import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
+import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
 
@@ -31,26 +30,18 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-<<<<<<< HEAD
-//        firebaseAuthentication()
+        firebaseAuthentication()
         initializeComponents()
         initializeBottomNavbar()
     }
 
     private fun initializeComponents() {
-//        btnLogOut = findViewById(R.id.btnSignOut)
-        homeViewModel.getAllCities()
-//        for (city in cities) {
-//            Log.wtf(TAG, city.name)
-//        }
-    }
-=======
-        firebaseAuthentication()
-        initializeBottomNavbar()
-    }
+        btnLogOut = findViewById(R.id.btnSignOut)
 
-
->>>>>>> c88a55a138b19ff1929a7baa031a6cb040d8497e
+        lifecycleScope.launch {
+            val cities = homeViewModel.getAllCities()
+        }
+    }
 
     private fun initializeBottomNavbar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.mainBottomNavigation)

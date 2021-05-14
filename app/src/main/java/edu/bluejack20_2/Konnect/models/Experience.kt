@@ -4,12 +4,12 @@ import java.util.*
 
 data class Experience(
         val id: String = "",
-        var institution: Institution,
+        var institution: Institution = Institution(),
         var title: String = "",
-        var employmentType: EmploymentType,
-        var city: City,
-        val startDate: Date,
+        var employmentType: EmploymentType = EmploymentType(),
+        var city: City = City(),
+        val startDate: Date = Date(),
         var isWorking: Boolean = false,
-        val endDate: Date,
-        var description: String
+        val endDate: Date = Date(),
+        var description: String = ""
 )

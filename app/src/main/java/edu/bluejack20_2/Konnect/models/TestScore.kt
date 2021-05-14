@@ -3,9 +3,9 @@ package edu.bluejack20_2.Konnect.models
 import java.util.*
 
 data class TestScore(
-        val id: Int = 0,
+        val id: String = "",
         var title: String = "",
         var score: Double = 0.0,
-        var testDate: Date,
+        var testDate: Date = Date(),
         var description: String = ""
 )

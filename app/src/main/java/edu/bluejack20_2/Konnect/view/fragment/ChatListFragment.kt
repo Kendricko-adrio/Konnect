@@ -60,7 +60,7 @@ class ChatListFragment : Fragment() {
                     UserRepository.getUserByDoc(id).addOnSuccessListener { document->
                         // insert data
                         chatDetail.connectionName = document["name"] as String
-                        chatDetail.photoURL = document["photoURL"] as String
+                        chatDetail.photoURL = document["photoUrl"] as String
                         chatDetail.connectionDoc = id
 
                         val test = doc.data["messages"] as List<Map<String, String>>
