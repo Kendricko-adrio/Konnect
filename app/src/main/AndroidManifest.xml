@@ -11,17 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konnect">
-<!--        <activity-->
-<!--            android:name=".NavigationDrawerActivity"-->
-<!--            android:label="@string/title_activity_navigation_drawer"-->
-<!--            android:theme="@style/Theme.Konnect.NoActionBar"></activity>-->
         <activity android:name=".view.ChatDetailActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.ChatActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
