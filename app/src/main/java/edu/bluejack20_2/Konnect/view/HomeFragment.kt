@@ -1,6 +1,7 @@
 package edu.bluejack20_2.Konnect.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private lateinit var postAdapter: PostRecyclerAdapter
+
+    private val TAG: String = "HOME_FRAGMENT"
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -49,9 +52,14 @@ class HomeFragment : Fragment() {
 
     private fun initRecyclerView() {
         home_post_recycler_view.apply {
-            layoutManager = LinearLayoutManager(activity)
-            postAdapter = PostRecyclerAdapter()
-            adapter = postAdapter
+            if(activity != null) {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+                postAdapter = PostRecyclerAdapter()
+                adapter = postAdapter
+            }
+            else {
+                Log.wtf(TAG, "Context null")
+            }
         }
     }
 }
