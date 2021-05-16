@@ -16,13 +16,8 @@ class ChatDetailViewModel : ViewModel(){
     fun getListChat(): LiveData<MutableList<Chat>>{
         return listChat
     }
-//    suspend fun loadChat(header: String): MutableList<Chat>{
-//
-//        listChat.value = ChatRepository.loadChatText(header)
-//        return listChat.value!!
-//    }
 
-    fun listenToNewChat(doc: String){
+    fun listenToNewChat(doc: String, fromPhoto: String?, toPhoto: String?){
 
             ChatRepository.listenChatText(doc).addSnapshotListener{ documentSnapshot, e ->
                 if (e != null) {
@@ -37,6 +32,8 @@ class ChatDetailViewModel : ViewModel(){
                         chat.created_at = data["created_at"] as Timestamp
                         chat.to = data["to"] as DocumentReference
                         chat.text = data["text"].toString()
+                        chat.fromPhoto = fromPhoto.toString()
+                        chat.toPhoto = toPhoto.toString()
                         temp.add(chat)
                     }
                     listChat.value = temp

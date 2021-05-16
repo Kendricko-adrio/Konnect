@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -50,8 +52,7 @@ class ChatDetailActivity : AppCompatActivity() {
         recycle.layoutManager = linearLayout
         recycle.setHasFixedSize(true)
 
-        viewModel.listenToNewChat(chatDetail?.chatRoomDoc as String) // sinkronus
-        //
+        viewModel.listenToNewChat(chatDetail?.chatRoomDoc as String, chatDetail.fromPhotoUrl, chatDetail.photoURL) // sinkronus
 
         viewModel.getListChat().observe(this, Observer {
             val adapter = ChatTextAdapter(it)
@@ -60,7 +61,7 @@ class ChatDetailActivity : AppCompatActivity() {
 
         var btn = findViewById<ImageButton>(R.id.btn_send)
         var msg = findViewById<EditText>(R.id.et_user_text)
-
+        Glide.with(this).load(R.drawable.send).apply(RequestOptions().override(50, 50)).into(btn)
         btn.setOnClickListener(View.OnClickListener {
             if(msg.text.toString() == ""){
                 Toast.makeText(applicationContext, "Text cannot be empty", Toast.LENGTH_SHORT).show()

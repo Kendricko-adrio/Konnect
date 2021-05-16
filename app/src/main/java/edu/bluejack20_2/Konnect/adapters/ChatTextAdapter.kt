@@ -21,11 +21,14 @@ class ChatTextAdapter(var chatArr: MutableList<Chat>) : RecyclerView.Adapter<Cha
     private val MSG_TYPE_RIGHT = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatTextHolder {
-        if(viewType == MSG_TYPE_LEFT){
-            var view: View = LayoutInflater.from(parent.context).inflate(R.layout.chat_left, parent, false)
+        if (viewType == MSG_TYPE_LEFT) {
+
+            var view: View =
+                LayoutInflater.from(parent.context).inflate(R.layout.chat_left, parent, false)
             return ChatTextHolder(view)
-        }else{
-            var view: View = LayoutInflater.from(parent.context).inflate(R.layout.chat_right, parent, false)
+        } else {
+            var view: View =
+                LayoutInflater.from(parent.context).inflate(R.layout.chat_right, parent, false)
             return ChatTextHolder(view)
         }
     }
@@ -37,6 +40,17 @@ class ChatTextAdapter(var chatArr: MutableList<Chat>) : RecyclerView.Adapter<Cha
     override fun onBindViewHolder(holder: ChatTextHolder, position: Int) {
         var chat = chatArr[position]
         holder.text.text = chat.text
+
+        if (getItemViewType(position) == MSG_TYPE_LEFT) {
+            Glide.with(holder.itemView).load(chat.toPhoto).apply(RequestOptions().override(50, 50))
+                .into(holder.image)
+
+        } else {
+
+            Glide.with(holder.itemView).load(chat.fromPhoto)
+                .apply(RequestOptions().override(50, 50)).into(holder.image)
+        }
+
 //        Glide.with(holder.itemView).load(user.photoURL).apply(RequestOptions().override(150, 150)).into(holder.photoURL)
 //        holder.btn_send.setOnClickListener(View.OnClickListener {
 //            val message = holder.user_text
@@ -48,7 +62,7 @@ class ChatTextAdapter(var chatArr: MutableList<Chat>) : RecyclerView.Adapter<Cha
 
     override fun getItemViewType(position: Int): Int {
         var fuser = FirebaseAuth.getInstance().currentUser
-        if(chatArr[position].from.id.equals(fuser.uid)){
+        if (chatArr[position].from.id.equals(fuser.uid)) {
             return MSG_TYPE_RIGHT
         }
         return MSG_TYPE_LEFT
@@ -57,7 +71,7 @@ class ChatTextAdapter(var chatArr: MutableList<Chat>) : RecyclerView.Adapter<Cha
 
 }
 
-class ChatTextHolder(view: View): RecyclerView.ViewHolder(view){
+class ChatTextHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     lateinit var text: TextView
     lateinit var image: ImageView
