@@ -4,17 +4,58 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.auth.User
+import java.util.function.DoubleConsumer
+import kotlin.coroutines.coroutineContext
 
 object UserRepository {
 
     private val db = FirebaseFirestore.getInstance()
 
-    fun getUserByDoc(user: String): Task<DocumentSnapshot>{
-        return db.collection("users").document(user).get()
+    fun getUserByDoc(user: String): DocumentReference{
+        return db.collection("users").document(user)
+    }
+
+
+    fun acceptConnection(user: String, userDoc: DocumentReference){
+        deleteDocFromInbound(user, userDoc)
+        deleteDocFromOutbound(user, userDoc)
+        addToConnections(user, userDoc)
+    }
+
+    fun declineConnection(user: String, userDoc: DocumentReference) {
+        deleteDocFromInbound(user, userDoc)
+        deleteDocFromOutbound(user, userDoc)
+    }
+
+    fun deleteDocFromInbound(user: String, deleteDoc: DocumentReference){
+        db.collection("users").document(user).update(hashMapOf<String, Any>(
+            "inbound_request" to FieldValue.arrayRemove(deleteDoc)
+        )).addOnCompleteListener{
+            Log.wtf("berhasil ga?", "berhasil gan menghapus data di array")
+        }
+    }
+
+    fun deleteDocFromOutbound(userDelete: String, outboundUser: DocumentReference){
+        val userToDelete = db.collection("users").document(userDelete)
+        db.collection("users").document(outboundUser.id).update(hashMapOf<String, Any>(
+            "outbound_request" to FieldValue.arrayRemove(userToDelete)
+        )).addOnCompleteListener{
+            Log.wtf("berhasil ga?", "berhasil gan menghapus data di array")
+        }
+    }
+
+    fun addToConnections(userCurr: String, userOutbound: DocumentReference){
+        val userCurrent = db.collection("users").document(userCurr)
+        db.collection("users").document(userCurr).update(hashMapOf<String, Any>(
+            "connections_ref" to FieldValue.arrayUnion(userOutbound)
+        ))
+
+        db.collection("users").document(userOutbound.id).update(hashMapOf<String, Any>(
+            "connections_ref" to FieldValue.arrayUnion(userCurrent)
+        ))
+
     }
 
     fun createUserFirebase(user: FirebaseUser) {

@@ -50,7 +50,8 @@ class ChatDetailActivity : AppCompatActivity() {
         recycle.layoutManager = linearLayout
         recycle.setHasFixedSize(true)
 
-        viewModel.listenToNewChat(chatDetail?.chatRoomDoc as String)
+        viewModel.listenToNewChat(chatDetail?.chatRoomDoc as String) // sinkronus
+        //
 
         viewModel.getListChat().observe(this, Observer {
             val adapter = ChatTextAdapter(it)
