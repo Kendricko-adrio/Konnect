@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/experience_row_image"
+        android:layout_width="@dimen/listview_row_image_size"
+        android:layout_height="@dimen/listview_row_image_size"
+        android:maxWidth="@dimen/listview_row_image_size"
+        android:maxHeight="@dimen/listview_row_image_size"
+        android:src="@drawable/ic_home"
+        />
+
+    <LinearLayout
+        android:id="@+id/experience_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/experience_row_institution_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Institution Name"
+            android:textSize="@dimen/list_detail_title_fontsize"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/experience_row_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Experience Title"
+            android:textSize="@dimen/list_detail_detail_fontsize"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/experience_row_employment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Employment Type"
+            android:textSize="@dimen/list_detail_detail_fontsize"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/experience_row_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Period"
+            android:textSize="@dimen/list_detail_detail_fontsize"
+            android:textColor="@color/gray_700"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

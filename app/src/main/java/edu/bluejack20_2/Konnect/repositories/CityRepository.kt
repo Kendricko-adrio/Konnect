@@ -16,7 +16,7 @@ object CityRepository {
         return db.collection("cities").get().await()
     }
 
-    suspend fun getCityUser(ref: DocumentReference): DocumentSnapshot {
+    suspend fun getCityDocRef(ref: DocumentReference): DocumentSnapshot {
         return ref.get().await()
     }
 }

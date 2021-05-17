@@ -1,11 +1,11 @@
 package edu.bluejack20_2.Konnect.models
 
-import java.util.*
+import com.google.firebase.Timestamp
 
 data class TestScore(
         val id: String = "",
         var title: String = "",
         var score: Double = 0.0,
-        var testDate: Date = Date(),
+        var testDate: Timestamp = Timestamp.now(),
         var description: String = ""
 )

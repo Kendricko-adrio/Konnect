@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.User
 import kotlinx.coroutines.tasks.await
@@ -14,14 +15,20 @@ object ActivityPostRepository {
 
     suspend fun getAll(): List<ActivityPost> {
         val list = mutableListOf<ActivityPost>()
-        val data = db.collection("activity_posts").get().await()
+        val data = db.collection("activity_posts")
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .get()
+                .await()
 
         try {
             for(post in data.documents) {
                 val userRef = post["user_ref"] as DocumentReference
                 val user = getActivityPostUser(userRef)
 
+                Log.wtf(TAG, post.toString())
+
                 val pObj = post.toObject(ActivityPost::class.java)
+                Log.wtf(TAG, pObj.toString())
                 var uObj = user.toObject(User::class.java)
 
                 if(pObj != null && uObj != null) {

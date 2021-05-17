@@ -1,7 +1,7 @@
 package edu.bluejack20_2.Konnect.models
 
+import com.google.firebase.Timestamp
 import org.w3c.dom.Comment
-import java.util.*
 
 data class ActivityPost(
     val id: String = "",
@@ -10,6 +10,6 @@ data class ActivityPost(
     var media: String = "",
     var likes: MutableList<PostLike> = mutableListOf<PostLike>(),
     var comments: MutableList<Comment> = mutableListOf<Comment>(),
-    val createdAt: Date = Date(),
-    val deletedAt: Date = Date()
+    var createdAt: Timestamp = Timestamp.now(),
+    var deletedAt: Timestamp = Timestamp.now()
 )
