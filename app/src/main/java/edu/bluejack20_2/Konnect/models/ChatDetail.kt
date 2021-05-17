@@ -9,6 +9,7 @@ class ChatDetail() : Parcelable{
     var lastMessage: String? = null
     var photoURL: String? = null
     var chatRoomDoc: String? = null
+    var fromPhotoUrl: String? = null
 
     constructor(parcel: Parcel) : this() {
         connectionDoc = parcel.readString()
@@ -16,6 +17,7 @@ class ChatDetail() : Parcelable{
         lastMessage = parcel.readString()
         photoURL = parcel.readString()
         chatRoomDoc = parcel.readString()
+        fromPhotoUrl = parcel.readString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -24,6 +26,7 @@ class ChatDetail() : Parcelable{
         parcel.writeString(lastMessage)
         parcel.writeString(photoURL)
         parcel.writeString(chatRoomDoc)
+        parcel.writeString(fromPhotoUrl)
     }
 
     override fun describeContents(): Int {
@@ -39,5 +42,6 @@ class ChatDetail() : Parcelable{
             return arrayOfNulls(size)
         }
     }
+
 
 }

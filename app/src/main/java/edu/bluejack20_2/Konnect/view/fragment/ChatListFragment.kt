@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +19,7 @@ import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.ChatDetailAdapter
 import edu.bluejack20_2.Konnect.models.ChatDetail
 import edu.bluejack20_2.Konnect.repositories.ChatRepository
+import edu.bluejack20_2.Konnect.viewmodels.ChatListViewModel
 
 
 class ChatListFragment : Fragment() {
@@ -38,47 +41,20 @@ class ChatListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         fbUser = FirebaseAuth.getInstance().currentUser
-
+        val viewModel = ViewModelProvider(this).get(ChatListViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_chat_list, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.rvUserList) as RecyclerView
 
         recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
-        val connectionList = ArrayList<ChatDetail>()
-        ChatRepository.loadLastChat().addOnSuccessListener { document ->
 
-            for (doc in document){
-                val test = doc.data["members"] as List<DocumentReference>
-                Log.wtf("id dari docnya ", doc.id)
-                for(id in test)
-                {
-                    if(id.id.equals(fbUser.uid)) continue
-                    val chatDetail = ChatDetail()
+        viewModel.loadChatRoom()
+        viewModel.getChatList().observe(viewLifecycleOwner, Observer {
+            val adapter = ChatDetailAdapter(it)
+            recyclerView.adapter = adapter
+            recyclerView.setHasFixedSize(true)
+        })
 
-                    id.get().addOnSuccessListener { it ->
-                        chatDetail.chatRoomDoc = doc.id
-                        chatDetail.connectionName = it["name"] as String
-                        chatDetail.connectionDoc = id.id
-                        chatDetail.photoURL = it["photoUrl"] as String
-
-                        ChatRepository.getLastMessage(doc.id).addOnSuccessListener { lastmsg ->
-                            Log.wtf("apakah ada data", lastmsg.isEmpty.toString())
-                            for (msg in lastmsg){
-                                Log.wtf("apakah ada data", msg["text"] as String)
-                                chatDetail.lastMessage = msg["text"] as String
-                            }
-                            connectionList += chatDetail
-                            val adapter = ChatDetailAdapter(connectionList)
-                            recyclerView.adapter = adapter
-                            recyclerView.setHasFixedSize(true)
-                        }
-
-                    }
-                }
-
-            }
-
-        }
         Log.wtf("data id", fbUser.photoUrl.toString())
 
         return view

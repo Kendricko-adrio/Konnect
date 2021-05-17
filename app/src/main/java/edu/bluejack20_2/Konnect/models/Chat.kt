@@ -1,5 +1,6 @@
 package edu.bluejack20_2.Konnect.models
 
+import android.provider.ContactsContract
 import com.google.common.collect.ImmutableList
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
@@ -20,4 +21,6 @@ class Chat(
     lateinit var to: DocumentReference
     lateinit var created_at: Timestamp
     lateinit var text: String
+    lateinit var fromPhoto: String
+    lateinit var toPhoto: String
 }
