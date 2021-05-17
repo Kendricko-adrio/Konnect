@@ -11,14 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konnect">
-        <activity android:name=".AddPostActivity"></activity>
-        <activity android:name=".view.PhoneOTPActivity"></activity>
+        <activity android:name=".view.AddPostActivity" />
+        <activity android:name=".view.PhoneOTPActivity" />
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.InvitationsConnectionActivity" />
         <activity android:name=".view.ChatDetailActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.ChatActivity" />
-        <activity android:name=".view.UserProfileActivity"></activity>
+        <activity android:name=".view.UserProfileActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

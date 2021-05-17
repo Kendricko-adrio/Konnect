@@ -1,12 +1,11 @@
-package edu.bluejack20_2.Konnect
+package edu.bluejack20_2.Konnect.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.Timestamp
+import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import kotlinx.android.synthetic.main.activity_add_post.*
-import java.time.LocalDateTime
-import java.util.*
 
 class AddPostActivity : AppCompatActivity() {
 
