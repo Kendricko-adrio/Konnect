@@ -13,12 +13,14 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ChatDetail
+import edu.bluejack20_2.Konnect.repositories.UserRepository
 import edu.bluejack20_2.Konnect.view.ChatDetailActivity
 
 
-class ChatDetailAdapter(private val userChats: ArrayList<ChatDetail>) : RecyclerView.Adapter<ChatDetailHolder>() {
+class ChatDetailAdapter(private val userChats: MutableList<ChatDetail>) : RecyclerView.Adapter<ChatDetailHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatDetailHolder {
 //        TODO("Not yet implemented")
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.chat_detail, parent,false)
@@ -38,9 +40,13 @@ class ChatDetailAdapter(private val userChats: ArrayList<ChatDetail>) : Recycler
         holder.itemView.setOnClickListener(View.OnClickListener {
             Toast.makeText(holder.itemView.context , "untuk orang : " + user.connectionName +
                     " dengan doc : " + user.connectionDoc, Toast.LENGTH_SHORT).show()
-            var chatDetail = Intent(holder.itemView.context, ChatDetailActivity::class.java)
-            chatDetail.putExtra("chat_detail", user)
-            holder.itemView.context.startActivity(chatDetail)
+            UserRepository.getUserByDoc(FirebaseAuth.getInstance().currentUser.uid).get().addOnSuccessListener {
+                user.fromPhotoUrl = it["photoUrl"].toString()
+                var chatDetail = Intent(holder.itemView.context, ChatDetailActivity::class.java)
+                chatDetail.putExtra("chat_detail", user)
+                holder.itemView.context.startActivity(chatDetail)
+            }
+
         })
     }
 

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Konnect">
         <activity android:name=".AddPostActivity"></activity>
+        <activity android:name=".view.PhoneOTPActivity"></activity>
+        <activity android:name=".view.RegisterActivity" />
+        <activity android:name=".view.InvitationsConnectionActivity" />
         <activity android:name=".view.ChatDetailActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.ChatActivity" />

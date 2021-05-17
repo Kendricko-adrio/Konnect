@@ -16,34 +16,25 @@ class ChatDetailViewModel : ViewModel(){
     fun getListChat(): LiveData<MutableList<Chat>>{
         return listChat
     }
-//    suspend fun loadChat(header: String): MutableList<Chat>{
-//
-//        listChat.value = ChatRepository.loadChatText(header)
-//        return listChat.value!!
-//    }
 
-    fun listenToNewChat(doc: String){
+    fun listenToNewChat(doc: String, fromPhoto: String?, toPhoto: String?){
+
             ChatRepository.listenChatText(doc).addSnapshotListener{ documentSnapshot, e ->
                 if (e != null) {
                     Log.w("error", "Listen failed.", e)
                     return@addSnapshotListener
                 }
-                Log.wtf("ada ga datanya? " , "test")
                 if (documentSnapshot != null) {
                     val temp = mutableListOf<Chat>()
-//                    listChat.value?.clear()
-//                    Log.wtf("data live", documentSnapshot.toString())
                     for(data in documentSnapshot){
-//                        Log.wtf("data saat masuk ke chat detail", data.toString())
                         val chat = Chat()
                         chat.from = data["from"] as DocumentReference
                         chat.created_at = data["created_at"] as Timestamp
                         chat.to = data["to"] as DocumentReference
                         chat.text = data["text"].toString()
-//                        Log.wtf("chat yang masuk", chat.text)
+                        chat.fromPhoto = fromPhoto.toString()
+                        chat.toPhoto = toPhoto.toString()
                         temp.add(chat)
-//                        var isBerhasil = listChat.value?.add(chat)
-//                        Log.wtf("chat yang masuk", isBerhasil.toString())
                     }
                     listChat.value = temp
                 }
