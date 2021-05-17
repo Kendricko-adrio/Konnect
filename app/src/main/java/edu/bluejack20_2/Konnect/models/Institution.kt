@@ -6,7 +6,7 @@ data class Institution(
         val id: String = "",
         var name: String = "",
         var city: City = City(),
-        var profilePicture: String = "",
+        var photoUrl: String = "",
         var summary: String = "",
         var website: String = "",
         var employees: MutableList<User> = mutableListOf<User>()

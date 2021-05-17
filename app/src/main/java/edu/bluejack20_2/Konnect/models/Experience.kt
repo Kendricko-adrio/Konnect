@@ -7,7 +7,6 @@ data class Experience(
         var institution: Institution = Institution(),
         var title: String = "",
         var employmentType: EmploymentType = EmploymentType(),
-        var city: City = City(),
         val startDate: Date = Date(),
         var isWorking: Boolean = false,
         val endDate: Date = Date(),

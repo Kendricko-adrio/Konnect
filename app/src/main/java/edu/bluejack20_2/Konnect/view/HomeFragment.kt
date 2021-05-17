@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +40,6 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
 
         // Code ViewModel here
         lifecycleScope.launch {

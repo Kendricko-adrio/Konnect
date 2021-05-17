@@ -1,8 +1,9 @@
 package edu.bluejack20_2.Konnect.repositories
 
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
 
 object CityRepository {
@@ -11,13 +12,11 @@ object CityRepository {
     val TAG = "CITY_REPOSITORY"
 
     // Get all cities data from firebase
-    suspend fun getAll(): List<DocumentSnapshot> {
-        val snapshot = db.collection("cities").get().await()
-        return snapshot.documents
+    suspend fun getAll(): QuerySnapshot {
+        return db.collection("cities").get().await()
     }
 
-    fun getAllByCountryName(): CollectionReference? {
-        //TODO: Implement the firebase query
-        return null
+    suspend fun getCityUser(ref: DocumentReference): DocumentSnapshot {
+        return ref.get().await()
     }
 }
