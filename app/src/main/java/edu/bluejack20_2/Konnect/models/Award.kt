@@ -6,6 +6,6 @@ data class Award(
         val id: Int = 0,
         var title: String = "",
         var issuer: String = "",
-        var issueDate: Date,
+        var issueDate: Date = Date(),
         var description: String = ""
 )

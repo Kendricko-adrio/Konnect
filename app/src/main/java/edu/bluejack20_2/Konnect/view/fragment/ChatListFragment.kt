@@ -47,48 +47,14 @@ class ChatListFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
+
         viewModel.loadChatRoom()
         viewModel.getChatList().observe(viewLifecycleOwner, Observer {
             val adapter = ChatDetailAdapter(it)
             recyclerView.adapter = adapter
             recyclerView.setHasFixedSize(true)
         })
-//        val connectionList = ArrayList<ChatDetail>()
-//        ChatRepository.loadLastChat().addOnSuccessListener { document ->
-//
-//            for (doc in document){
-//                val test = doc.data["members"] as List<DocumentReference>
-//                Log.wtf("id dari docnya ", doc.id)
-//                for(id in test)
-//                {
-//                    if(id.id.equals(fbUser.uid)) continue
-//                    val chatDetail = ChatDetail()
-//
-//                    id.get().addOnSuccessListener { it ->
-//                        chatDetail.chatRoomDoc = doc.id
-//                        chatDetail.connectionName = it["name"] as String
-//                        chatDetail.connectionDoc = id.id
-//                        chatDetail.photoURL = it["photoUrl"] as String
-//
-//                        ChatRepository.getLastMessage(doc.id).addOnSuccessListener { lastmsg ->
-//                            Log.wtf("apakah ada data", lastmsg.isEmpty.toString())
-//                            for (msg in lastmsg){
-//                                Log.wtf("apakah ada data", msg["text"] as String)
-//                                chatDetail.lastMessage = msg["text"] as String
-//                            }
-//                            connectionList += chatDetail
-//                            val adapter = ChatDetailAdapter(connectionList)
-//                            recyclerView.adapter = adapter
-//                            recyclerView.setHasFixedSize(true)
-//                        }
-//
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
+
         Log.wtf("data id", fbUser.photoUrl.toString())
 
         return view

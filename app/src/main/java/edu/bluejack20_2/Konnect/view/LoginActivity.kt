@@ -104,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
     private fun goToHome(user: FirebaseUser){
         if(user != null){
 
-//            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }else{

@@ -4,10 +4,10 @@ import java.util.*
 
 data class Education(
         val id: String = "",
-        var educationDegree: EducationDegree,
-        var studyField: StudyField,
-        var startDate: Date,
-        var endDate: Date,
+        var educationDegree: EducationDegree = EducationDegree(),
+        var studyField: StudyField = StudyField(),
+        var startDate: Date = Date(),
+        var endDate: Date = Date(),
         var grade: Double = 0.0,
         var description: String = ""
 )

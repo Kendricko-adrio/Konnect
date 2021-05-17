@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/experience_row_image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:maxWidth="75dp"
+        android:maxHeight="75dp"
+        android:src="@drawable/ic_home"
+        />
+
+    <LinearLayout
+        android:id="@+id/experience_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/experience_row_institution_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BINUS University"
+            android:textSize="@dimen/list_detail_title_fontsize"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/experience_row_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Laboratory Teaching Assistant"
+            android:textSize="@dimen/list_detail_detail_fontsize"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/experience_row_employment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Full-time"
+            android:textSize="@dimen/list_detail_detail_fontsize"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/experience_row_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sep 2020 - Present"
+            android:textSize="@dimen/list_detail_detail_fontsize"
+            android:textColor="@color/gray_700"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

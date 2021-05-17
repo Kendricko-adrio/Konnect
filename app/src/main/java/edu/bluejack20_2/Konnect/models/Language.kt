@@ -1,7 +1,7 @@
 package edu.bluejack20_2.Konnect.models
 
 data class Language(
-        val id: Int = 0,
+        val id: String = "",
         val name: String = "",
-        val proficiency: String = ""
+        val proficiency: Proficiency = Proficiency()
 )

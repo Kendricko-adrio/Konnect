@@ -6,48 +6,117 @@
     android:layout_height="match_parent"
     tools:context=".view.UserProfileActivity"
     android:layout_marginHorizontal="5dp"
-    android:layout_marginVertical="5dp">
+    android:layout_marginVertical="5dp"
+    android:background="@color/purple_500">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/user_profile_identity_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/user_profile_content_container"
+        android:paddingVertical="15dp"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="75dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                tools:layout_editor_absoluteX="117dp"
-                tools:srcCompat="@tools:sample/avatars" />
-
-        </androidx.cardview.widget.CardView>
-
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_profile_identity_user_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@color/black"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"
+            />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:id="@+id/user_profile_identity_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="28dp"
-            android:text="Clementius Nichklaus Tanzil"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Name"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/user_profile_identity_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Laboratory Assistant at Bina Nusantara University"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/gray_200"/>
+
+        <TextView
+            android:id="@+id/user_profile_identity_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/gray_200" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/user_profile_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/user_profile_identity_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="20dp"
+        android:paddingHorizontal="15dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/card_background_container" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/user_profile_about_me_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:text="About Me"
+                android:textSize="@dimen/user_profile_content_title_fontsize"
+                android:textColor="@color/gray_900"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/user_profile_about_me_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Summary"
+                android:textSize="@dimen/user_profile_content_fontsize"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/user_profile_experience_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:text="Experience"
+                android:textSize="@dimen/user_profile_content_title_fontsize"
+                android:textColor="@color/gray_900"
+                android:textStyle="bold"/>
+
+            <ListView
+                android:id="@+id/user_profile_experience_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </ListView>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
