@@ -7,13 +7,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.auth.User
-import java.util.function.DoubleConsumer
-import kotlin.coroutines.coroutineContext
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import edu.bluejack20_2.Konnect.models.City
 import edu.bluejack20_2.Konnect.models.User
 import kotlinx.coroutines.tasks.await
@@ -71,15 +66,20 @@ object UserRepository {
         }
     }
 
-    fun addToConnections(userCurr: String, userOutbound: DocumentReference){
+    fun addToConnections(userCurr: String, userOutbound: DocumentReference) {
         val userCurrent = db.collection("users").document(userCurr)
-        db.collection("users").document(userCurr).update(hashMapOf<String, Any>(
-            "connections_ref" to FieldValue.arrayUnion(userOutbound)
-        ))
+        db.collection("users").document(userCurr).update(
+            hashMapOf<String, Any>(
+                "connections_ref" to FieldValue.arrayUnion(userOutbound)
+            )
+        )
 
-        db.collection("users").document(userOutbound.id).update(hashMapOf<String, Any>(
-            "connections_ref" to FieldValue.arrayUnion(userCurrent)
-        ))
+        db.collection("users").document(userOutbound.id).update(
+            hashMapOf<String, Any>(
+                "connections_ref" to FieldValue.arrayUnion(userCurrent)
+            )
+        )
+    }
 
 
     public fun createUserFirebase(user: FirebaseUser) {
@@ -153,4 +153,5 @@ object UserRepository {
         }
         return null
     }
+
 }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -42,9 +43,9 @@ class HomeActivity : AppCompatActivity() {
 
         hideToolbar()
 
-        firebaseAuthentication()
         loadData()
         initializeBottomNavbar()
+        chatButton()
     }
 
     private fun loadData() {
@@ -62,7 +63,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initializeComponents() {
         Log.wtf(TAG, "Initialize Components")
-        btnLogOut = findViewById(R.id.btnSignOut)
 
         // Load the image to mini user icon on the left top corner
         val requestOptions = RequestOptions()
@@ -82,6 +82,13 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun chatButton(){
+        val ib_chat = findViewById<ImageButton>(R.id.ib_to_chat)
+        ib_chat.setOnClickListener{
+            startActivity(Intent(this, ChatActivity::class.java))
+        }
+    }
+
     private suspend fun printlnDelayed(message: String) {
         delay(3000)
         Log.wtf(TAG, message)
@@ -96,18 +103,14 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
     }
 
-    private fun firebaseAuthentication() {
-        btnLogOut = findViewById(R.id.btnSignOut)
-        btnLogOut.setOnClickListener(View.OnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-        })
-        var btnChat = findViewById<Button>(R.id.btn_chat)
-        btnChat.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
-        })
-
-    }
+//    private fun firebaseAuthentication() {
+//        btnLogOut = findViewById(R.id.btnSignOut)
+//        btnLogOut.setOnClickListener(View.OnClickListener {
+//            FirebaseAuth.getInstance().signOut()
+//            startActivity(Intent(this, LoginActivity::class.java))
+//        })
+//
+//    }
 
     public fun hideToolbar() {
         val actionBar = supportActionBar

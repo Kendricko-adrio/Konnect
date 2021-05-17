@@ -55,7 +55,7 @@ class ChatListFragment : Fragment() {
             recyclerView.setHasFixedSize(true)
         })
 
-        Log.wtf("data id", fbUser.photoUrl.toString())
+//        Log.wtf("data id", fbUser.photoUrl.toString())
 
         return view
 

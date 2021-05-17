@@ -101,5 +101,11 @@
     <string name="manage_my_network">Manage My Network</string>
 
     <string name="post_content">Starship serial number 9 (SN9) completed SpaceX’s second high-altitude flight test of a Starship prototype from our site in Cameron County, Texas. <br /> These test flights are all about improving our understanding and development of a fully reusable transportation system designed to carry both crew and cargo on long-duration, interplanetary flights and help humanity return to the Moon, and travel to Mars and beyond.</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="validate_otp">Validate OTP</string>
+    <string name="continue_button">Continue</string>
+    <string name="didn_t_get_otp_resend">Did not get OTP? <b>Resend</b></string>
+    <string name="please_enter_the_verification_code_we_sent_to_you">Please Enter the verification code we sent to you</string>
 
 </resources>

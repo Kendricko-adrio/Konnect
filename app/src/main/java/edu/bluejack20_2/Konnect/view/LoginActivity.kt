@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.repositories.UserRepository
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -36,10 +37,9 @@ class LoginActivity : AppCompatActivity() {
             return;
         }
 
-
         setContentView(R.layout.activity_login)
         init()
-
+        toRegisterButton()
 
 
         val googleSignIn = GoogleSignInOptions.Builder(
@@ -53,6 +53,12 @@ class LoginActivity : AppCompatActivity() {
             val intent: Intent = googleClient.signInIntent
             startActivityForResult(intent, 100)
         })
+    }
+
+    private fun toRegisterButton(){
+        btn_register.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun checkAuth(): Boolean{
