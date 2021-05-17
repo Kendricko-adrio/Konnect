@@ -35,8 +35,13 @@ class LoginActivity : AppCompatActivity() {
             finish()
             return;
         }
+
+
         setContentView(R.layout.activity_login)
         init()
+
+
+
         val googleSignIn = GoogleSignInOptions.Builder(
             GoogleSignInOptions.DEFAULT_SIGN_IN
         ).requestIdToken("395354993933-5n0j46qs1rd4fccmiglv0so81vb4c14f.apps.googleusercontent.com").
@@ -48,8 +53,6 @@ class LoginActivity : AppCompatActivity() {
             val intent: Intent = googleClient.signInIntent
             startActivityForResult(intent, 100)
         })
-
-
     }
 
     private fun checkAuth(): Boolean{

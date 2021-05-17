@@ -37,6 +37,19 @@ object UserRepository {
         }
     }
 
+    fun unfriendConnection(userCurr: String, userDoc: DocumentReference){
+        val curr = db.collection("users").document(userCurr)
+        db.collection("users").document(userCurr).update(hashMapOf<String, Any>(
+            "connections_ref" to FieldValue.arrayRemove(userDoc)
+        )).addOnCompleteListener{
+            Log.wtf("tag", "data masuk sih")
+        }
+        db.collection("users").document(userDoc.id).update(hashMapOf<String, Any>(
+            "connections_ref" to FieldValue.arrayRemove(curr)
+        )).addOnCompleteListener{
+        }
+    }
+
     fun deleteDocFromOutbound(userDelete: String, outboundUser: DocumentReference){
         val userToDelete = db.collection("users").document(userDelete)
         db.collection("users").document(outboundUser.id).update(hashMapOf<String, Any>(
