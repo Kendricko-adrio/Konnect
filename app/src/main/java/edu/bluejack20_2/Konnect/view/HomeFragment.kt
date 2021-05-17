@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.PostRecyclerAdapter
 import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
-import edu.bluejack20_2.Konnect.viewmodels.SettingViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 
