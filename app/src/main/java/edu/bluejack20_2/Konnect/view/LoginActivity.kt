@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -19,12 +21,16 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.repositories.UserRepository
+import edu.bluejack20_2.Konnect.viewmodels.LoginViewModel
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var btnSignIn: SignInButton
     private lateinit var googleClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: LoginViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -36,11 +42,11 @@ class LoginActivity : AppCompatActivity() {
             return;
         }
 
-
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         setContentView(R.layout.activity_login)
         init()
-
-
+        toRegisterButton()
+        toLoginButton()
 
         val googleSignIn = GoogleSignInOptions.Builder(
             GoogleSignInOptions.DEFAULT_SIGN_IN
@@ -53,6 +59,28 @@ class LoginActivity : AppCompatActivity() {
             val intent: Intent = googleClient.signInIntent
             startActivityForResult(intent, 100)
         })
+    }
+
+    private fun toLoginButton(){
+        btnLogin.setOnClickListener {
+            val email = txtUsername.text.toString()
+            val pass = txtPassword.text.toString()
+            viewModel.checkUser(email, pass, this)
+            viewModel.getUserStatus().observe(this, Observer {
+                if(it != ""){
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, PhoneOTPActivity::class.java)
+                    intent.putExtra("phone", it)
+                    startActivity(intent)
+                }
+            })
+        }
+    }
+
+    private fun toRegisterButton(){
+        btn_register.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun checkAuth(): Boolean{

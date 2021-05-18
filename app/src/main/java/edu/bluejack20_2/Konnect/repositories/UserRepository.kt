@@ -5,10 +5,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 import com.google.firebase.firestore.*
-import java.util.function.DoubleConsumer
-import kotlin.coroutines.coroutineContext
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import edu.bluejack20_2.Konnect.models.City
+import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.models.*
 import kotlinx.coroutines.tasks.await
 
@@ -22,6 +22,9 @@ object UserRepository {
         return db.collection("users").document(user)
     }
 
+    fun getUserByUsernameAndPassword(email: String, password: String): Query{
+        return db.collection("users").whereEqualTo("email", email).whereEqualTo("password", password)
+    }
 
     fun acceptConnection(user: String, userDoc: DocumentReference) {
         deleteDocFromInbound(user, userDoc)
@@ -86,6 +89,13 @@ object UserRepository {
             )
         )
     }
+
+
+    fun searchByName(name: String): Query{
+        return db.collection("users").whereGreaterThanOrEqualTo("name", name).whereLessThan("name",
+            "$name\uf8ff")
+    }
+
 
     fun createUserFirebase(user: FirebaseUser) {
         val findDoc = db.collection("users").document(user.uid)
@@ -242,3 +252,4 @@ object UserRepository {
         return null
     }
 }
+

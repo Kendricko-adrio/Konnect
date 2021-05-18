@@ -35,6 +35,7 @@ class ChatDetailViewModel : ViewModel(){
                         chat.fromPhoto = fromPhoto.toString()
                         chat.toPhoto = toPhoto.toString()
                         temp.add(chat)
+                        Log.wtf("text ini dari ${chat.from}", chat.text + "   | created at:  " + chat.created_at.toDate().toString())
                     }
                     listChat.value = temp
                 }

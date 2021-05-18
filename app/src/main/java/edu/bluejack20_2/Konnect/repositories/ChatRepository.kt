@@ -17,7 +17,7 @@ object ChatRepository{
         return db.collection("chat_detail")
             .whereEqualTo("header", ref)
             .limit(1)
-            .orderBy("created_at", Query.Direction.ASCENDING)
+            .orderBy("created_at", Query.Direction.DESCENDING)
             .get()
     }
 

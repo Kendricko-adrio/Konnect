@@ -6,9 +6,13 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.SearchView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,7 +26,9 @@ import com.google.firebase.ktx.Firebase
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.City
 import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.view.fragment.SearchFragment
 import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
+import edu.bluejack20_2.Konnect.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
 
@@ -43,6 +49,34 @@ class HomeActivity : AppCompatActivity() {
 
         loadData()
         initializeBottomNavbar()
+        chatButton()
+        searchFragment()
+
+    }
+
+    private fun searchFragment(){
+
+        val viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+        cl_search_component.visibility = View.GONE
+        ib_search.setOnClickListener {
+            cl_search_component.visibility = View.VISIBLE
+            ib_search.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.fragment, SearchFragment(), "search").commit()
+        }
+        ib_exit.setOnClickListener {
+            cl_search_component.visibility = View.GONE
+            ib_search.visibility = View.VISIBLE
+            supportFragmentManager.findFragmentByTag("search")?.let { it1 ->
+                supportFragmentManager.beginTransaction().remove(
+                    it1
+                ).commit()
+            }
+        }
+
+        et_search_bar.addTextChangedListener {
+            viewModel.setString(it.toString())
+            Log.wtf("test", it.toString())
+        }
     }
 
     private fun loadData() {
@@ -77,6 +111,18 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("userId", user.id)
             startActivity(intent)
         }
+    }
+
+    private fun chatButton(){
+        val ib_chat = findViewById<ImageButton>(R.id.ib_to_chat)
+        ib_chat.setOnClickListener{
+            startActivity(Intent(this, ChatActivity::class.java))
+        }
+    }
+
+    private suspend fun printlnDelayed(message: String) {
+        delay(3000)
+        Log.wtf(TAG, message)
     }
 
     private fun initializeBottomNavbar() {
