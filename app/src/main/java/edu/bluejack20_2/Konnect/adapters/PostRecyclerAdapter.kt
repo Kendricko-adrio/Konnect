@@ -1,6 +1,5 @@
 package edu.bluejack20_2.Konnect.adapters
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ActivityPost
+import edu.bluejack20_2.Konnect.services.DateUtil
 import kotlinx.android.synthetic.main.layout_activity_post.view.*
 
 class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -47,7 +47,7 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(post: ActivityPost) {
             identityName.setText(post.user.name)
             identityTitle.setText("Student at Binus University")
-            identityDate.setText(post.createdAt.toString())
+            identityDate.setText(DateUtil.timestampToStandardTime(post.createdAt))
 
             postContent.setText(post.content)
 

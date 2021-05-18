@@ -1,14 +1,14 @@
 package edu.bluejack20_2.Konnect.models
 
-import java.util.*
+import com.google.firebase.Timestamp
 
 data class Experience(
         val id: String = "",
         var institution: Institution = Institution(),
         var title: String = "",
         var employmentType: EmploymentType = EmploymentType(),
-        val startDate: Date = Date(),
+        val startDate: Timestamp = Timestamp.now(),
         var isWorking: Boolean = false,
-        val endDate: Date = Date(),
+        val endDate: Timestamp = Timestamp.now(),
         var description: String = ""
 )
