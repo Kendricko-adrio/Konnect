@@ -107,5 +107,7 @@
     <string name="continue_button">Continue</string>
     <string name="didn_t_get_otp_resend">Did not get OTP? <b>Resend</b></string>
     <string name="please_enter_the_verification_code_we_sent_to_you">Please Enter the verification code we sent to you</string>
+    <string name="change_to_dark_mode">Switch Theme</string>
+    <string name="set_theme">Set Theme</string>
 
 </resources>

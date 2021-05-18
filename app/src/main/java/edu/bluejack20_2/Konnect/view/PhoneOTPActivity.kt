@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.RegisterData
 import kotlinx.android.synthetic.main.activity_phone_o_t_p.*
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 class PhoneOTPActivity : AppCompatActivity() {
@@ -26,14 +27,27 @@ class PhoneOTPActivity : AppCompatActivity() {
     lateinit var mVerificationId: String
     lateinit var forceResendingToken: PhoneAuthProvider.ForceResendingToken
     lateinit var register: RegisterData
-
+    private var isRegister: Boolean = false
+    lateinit var phoneFromLogin: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_o_t_p)
 
-        register = intent.getParcelableExtra<RegisterData>("user")!!
+        // kalau register
+        try {
+            register = intent.getParcelableExtra<RegisterData>("user")!!
+            isRegister = true
+        }catch (e: Exception){
+            isRegister = false
+        }
+        // kalau login
+        try {
+            phoneFromLogin = intent.getStringExtra("phone").toString()
+            Log.wtf("phone from login", phoneFromLogin)
+        }catch (e: Exception){
 
+        }
 
 
         ll_otp.visibility = View.GONE
@@ -79,6 +93,12 @@ class PhoneOTPActivity : AppCompatActivity() {
 
         btn_send_otp.setOnClickListener {
             val phoneNumber = et_phone_number.text.toString()
+
+            if(!isRegister && phoneNumber != phoneFromLogin){
+                Toast.makeText(this, "Phone Number must be the same as in Database!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             startPhoneNumberVerification(phoneNumber)
         }
 
@@ -101,13 +121,13 @@ class PhoneOTPActivity : AppCompatActivity() {
         pd.setMessage("Loggin in")
         fbAuth.signInWithCredential(credential).addOnSuccessListener {
 
-            if(register != null){
+            if(isRegister){
                 val user = hashMapOf(
                     "name" to register.name,
                     "password" to register.password,
                     "email" to register.email,
                     "phoneNumber" to it.user.phoneNumber,
-                    "photoUrl" to it.user.photoUrl
+                    "photoUrl" to "https://static.thenounproject.com/png/630740-200.png"
                 )
 
                 FirebaseFirestore.getInstance().collection("users").document(it.user.uid).set(user)

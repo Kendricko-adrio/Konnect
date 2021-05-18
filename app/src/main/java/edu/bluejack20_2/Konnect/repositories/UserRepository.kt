@@ -24,6 +24,9 @@ object UserRepository {
         return db.collection("users").document(user)
     }
 
+    fun getUserByUsernameAndPassword(email: String, password: String): Query{
+        return db.collection("users").whereEqualTo("email", email).whereEqualTo("password", password)
+    }
 
     fun acceptConnection(user: String, userDoc: DocumentReference){
         deleteDocFromInbound(user, userDoc)
@@ -81,6 +84,11 @@ object UserRepository {
         )
     }
 
+
+    fun searchByName(name: String): Query{
+        return db.collection("users").whereGreaterThanOrEqualTo("name", name).whereLessThan("name",
+            "$name\uf8ff")
+    }
 
     public fun createUserFirebase(user: FirebaseUser) {
         val findDoc = db.collection("users").document(user.uid)

@@ -18,8 +18,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ServerValue
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ServerTimestamp
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.ChatTextAdapter
 import edu.bluejack20_2.Konnect.models.Chat
@@ -78,6 +80,7 @@ class ChatDetailActivity : AppCompatActivity() {
                 "from" to userRef,
                 "text" to msg.text.toString(),
                 "created_at" to Timestamp.now(),
+//                "created_at" to ServerValue.TIMESTAMP,
                 "to" to toRef,
                 "header" to headerRef
             )
