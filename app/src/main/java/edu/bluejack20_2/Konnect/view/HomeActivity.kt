@@ -30,7 +30,6 @@ class HomeActivity : AppCompatActivity() {
 
     private val TAG = "HOME_ACTIVITY"
 
-    private lateinit var btnLogOut: Button
     private val homeViewModel = HomeViewModel()
 
     private var cities: List<City> = emptyList()
@@ -42,7 +41,6 @@ class HomeActivity : AppCompatActivity() {
 
         hideToolbar()
 
-        firebaseAuthentication()
         loadData()
         initializeBottomNavbar()
     }
@@ -62,7 +60,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initializeComponents() {
         Log.wtf(TAG, "Initialize Components")
-        btnLogOut = findViewById(R.id.btnSignOut)
 
         // Load the image to mini user icon on the left top corner
         val requestOptions = RequestOptions()
@@ -82,11 +79,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun printlnDelayed(message: String) {
-        delay(3000)
-        Log.wtf(TAG, message)
-    }
-
     private fun initializeBottomNavbar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.mainBottomNavigation)
         val navController = findNavController(R.id.fragment)
@@ -94,19 +86,6 @@ class HomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         bottomNavigationView.setupWithNavController(navController)
-    }
-
-    private fun firebaseAuthentication() {
-        btnLogOut = findViewById(R.id.btnSignOut)
-        btnLogOut.setOnClickListener(View.OnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-        })
-        var btnChat = findViewById<Button>(R.id.btn_chat)
-        btnChat.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
-        })
-
     }
 
     public fun hideToolbar() {
