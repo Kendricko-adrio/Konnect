@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
+import de.hdodenhof.circleimageview.CircleImageView
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.Chat
 
@@ -74,7 +75,7 @@ class ChatTextAdapter(var chatArr: MutableList<Chat>) : RecyclerView.Adapter<Cha
 class ChatTextHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     lateinit var text: TextView
-    lateinit var image: ImageView
+    lateinit var image: CircleImageView
 
     init {
         text = view.findViewById(R.id.tvUserText)

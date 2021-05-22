@@ -22,6 +22,20 @@ object UserRepository {
         return db.collection("users").document(user)
     }
 
+    fun setUserBlock(user: DocumentReference){
+        val fbUser = FirebaseAuth.getInstance().currentUser.uid
+        db.collection("users").document(fbUser).update(
+            hashMapOf<String, Any>(
+                "block_user_ref" to FieldValue.arrayUnion(user)
+            )
+        ).addOnCompleteListener {
+
+        }
+
+        unfriendConnection(fbUser, user)
+
+    }
+
     fun getUserByUsernameAndPassword(email: String, password: String): Query{
         return db.collection("users").whereEqualTo("email", email).whereEqualTo("password", password)
     }
@@ -96,6 +110,9 @@ object UserRepository {
             "$name\uf8ff")
     }
 
+    fun searchAllUser(): Query{
+        return db.collection("users")
+    }
 
     fun createUserFirebase(user: FirebaseUser) {
         val findDoc = db.collection("users").document(user.uid)

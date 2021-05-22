@@ -68,10 +68,12 @@ class LoginActivity : AppCompatActivity() {
             viewModel.checkUser(email, pass, this)
             viewModel.getUserStatus().observe(this, Observer {
                 if(it != ""){
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+
                     val intent = Intent(this, PhoneOTPActivity::class.java)
                     intent.putExtra("phone", it)
                     startActivity(intent)
+                }else{
+
                 }
             })
         }

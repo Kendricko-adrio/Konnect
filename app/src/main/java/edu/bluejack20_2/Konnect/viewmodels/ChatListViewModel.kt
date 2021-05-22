@@ -9,49 +9,55 @@ import edu.bluejack20_2.Konnect.adapters.ChatDetailAdapter
 import edu.bluejack20_2.Konnect.models.ChatDetail
 import edu.bluejack20_2.Konnect.repositories.ChatRepository
 
-class ChatListViewModel: ViewModel() {
+class ChatListViewModel : ViewModel() {
 
     private val chatList = MutableLiveData<MutableList<ChatDetail>>()
 
     private val fbUser = FirebaseAuth.getInstance().currentUser
 
-    fun getChatList(): MutableLiveData<MutableList<ChatDetail>>{
+    fun getChatList(): MutableLiveData<MutableList<ChatDetail>> {
         return chatList
     }
 
-    fun loadChatRoom(){
-        val connectionList = ArrayList<ChatDetail>()
-        ChatRepository.loadLastChat().addOnSuccessListener { document ->
+    fun loadChatRoom() {
 
-            for (doc in document){
+        ChatRepository.loadLastChat().addOnSuccessListener { document ->
+            val connectionList = ArrayList<ChatDetail>()
+            for (doc in document) {
                 val test = doc.data["members"] as List<DocumentReference>
                 Log.wtf("id dari docnya ", doc.id)
-                for(id in test)
-                {
-                    val chatDetail = ChatDetail()
-                    if(id.id == fbUser.uid) {
+                for (id in test) {
+
+                    if (id.id == fbUser.uid) {
                         continue
                     }
 
 
                     id.get().addOnSuccessListener { it ->
-                        chatDetail.chatRoomDoc = doc.id
-                        chatDetail.connectionName = it["name"].toString()
-                        chatDetail.connectionDoc = id.id
-                        chatDetail.photoURL = it["photoUrl"].toString()
 
-                        ChatRepository.getLastMessage(doc.id).addOnSuccessListener { lastmsg ->
-                            Log.wtf("apakah ada data", lastmsg.isEmpty.toString())
-                            for (msg in lastmsg){
-                                Log.wtf("apakah ada data", msg["text"].toString())
-                                chatDetail.lastMessage = msg["text"].toString()
+
+                        ChatRepository.getLastMessage(doc.id)
+                            .addSnapshotListener { lastmsg, error ->
+
+                                if (error != null) {
+                                    return@addSnapshotListener
+                                }
+                                if (lastmsg != null) {
+                                    for (msg in lastmsg) {
+                                        val chatDetail = ChatDetail()
+
+                                        Log.wtf("apakah ada data", msg["text"].toString())
+                                        chatDetail.lastMessage = msg["text"].toString()
+                                        chatDetail.chatRoomDoc = doc.id
+                                        chatDetail.connectionName = it["name"].toString()
+                                        chatDetail.connectionDoc = id.id
+                                        chatDetail.photoURL = it["photoUrl"].toString()
+                                        connectionList += chatDetail
+                                    }
+
+                                    chatList.value = connectionList
+                                }
                             }
-                            connectionList += chatDetail
-                            chatList.value = connectionList
-//                            val adapter = ChatDetailAdapter(connectionList)
-//                            recyclerView.adapter = adapter
-//                            recyclerView.setHasFixedSize(true)
-                        }
 
                     }
 

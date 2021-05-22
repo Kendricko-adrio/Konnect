@@ -20,12 +20,7 @@ class NetworkViewModel : ViewModel() {
 
     fun loadConnection(){
         val tempList = mutableListOf<DocumentReference>()
-        UserRepository.getUserByDoc(FirebaseAuth.getInstance().currentUser.uid).addSnapshotListener{it, e ->
-            if (e != null) {
-                Log.w("error", "Listen failed.", e)
-                return@addSnapshotListener
-            }
-            if(it?.get("connections_ref") == null) return@addSnapshotListener
+        UserRepository.getUserByDoc(FirebaseAuth.getInstance().currentUser.uid).get().addOnSuccessListener{
 
             val temp = it["connections_ref"] as List<DocumentReference>
             for(doc in temp){
@@ -35,6 +30,24 @@ class NetworkViewModel : ViewModel() {
             connections.value = tempList
         }
     }
+
+//    fun loadConnection(){
+//        val tempList = mutableListOf<DocumentReference>()
+//        UserRepository.getUserByDoc(FirebaseAuth.getInstance().currentUser.uid).addSnapshotListener{it, e ->
+//            if (e != null) {
+//                Log.w("error", "Listen failed.", e)
+//                return@addSnapshotListener
+//            }
+//            if(it?.get("connections_ref") == null) return@addSnapshotListener
+//
+//            val temp = it["connections_ref"] as List<DocumentReference>
+//            for(doc in temp){
+//                Log.wtf("data yang masuk", doc.toString())
+//                tempList.add(doc)
+//            }
+//            connections.value = tempList
+//        }
+//    }
 
 
 }

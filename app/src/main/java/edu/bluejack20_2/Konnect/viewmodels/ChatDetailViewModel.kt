@@ -28,14 +28,15 @@ class ChatDetailViewModel : ViewModel(){
                     val temp = mutableListOf<Chat>()
                     for(data in documentSnapshot){
                         val chat = Chat()
+                        Log.wtf("data", data.toString())
                         chat.from = data["from"] as DocumentReference
-                        chat.created_at = data["created_at"] as Timestamp
+//                        chat.created_at = data["created_at"] as Timestamp
                         chat.to = data["to"] as DocumentReference
                         chat.text = data["text"].toString()
                         chat.fromPhoto = fromPhoto.toString()
                         chat.toPhoto = toPhoto.toString()
                         temp.add(chat)
-                        Log.wtf("text ini dari ${chat.from}", chat.text + "   | created at:  " + chat.created_at.toDate().toString())
+//                        Log.wtf("text ini dari ${chat.from}", chat.text + "   | created at:  " + chat.created_at.toDate().toString())
                     }
                     listChat.value = temp
                 }

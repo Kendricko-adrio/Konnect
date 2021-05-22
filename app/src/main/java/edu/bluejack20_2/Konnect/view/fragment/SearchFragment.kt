@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.SearchDetailAdapter
-import edu.bluejack20_2.Konnect.view.HomeActivity
 import edu.bluejack20_2.Konnect.viewmodels.SearchViewModel
 
 class SearchFragment : Fragment() {
@@ -39,9 +38,18 @@ class SearchFragment : Fragment() {
             rv_invite.layoutManager =
                 LinearLayoutManager(context, LinearLayout.VERTICAL, false)
             rv_invite.setHasFixedSize(true)
-            viewModel.getStringInput().observe(viewLifecycleOwner, Observer {
-                rv_invite.adapter = SearchDetailAdapter(it)
+            viewModel.setAllUser()
+            var adapter : SearchDetailAdapter? = null
+            viewModel.getAllUser().observe(viewLifecycleOwner, Observer {
+                adapter = SearchDetailAdapter(it)
+                rv_invite.adapter = adapter
             })
+            viewModel.getString().observe(viewLifecycleOwner, Observer {
+                if(adapter == null) return@Observer
+                Log.wtf("aaa", "youuouo")
+                adapter!!.filter.filter(it)
+            })
+
         }
 
 

@@ -41,6 +41,7 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun loadIntentExtras() {
         userId = intent.getStringExtra("userId")!!
+        Log.wtf("userId", userId)
     }
 
     private fun loadData() {

@@ -12,13 +12,12 @@ object ChatRepository{
 
     private val db = FirebaseFirestore.getInstance()
 
-    fun getLastMessage(header: String): Task<QuerySnapshot>{
+    fun getLastMessage(header: String): Query{
         val ref = db.collection("chat_rooms").document(header)
         return db.collection("chat_detail")
             .whereEqualTo("header", ref)
             .limit(1)
             .orderBy("created_at", Query.Direction.DESCENDING)
-            .get()
     }
 
     fun loadLastChat(): Task<QuerySnapshot>{
