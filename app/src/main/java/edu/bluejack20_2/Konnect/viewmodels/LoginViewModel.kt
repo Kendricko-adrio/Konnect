@@ -29,6 +29,7 @@ class LoginViewModel: ViewModel() {
                     Toast.makeText(context, "User or password is incorrect", Toast.LENGTH_SHORT).show()
                 }else{
                     isUserInDb.value = data["phoneNumber"].toString()
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
                 }
             }
         }.addOnFailureListener{

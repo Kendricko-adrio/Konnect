@@ -9,16 +9,18 @@ import org.w3c.dom.Document
 class SearchViewModel: ViewModel() {
     private val stringInput = MutableLiveData<MutableList<DocumentReference>>()
 
-    fun getStringInput(): MutableLiveData<MutableList<DocumentReference>> {
+    fun getAllUser(): MutableLiveData<MutableList<DocumentReference>> {
         return stringInput
     }
 
-    fun setString(str: String){
+    private val string = MutableLiveData<String>()
 
-        UserRepository.searchByName(str).addSnapshotListener{it, e ->
-            if(e != null){
-                return@addSnapshotListener
-            }
+    fun getString(): MutableLiveData<String>{
+        return string
+    }
+
+    fun setAllUser(){
+        UserRepository.searchAllUser().get().addOnSuccessListener {
             val list = mutableListOf<DocumentReference>()
             if (it != null) {
                 for (doc in it){
@@ -27,6 +29,27 @@ class SearchViewModel: ViewModel() {
                 stringInput.value = list
             }
         }
+    }
+
+    fun setString(str: String){
+
+        string.value = str
+
+//        UserRepository.searchByName(str).addSnapshotListener{it, e ->
+//            if(e != null){
+//                return@addSnapshotListener
+//            }
+//            val list = mutableListOf<DocumentReference>()
+//            if (it != null) {
+//                for (doc in it){
+//                    list.add(doc.reference)
+//                }
+//                stringInput.value = list
+//            }
+//        }
+
+
+
     }
 
 }

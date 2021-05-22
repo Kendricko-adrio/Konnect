@@ -81,6 +81,7 @@
             android:textStyle="bold"
             android:text="Name"
             android:layout_marginLeft="10dp"
+            style="@style/textFont"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/add_post_header_image"

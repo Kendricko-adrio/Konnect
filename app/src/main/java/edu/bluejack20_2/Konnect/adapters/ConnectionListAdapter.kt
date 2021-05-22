@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -33,6 +35,15 @@ class ConnectionListAdapter(private val connectionList : MutableList<DocumentRef
         }
         holder.btn_unfriend.setOnClickListener {
             UserRepository.unfriendConnection(fbuser.uid, doc)
+            Toast.makeText(holder.itemView.context, "User has been removed from connection list", Toast.LENGTH_SHORT).show()
+            connectionList.removeAt(position)
+            notifyDataSetChanged()
+        }
+        holder.btn_block.setOnClickListener {
+            UserRepository.setUserBlock(doc)
+            Toast.makeText(holder.itemView.context, "User has been block", Toast.LENGTH_SHORT).show()
+            connectionList.removeAt(position)
+            notifyDataSetChanged()
         }
     }
 }
@@ -41,9 +52,11 @@ class ConnectionListHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     lateinit var iv_profilePic: ImageView
     lateinit var tv_name: TextView
     lateinit var btn_unfriend: Button
+    lateinit var btn_block: Button
     init{
         iv_profilePic = itemView.findViewById(R.id.iv_Connection_pp)
         tv_name = itemView.findViewById(R.id.tv_connection_name)
         btn_unfriend = itemView.findViewById(R.id.btn_unfriend)
+        btn_block = itemView.findViewById(R.id.btn_block)
     }
 }
