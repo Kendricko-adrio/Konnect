@@ -138,6 +138,10 @@ object UserRepository {
         return null
     }
 
+    suspend fun getUserDocRef(ref: DocumentReference): DocumentSnapshot {
+        return ref.get().await()
+    }
+
     suspend fun getUserByDocument(id: String): User? {
         // We need to load several references from the user document
         // City : Reference

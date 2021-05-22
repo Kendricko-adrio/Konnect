@@ -120,11 +120,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun printlnDelayed(message: String) {
-        delay(3000)
-        Log.wtf(TAG, message)
-    }
-
     private fun initializeBottomNavbar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.mainBottomNavigation)
         val navController = findNavController(R.id.fragment)

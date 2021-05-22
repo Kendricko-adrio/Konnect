@@ -29,4 +29,12 @@ object DateUtil {
         val formatter = DateTimeFormatter.ofPattern("MM-yyyy")
         return dateTime.format(formatter)
     }
+
+    public fun timestampToStandardDate(timestamp: Timestamp): String {
+        val date = timestamp.toDate()
+        val dateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        return dateTime.format(formatter)
+    }
 }

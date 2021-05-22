@@ -4,8 +4,7 @@ import com.google.firebase.Timestamp
 
 data class PostComment(
         val id: String = "",
-        val user: User = User(),
-        val post: ActivityPost = ActivityPost(),
+        var user: User = User(),
         var content: String = "",
         val createdAt: Timestamp = Timestamp.now(),
         val deletedAt: Timestamp = Timestamp.now()

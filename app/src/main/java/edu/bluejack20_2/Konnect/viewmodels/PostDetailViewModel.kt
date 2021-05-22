@@ -6,8 +6,16 @@ import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.repositories.ActivityPostRepository
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 
-class PostViewModel : ViewModel() {
-    val TAG = "POST_VIEW_MODEL"
+class PostDetailViewModel: ViewModel() {
+    val TAG = "POST_DETAIL_VM"
+
+    suspend fun getPostByDocument(id: String): ActivityPost {
+        val post = ActivityPostRepository.getPostByDocument(id)
+        if(post != null) {
+            return post
+        }
+        return ActivityPost()
+    }
 
     suspend fun getCurrentUser(): User {
         val user = UserRepository.getCurrentUser()
@@ -15,9 +23,5 @@ class PostViewModel : ViewModel() {
             return user
         }
         return User()
-    }
-
-    suspend fun addPost(post: ActivityPost, user: User) {
-        ActivityPostRepository.addPost(post, user)
     }
 }

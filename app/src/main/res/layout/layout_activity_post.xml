@@ -49,7 +49,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:text="Clementius Nichklaus Tanzil"/>
+                android:text="User Full Name"/>
 
             <TextView
                 android:id="@+id/identity_title"
@@ -62,7 +62,7 @@
                 android:paddingHorizontal="15dp"
                 android:textSize="12sp"
                 android:textColor="@color/gray_700"
-                android:text="Laboratory Assistant at Bina Nusantara" />
+                android:text="User Title" />
 
             <TextView
                 android:id="@+id/identity_date"
@@ -75,7 +75,7 @@
                 android:paddingHorizontal="15dp"
                 android:textSize="12sp"
                 android:textColor="@color/gray_700"
-                android:text="Posted 3 days ago" />
+                android:text="Post Date" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -87,6 +87,7 @@
             app:layout_constraintTop_toBottomOf="@id/identity_container"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:paddingBottom="20dp"
             android:text="@string/post_content"
             android:textColor="@color/black"/>
 
@@ -94,6 +95,7 @@
             android:id="@+id/post_media"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:src="@color/black"
             app:layout_constraintTop_toBottomOf="@id/post_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

@@ -1,5 +1,7 @@
 package edu.bluejack20_2.Konnect.adapters
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,10 @@ import com.bumptech.glide.request.RequestOptions
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.services.DateUtil
+import edu.bluejack20_2.Konnect.services.GlideApp
+import edu.bluejack20_2.Konnect.services.KonnectGlideModule
+import edu.bluejack20_2.Konnect.view.HomeActivity
+import edu.bluejack20_2.Konnect.view.PostDetailActivity
 import kotlinx.android.synthetic.main.layout_activity_post.view.*
 
 class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -21,9 +27,18 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         when(holder) {
             is PostViewHolder -> {
                 holder.bind(items.get(position))
+                holder.itemView.setOnClickListener {
+                    Log.wtf("PostRecyclerAdapter", "Clicked!!")
+                    val intent = Intent(holder.itemView.context, PostDetailActivity::class.java).apply {
+                        Log.wtf("PostRecyclerAdapter", items.get(position).id)
+                        putExtra("postId", items.get(position).id)
+                    }
+                    holder.itemView.context.startActivity(intent)
+                }
             }
         }
     }
@@ -45,21 +60,16 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val postMedia = itemView.post_media
 
         fun bind(post: ActivityPost) {
+
             identityName.setText(post.user.name)
             identityTitle.setText("Student at Binus University")
             identityDate.setText(DateUtil.timestampToStandardTime(post.createdAt))
 
             postContent.setText(post.content)
 
-            val requestOptions = RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
-
-            Glide.with(itemView.context)
-                .applyDefaultRequestOptions(requestOptions)
+            GlideApp.with(itemView.context)
                 .load(post.media)
                 .into(postMedia)
-
         }
 
     }

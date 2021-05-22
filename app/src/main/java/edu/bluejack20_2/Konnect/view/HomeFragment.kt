@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    private lateinit var postAdapter: PostRecyclerAdapter
+    private var postAdapter: PostRecyclerAdapter = PostRecyclerAdapter()
 
     private val TAG: String = "HOME_FRAGMENT"
 
@@ -26,7 +26,6 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var viewModel: HomeViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +44,10 @@ class HomeFragment : Fragment() {
             initRecyclerView()
             postAdapter.submitData(data)
         }
-
     }
 
     private fun initRecyclerView() {
-        home_post_recycler_view.apply {
+        home_post_recycler_view?.apply {
             if(activity != null) {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                 postAdapter = PostRecyclerAdapter()

@@ -1,7 +1,6 @@
 package edu.bluejack20_2.Konnect.view
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
@@ -13,15 +12,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ActivityPost
+import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.viewmodels.PostViewModel
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.fragment_post.add_post_field
 import kotlinx.android.synthetic.main.fragment_post.add_post_send_button
+import kotlinx.coroutines.launch
 import java.util.*
 
 class PostFragment : Fragment() {
@@ -35,6 +36,7 @@ class PostFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
 
     private lateinit var filepath: Uri
+    private lateinit var currentUser: User
 
     companion object {
         fun newInstance() = PostFragment()
@@ -53,6 +55,7 @@ class PostFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
+        loadData()
         initializeComponents()
 
     }
@@ -90,7 +93,6 @@ class PostFragment : Fragment() {
 
     private fun addPostData() {
         // bunch of validations
-
         if (inputField.text.length == 0) {
             Toast.makeText(activity?.applicationContext, "Please input a text!", Toast.LENGTH_LONG).show()
             return
@@ -107,6 +109,7 @@ class PostFragment : Fragment() {
             imageRef.putFile(filepath)
                 .addOnSuccessListener {
                     Toast.makeText(activity?.applicationContext, "File Uploaded", Toast.LENGTH_LONG).show()
+                    // If success get the downloadUrl
                     imageRef.downloadUrl
                         .addOnSuccessListener {
                             val url = it.toString()
@@ -130,11 +133,22 @@ class PostFragment : Fragment() {
     }
 
     private fun savePostFirestore(uri: String) {
-        var post: ActivityPost = ActivityPost()
-        post.content = inputField.text.toString()
-        post.createdAt = Timestamp.now()
-        
+        var postObj: ActivityPost = ActivityPost()
+        postObj.content = inputField.text.toString()
+        postObj.createdAt = Timestamp.now()
+        postObj.media = uri
 
-        progressBar.visibility = View.INVISIBLE
+        // Send it to firestore here
+        lifecycleScope.launch {
+            viewModel.addPost(postObj, currentUser)
+            Log.wtf(TAG, "Success")
+            progressBar.visibility = View.INVISIBLE // Success
+        }
+    }
+
+    private fun loadData() {
+        lifecycleScope.launch {
+            currentUser = viewModel.getCurrentUser()
+        }
     }
 }

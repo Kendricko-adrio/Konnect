@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -78,8 +79,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.2'
 
     implementation 'com.android.volley:volley:1.2.0'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
     def lifecycle_version = "2.3.1"
     def arch_version = "2.1.0"
@@ -100,9 +99,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     // glide
-    def glide_version = "4.8.0"
+    def glide_version = "4.12.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     // desugaring to be able to use LocalDateTime at <26
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'

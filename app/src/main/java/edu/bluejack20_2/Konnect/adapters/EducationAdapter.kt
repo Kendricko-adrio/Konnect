@@ -35,9 +35,9 @@ class EducationAdapter (var mctx: Context, var resources:Int, var items:List<Edu
             .load(mItem.institution.photoUrl)
             .into(imageView)
 
-        view.education_institution_name.text = mItem.institution.name
-        view.education_title.text = mItem.educationDegree.name + ", " + mItem.studyField.name
-        view.education_period.text = DateUtil.timestampToYear(mItem.startDate).toString() + " - " + DateUtil.timestampToYear(mItem.endDate).toString()
+        institutionName.text = mItem.institution.name
+        title.text = mItem.educationDegree.name + ", " + mItem.studyField.name
+        period.text = DateUtil.timestampToYear(mItem.startDate).toString() + " - " + DateUtil.timestampToYear(mItem.endDate).toString()
 
         return view
     }
