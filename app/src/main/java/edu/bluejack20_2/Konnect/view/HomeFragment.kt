@@ -41,8 +41,9 @@ class HomeFragment : Fragment() {
         // Code ViewModel here
         lifecycleScope.launch {
             val data = viewModel.getAllPosts()
+            val users = viewModel.getAllUsers()
             initRecyclerView()
-            postAdapter.submitData(data)
+            postAdapter.submitData(data, users)
         }
     }
 

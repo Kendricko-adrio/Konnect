@@ -86,6 +86,52 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/user_profile_message_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:visibility="gone"
+                    android:text="Message" />
+
+                <Button
+                    android:id="@+id/user_profile_add_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:visibility="gone"
+                    android:text="Add Friend" />
+
+                <Button
+                    android:id="@+id/user_profile_cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:visibility="gone"
+                    android:text="Cancel" />
+
+                <Button
+                    android:id="@+id/user_profile_accept_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:visibility="gone"
+                    android:text="Accept" />
+
+                <Button
+                    android:id="@+id/user_profile_decline_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:visibility="gone"
+                    android:text="Decline" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/user_profile_activity_title"
                 android:layout_width="match_parent"
@@ -102,12 +148,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/purple_200"
                 android:textSize="@dimen/list_detail_detail_fontsize"
-                android:text="45 followers" />
+                android:text="User Connections" />
 
             <Button
                 android:id="@+id/button_add_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Start a post" />
 
             <TextView
@@ -115,6 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Posts you created, shared, or commented on in the last 90 days are displayed here."
+                android:visibility="gone"
                 android:textColor="@color/gray_400"/>
 
             <TextView

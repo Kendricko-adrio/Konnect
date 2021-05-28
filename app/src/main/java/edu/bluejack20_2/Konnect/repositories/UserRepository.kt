@@ -22,6 +22,17 @@ object UserRepository {
         return db.collection("users").document(user)
     }
 
+    suspend fun getAll(): MutableList<User> {
+        var users = mutableListOf<User>()
+        var usersRef = db.collection("users").get().await()
+        for(userRef in usersRef) {
+            var u = userRef.toObject(User::class.java)
+            u.id = userRef.id
+            users.add(u)
+        }
+        return users
+    }
+
     fun setUserBlock(user: DocumentReference){
         val fbUser = FirebaseAuth.getInstance().currentUser.uid
         db.collection("users").document(fbUser).update(
@@ -33,7 +44,6 @@ object UserRepository {
         }
 
         unfriendConnection(fbUser, user)
-
     }
 
     fun getUserByUsernameAndPassword(email: String, password: String): Query{
@@ -137,6 +147,7 @@ object UserRepository {
     }
 
     suspend fun getCurrentUser(): User? {
+        var connections: MutableList<User> = mutableListOf<User>()
         // Get the current user authentication
         val email = FirebaseAuth.getInstance().currentUser?.email
 
@@ -147,6 +158,8 @@ object UserRepository {
             try {
                 user = query.documents.first().toObject(User::class.java)!!
                 user.id = query.documents.first().id
+                connections = loadConnections(query.documents.first())
+                user.connections = connections
                 return user
             } catch (e: Exception) {
                 Log.d(TAG, e.toString())
@@ -167,96 +180,37 @@ object UserRepository {
         val userRef = db.collection("users").document(id)
         val query = userRef.get().await()
         val user: User
-        val experiences: MutableList<Experience> = mutableListOf<Experience>()
-        val educations: MutableList<Education> = mutableListOf<Education>()
-        val skills: MutableList<Skill> = mutableListOf<Skill>()
+        var experiences: MutableList<Experience> = mutableListOf<Experience>()
+        var educations: MutableList<Education> = mutableListOf<Education>()
+        var skills: MutableList<Skill> = mutableListOf<Skill>()
+        var connections: MutableList<User> = mutableListOf<User>()
+        var inboundRequests: MutableList<User> = mutableListOf<User>()
+        var outboundRequests: MutableList<User> = mutableListOf<User>()
 
         try {
             // User
             user = query.toObject(User::class.java)!!
+            user.id = query.id
 
             // City
-            val cityRef = query["city_ref"] as DocumentReference
-            val city = CityRepository.getCityDocRef(cityRef)
-            val cityObj = city.toObject(City::class.java)
+            val cityObj = loadUserCity(query)
 
             // Experiences
-            val experiencesRef = query["experiences_ref"] as List<DocumentReference>
-            for (experienceRef in experiencesRef) {
-                val experience = ExperienceRepository.getExperienceDocRef(experienceRef)
-                val experienceObj = experience.toObject(Experience::class.java)
-
-                // Experience's Institution
-                val institutionRef = experience["institution_ref"] as DocumentReference
-                val institution = InstitutionRepository.getInstitutionDocRef(institutionRef)
-                val institutionObj = institution.toObject(Institution::class.java)
-
-                // Experience's Employment Type
-                val employmentTypeRef = experience["employment_type_ref"] as DocumentReference
-                val employmentType =
-                    EmploymentTypeRepository.getEmploymentTypeDocRef(employmentTypeRef)
-                val employmentTypeObj = employmentType.toObject(EmploymentType::class.java)
-
-                if (experienceObj != null) {
-                    if (institutionObj != null) {
-                        experienceObj.institution = institutionObj
-                    }
-                    if (employmentTypeObj != null) {
-                        experienceObj.employmentType = employmentTypeObj
-                    }
-                    experiences.add(experienceObj)
-                }
-            }
+            experiences = loadUserExperiences(query)
 
             // Educations
-            val educationsRef = query["educations_ref"] as List<DocumentReference>
-            for (educationRef in educationsRef) {
-                val education = EducationRepository.getEducationDocRef(educationRef)
-                val educationObj = education.toObject(Education::class.java)
-
-                // Education's Institution
-                val institutionRef = education["institution_ref"] as DocumentReference
-                val institution = InstitutionRepository.getInstitutionDocRef(institutionRef)
-                val institutionObj = institution.toObject(Institution::class.java)
-
-                // Education's Degree
-                val educationDegreeRef = education["education_degree_ref"] as DocumentReference
-                val educationDegree =
-                    EducationDegreeRepository.getEducationDegreeDocRef(educationDegreeRef)
-                val educationDegreeObj = educationDegree.toObject(EducationDegree::class.java)
-
-                // Study Field
-                val studyFieldRef = education["study_field_ref"] as DocumentReference
-                Log.wtf(TAG, studyFieldRef.toString())
-                val studyField = StudyFieldRepository.getStudyFieldDocRef(studyFieldRef)
-                Log.wtf(TAG, studyField.toString())
-                val studyFieldObj = studyField.toObject(StudyField::class.java)
-                Log.wtf(TAG, studyFieldObj.toString())
-
-                if (educationObj != null) {
-                    if (institutionObj != null) {
-                        educationObj.institution = institutionObj
-                    }
-                    if (educationDegreeObj != null) {
-                        educationObj.educationDegree = educationDegreeObj
-                    }
-                    if (studyFieldObj != null) {
-                        educationObj.studyField = studyFieldObj
-                    }
-                    educations.add(educationObj)
-                }
-            }
+            educations = loadUserEducations(query)
 
             // Skills
-            val skillsRef = query["skills_ref"] as List<DocumentReference>
-            for (skillRef in skillsRef) {
-                val skill = SkillRepository.getSkillDocRef(skillRef)
-                val skillObj = skill.toObject(Skill::class.java)
+            skills = loadUserSkills(query)
 
-                if (skillObj != null) {
-                    skills.add(skillObj)
-                }
-            }
+            // Connections
+            connections = loadConnections(query)
+
+            // Request
+            inboundRequests = loadInboundRequest(query)
+            outboundRequests = loadOutboundRequest(query)
+
 
             // Add all retrieved attributes to the user object
             if (cityObj != null) {
@@ -265,12 +219,248 @@ object UserRepository {
             user.experiences = experiences
             user.educations = educations
             user.skills = skills
+            user.connections = connections
+            user.inbound = inboundRequests
+            user.outbound = outboundRequests
 
             return user
         } catch (e: Exception) {
             Log.d(TAG, e.toString())
         }
         return null
+    }
+
+    suspend fun getConnections(id: String): MutableList<User> {
+        val userRef = db.collection("users").document(id)
+        val query = userRef.get().await()
+        val user: User
+        var connections: MutableList<User>
+
+        try {
+            connections = loadConnectionsDetail(query)
+
+            return connections
+
+        }catch(e: Exception) {
+            Log.d(TAG, e.toString())
+        }
+        return mutableListOf()
+    }
+
+    suspend fun loadUserExperiences(query: DocumentSnapshot): MutableList<Experience> {
+        val experiences = mutableListOf<Experience>()
+        if(query["experiences_ref"] == null) {
+            return experiences
+        }
+        val experiencesRef = query["experiences_ref"] as List<DocumentReference>
+        for (experienceRef in experiencesRef) {
+            val experience = ExperienceRepository.getExperienceDocRef(experienceRef)
+            val experienceObj = experience.toObject(Experience::class.java)
+
+            // Experience's Institution
+            val institutionRef = experience["institution_ref"] as DocumentReference
+            val institution = InstitutionRepository.getInstitutionDocRef(institutionRef)
+            val institutionObj = institution.toObject(Institution::class.java)
+
+            // Experience's Employment Type
+            val employmentTypeRef = experience["employment_type_ref"] as DocumentReference
+            val employmentType =
+                EmploymentTypeRepository.getEmploymentTypeDocRef(employmentTypeRef)
+            val employmentTypeObj = employmentType.toObject(EmploymentType::class.java)
+
+            if (experienceObj != null) {
+                if (institutionObj != null) {
+                    experienceObj.institution = institutionObj
+                }
+                if (employmentTypeObj != null) {
+                    experienceObj.employmentType = employmentTypeObj
+                }
+                experiences.add(experienceObj)
+            }
+        }
+        return experiences
+    }
+
+    suspend fun loadUserEducations(query: DocumentSnapshot): MutableList<Education> {
+        val educations = mutableListOf<Education>()
+        if(query["educations_ref"] == null) {
+            return educations
+        }
+        val educationsRef = query["educations_ref"] as List<DocumentReference>
+        for (educationRef in educationsRef) {
+            val education = EducationRepository.getEducationDocRef(educationRef)
+            val educationObj = education.toObject(Education::class.java)
+
+            // Education's Institution
+            val institutionRef = education["institution_ref"] as DocumentReference
+            val institution = InstitutionRepository.getInstitutionDocRef(institutionRef)
+            val institutionObj = institution.toObject(Institution::class.java)
+
+            // Education's Degree
+            val educationDegreeRef = education["education_degree_ref"] as DocumentReference
+            val educationDegree =
+                EducationDegreeRepository.getEducationDegreeDocRef(educationDegreeRef)
+            val educationDegreeObj = educationDegree.toObject(EducationDegree::class.java)
+
+            // Study Field
+            val studyFieldRef = education["study_field_ref"] as DocumentReference
+            Log.wtf(TAG, studyFieldRef.toString())
+            val studyField = StudyFieldRepository.getStudyFieldDocRef(studyFieldRef)
+            Log.wtf(TAG, studyField.toString())
+            val studyFieldObj = studyField.toObject(StudyField::class.java)
+            Log.wtf(TAG, studyFieldObj.toString())
+
+            if (educationObj != null) {
+                if (institutionObj != null) {
+                    educationObj.institution = institutionObj
+                }
+                if (educationDegreeObj != null) {
+                    educationObj.educationDegree = educationDegreeObj
+                }
+                if (studyFieldObj != null) {
+                    educationObj.studyField = studyFieldObj
+                }
+                educations.add(educationObj)
+            }
+        }
+        return educations
+    }
+
+    suspend fun loadUserSkills(query: DocumentSnapshot): MutableList<Skill> {
+
+        val skills = mutableListOf<Skill>()
+        if(query["skills_ref"] == null) {
+            return skills
+        }
+        val skillsRef = query["skills_ref"] as List<DocumentReference>
+        for (skillRef in skillsRef) {
+            val skill = SkillRepository.getSkillDocRef(skillRef)
+            val skillObj = skill.toObject(Skill::class.java)
+
+            if (skillObj != null) {
+                skills.add(skillObj)
+            }
+        }
+        return skills
+    }
+
+    suspend fun loadUserCity(query: DocumentSnapshot): City {
+        if(query["city_ref"] == null) {
+            return City()
+        }
+        val cityRef = query["city_ref"] as DocumentReference
+        val city = CityRepository.getCityDocRef(cityRef)
+        val cityObj = city.toObject(City::class.java)!!
+        return cityObj
+    }
+
+    suspend fun loadConnections(query: DocumentSnapshot): MutableList<User> {
+        val connections = mutableListOf<User>()
+        if(query["connections_ref"] == null) {
+            return connections
+        }
+        val connectionsRef = query["connections_ref"] as List<DocumentReference>
+        for (connectionRef in connectionsRef) {
+            val connection = getUserDocRef(connectionRef)
+            val connectionObj = connection.toObject(User::class.java)
+
+            if(connectionObj != null) {
+                connectionObj.id = connectionRef.id
+                connections.add(connectionObj)
+            }
+        }
+        return connections
+    }
+
+    suspend fun loadConnectionsDetail(query: DocumentSnapshot): MutableList<User> {
+        val connections = mutableListOf<User>()
+        var city = City()
+        if(query["connections_ref"] == null) {
+            return connections
+        }
+        val connectionsRef = query["connections_ref"] as List<DocumentReference>
+        var experiences = mutableListOf<Experience>()
+        for (connectionRef in connectionsRef) {
+            val connection = getUserDocRef(connectionRef)
+            val connectionObj = connection.toObject(User::class.java)
+
+            experiences = loadUserExperiences(connection)
+
+            city = loadUserCity(connection)
+
+            if(connectionObj != null) {
+                connectionObj.experiences = experiences
+                connectionObj.city = city
+                connectionObj.id = connectionRef.id
+                connections.add(connectionObj)
+            }
+        }
+        return connections
+    }
+
+    suspend fun loadInboundRequest(query: DocumentSnapshot): MutableList<User> {
+        val requests = mutableListOf<User>()
+        if(query["inbound_request"] == null) {
+            return requests
+        }
+        val requestsRef = query["inbound_request"] as List<DocumentReference>
+        for (requestRef in requestsRef) {
+            val request = getUserDocRef(requestRef)
+            val requestObj = request.toObject(User::class.java)
+            Log.wtf(TAG, request.toString())
+            Log.wtf(TAG, requestObj.toString())
+            if(requestObj != null) {
+                requestObj.id = request.id
+                requests.add(requestObj)
+            }
+        }
+        return requests
+    }
+
+    suspend fun loadOutboundRequest(query: DocumentSnapshot): MutableList<User> {
+        val requests = mutableListOf<User>()
+        val ref = query["outbound_request"] ?: return requests
+        val requestsRef = ref as List<DocumentReference>
+        for (requestRef in requestsRef) {
+            val request = getUserDocRef(requestRef)
+            val requestObj = request.toObject(User::class.java)
+
+            if(requestObj != null) {
+                requestObj.id = request.id
+                requests.add(requestObj)
+            }
+        }
+        return requests
+    }
+
+    suspend fun addFriend(requesterId: String, requestedId: String) {
+        val requesterRef = db.collection("users").document(requesterId)
+        val requestedRef = db.collection("users").document(requestedId)
+
+        requesterRef.update("outbound_request", FieldValue.arrayUnion(db.document("/users/$requestedId"))).await()
+        requestedRef.update("inbound_request", FieldValue.arrayUnion(db.document("/users/$requesterId"))).await()
+    }
+
+    suspend fun acceptFriend(requesterId: String, requestedId: String) {
+        val requesterRef = db.collection("users").document(requesterId)
+        val requestedRef = db.collection("users").document(requestedId)
+
+        Log.wtf(TAG, "Requester: " + requesterId)
+        Log.wtf(TAG, "Requested: "  + requestedId)
+
+        requesterRef.update("outbound_request", FieldValue.arrayRemove(db.document("/users/$requestedId"))).await()
+        requestedRef.update("inbound_request", FieldValue.arrayRemove(db.document("/users/$requesterId"))).await()
+
+        requestedRef.update("connections_ref", FieldValue.arrayUnion(db.document("/users/$requesterId"))).await()
+        requesterRef.update("connections_ref", FieldValue.arrayUnion(db.document("/users/$requestedId"))).await()
+    }
+
+    suspend fun declineFriend(requesterId: String, requestedId: String) {
+        val requesterRef = db.collection("users").document(requesterId)
+        val requestedRef = db.collection("users").document(requestedId)
+
+        requesterRef.update("outbound_request", FieldValue.arrayRemove(db.document("/users/$requestedId"))).await()
+        requestedRef.update("inbound_request", FieldValue.arrayRemove(db.document("/users/$requesterId"))).await()
     }
 }
 

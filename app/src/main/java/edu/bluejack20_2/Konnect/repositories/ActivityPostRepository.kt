@@ -1,10 +1,7 @@
 package edu.bluejack20_2.Konnect.repositories
 
 import android.util.Log
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.PostComment
 import edu.bluejack20_2.Konnect.models.User
@@ -132,5 +129,17 @@ object ActivityPostRepository {
             Log.d(TAG, e.toString())
         }
         return null
+    }
+
+    suspend fun dislikePost(postId: String, userId: String) {
+        val postRef = db.collection("activity_posts").document(postId)
+        postRef.update("likes_ref", FieldValue.arrayRemove(db.document("/users/$userId")))
+            .await()
+    }
+
+    suspend fun likePost(postId: String, userId: String) {
+        val postRef = db.collection("activity_posts").document(postId)
+        postRef.update("likes_ref", FieldValue.arrayUnion(db.document("/users/$userId")))
+            .await()
     }
 }
