@@ -1,11 +1,18 @@
 package edu.bluejack20_2.Konnect.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,11 +32,7 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_setting, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        val view = inflater.inflate(R.layout.fragment_setting, container, false)
         viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
 
         val appSettingPrefs: SharedPreferences = this.requireActivity().getSharedPreferences("AppSettingPrefs", 0)
@@ -42,9 +45,57 @@ class SettingFragment : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
+        val sizeArr = arrayListOf("Large", "Medium", "Small")
 
+        val adapter = context?.let { ArrayAdapter<String>(it, R.layout.support_simple_spinner_dropdown_item, sizeArr) }
+        val font_size = view.findViewById<Spinner>(R.id.spn_font_size)
+        font_size.adapter = adapter
 
+        val currSize = appSettingPrefs.getString("FONT_SIZE", "Medium")
 
+        var defSize = 1
+        if(currSize == "Large"){
+            defSize = 0
+        }else if(currSize == "Small"){
+            defSize = 2
+        }
+
+//        spn_font_size.setSelection(defSize)
+
+        font_size.onItemSelectedListener = object :
+            OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+
+                Log.wtf("Test", sizeArr[position])
+                if(position == 0){
+                    sharedPrefsEdit.putString("FONT_SIZE", "Large")
+
+                }else if(position == 1){
+                    sharedPrefsEdit.putString("FONT_SIZE", "Medium")
+
+                }else if(position == 2){
+                    sharedPrefsEdit.putString("FONT_SIZE", "Small")
+
+                }
+
+                sharedPrefsEdit.apply()
+                activity?.finish()
+//                activity?.()
+                startActivity(activity?.intent)
+//                startActivity(Intent(context, HomeActivity::class.java))
+            }
+
+        }
+
+        val btn_change_theme = view.findViewById<Button>(R.id.btn_change_theme)
         btn_change_theme.setOnClickListener {
             if(isNightMode){
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -56,11 +107,21 @@ class SettingFragment : Fragment() {
                 sharedPrefsEdit.apply()
             }
         }
-
-        btn_logout.setOnClickListener {
+        val btn_logout_var = view.findViewById<Button>(R.id.btn_logout)
+        btn_logout_var.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }
+
+        return view
+    }
+
+
+
+    @SuppressLint("ResourceType")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
     }
 }
