@@ -48,8 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_below="@+id/cl_manage_network"
         app:layout_constraintTop_toBottomOf="@+id/cl_manage_network"
-        android:layout_marginBottom="5dp"
-        >
+        android:layout_marginBottom="5dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cl_invitation"
-        android:id="@+id/rv_connection_list"
-        />
+        android:id="@+id/rv_connection_list"/>
 
 </RelativeLayout>

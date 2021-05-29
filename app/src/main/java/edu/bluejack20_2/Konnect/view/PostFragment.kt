@@ -6,6 +6,8 @@ import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.services.GlideApp
 import edu.bluejack20_2.Konnect.viewmodels.PostViewModel
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.fragment_post.add_post_field
@@ -56,10 +59,11 @@ class PostFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
         loadData()
-        initializeComponents()
-
     }
     private fun initializeComponents() {
+        add_post_header_name.text = currentUser.name
+        loadImage()
+
         sendButton = add_post_send_button
         inputField = add_post_field
         imageButton = add_post_image_button
@@ -72,6 +76,38 @@ class PostFragment : Fragment() {
         sendButton.setOnClickListener {
             addPostData()
         }
+
+        val textWatcher = object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
+                val pattern = "[@][a-zA-Z0-9-.]+".toRegex()
+                var matchResults = pattern.findAll(text)
+                var cursorPosition = add_post_field.selectionStart
+                var selectedTag : String = ""
+
+                for(match in matchResults) {
+                    if(cursorPosition-1 in match.range) {
+                        selectedTag = match.value
+                        break
+                    }
+                }
+                var userList = mutableListOf<User>()
+                if(selectedTag.length > 0) {
+                    selectedTag = selectedTag.substring(1)
+                    userList = viewModel.getUserTagsFromConnection(selectedTag, currentUser)
+                }
+                Log.wtf(TAG, userList.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        }
+
+        add_post_field.addTextChangedListener(textWatcher)
+
     }
 
     private fun startOpenFileChooser() {
@@ -125,11 +161,6 @@ class PostFragment : Fragment() {
                     Log.wtf(TAG, progress.toString())
                 }
         }
-
-        // create an object of that post
-
-
-        // send it back to the viewmodel
     }
 
     private fun savePostFirestore(uri: String) {
@@ -149,6 +180,14 @@ class PostFragment : Fragment() {
     private fun loadData() {
         lifecycleScope.launch {
             currentUser = viewModel.getCurrentUser()
+            initializeComponents()
+            Log.wtf(TAG, currentUser.toString())
         }
+    }
+
+    private fun loadImage() {
+        GlideApp.with(requireContext())
+            .load(currentUser.photoUrl)
+            .into(add_post_header_image)
     }
 }

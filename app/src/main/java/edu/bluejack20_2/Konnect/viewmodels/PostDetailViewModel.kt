@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.repositories.ActivityPostRepository
+import edu.bluejack20_2.Konnect.repositories.PostCommentRepository
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 
 class PostDetailViewModel: ViewModel() {
@@ -23,5 +24,21 @@ class PostDetailViewModel: ViewModel() {
             return user
         }
         return User()
+    }
+
+    suspend fun likePost(postId: String, userId: String) {
+        ActivityPostRepository.likePost(postId, userId)
+    }
+
+    suspend fun dislikePost(postId: String, userId: String) {
+        ActivityPostRepository.dislikePost(postId, userId)
+    }
+
+    suspend fun addPostComment(postId: String, userId: String, content: String) {
+        PostCommentRepository.addPostComment(postId, userId, content)
+    }
+
+    suspend fun getAllUsers(): List<User> {
+        return UserRepository.getAll()
     }
 }

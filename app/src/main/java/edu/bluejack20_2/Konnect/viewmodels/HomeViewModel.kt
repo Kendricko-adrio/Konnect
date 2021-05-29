@@ -44,4 +44,8 @@ class HomeViewModel : ViewModel() {
         }
         return User()
     }
+
+    suspend fun getAllUsers(): List<User> {
+        return UserRepository.getAll()
+    }
 }

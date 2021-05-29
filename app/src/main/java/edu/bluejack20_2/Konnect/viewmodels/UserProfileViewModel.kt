@@ -23,4 +23,16 @@ class UserProfileViewModel: ViewModel() {
         }
         return User()
     }
+
+    suspend fun addFriend(requesterId: String, requestedId: String) {
+        UserRepository.addFriend(requesterId, requestedId)
+    }
+
+    suspend fun acceptFriend(requesterId: String, requestedId: String) {
+        UserRepository.acceptFriend(requesterId, requestedId)
+    }
+
+    suspend fun declineFriend(requesterId: String, requestedId: String) {
+        UserRepository.declineFriend(requesterId, requestedId)
+    }
 }

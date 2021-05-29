@@ -10,15 +10,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ActivityPost
+import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.repositories.UserRepository
 import edu.bluejack20_2.Konnect.services.DateUtil
 import edu.bluejack20_2.Konnect.services.GlideApp
 import edu.bluejack20_2.Konnect.services.KonnectGlideModule
+import edu.bluejack20_2.Konnect.services.PostSpannableConverter
 import edu.bluejack20_2.Konnect.view.HomeActivity
 import edu.bluejack20_2.Konnect.view.PostDetailActivity
+import edu.bluejack20_2.Konnect.viewmodels.PostViewModel
 import kotlinx.android.synthetic.main.layout_activity_post.view.*
 
 class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<ActivityPost> = ArrayList()
+    private var users: List<User> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PostViewHolder(
@@ -30,11 +35,10 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         when(holder) {
             is PostViewHolder -> {
-                holder.bind(items.get(position))
+                holder.bind(items.get(position), users)
                 holder.itemView.setOnClickListener {
                     Log.wtf("PostRecyclerAdapter", "Clicked!!")
                     val intent = Intent(holder.itemView.context, PostDetailActivity::class.java).apply {
-                        Log.wtf("PostRecyclerAdapter", items.get(position).id)
                         putExtra("postId", items.get(position).id)
                     }
                     holder.itemView.context.startActivity(intent)
@@ -47,11 +51,13 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
-    fun submitData(postList : List<ActivityPost>) {
+    fun submitData(postList : List<ActivityPost>, users: List<User>) {
         items = postList
+        this.users = users
     }
 
     class PostViewHolder constructor(itemView : View): RecyclerView.ViewHolder(itemView) {
+
         val identityName = itemView.identity_name
         val identityTitle = itemView.identity_title
         val identityDate = itemView.identity_date
@@ -59,19 +65,40 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val postContent = itemView.post_content
         val postMedia = itemView.post_media
 
-        fun bind(post: ActivityPost) {
+        fun bind(post: ActivityPost, users: List<User>) {
 
             identityName.setText(post.user.name)
             identityTitle.setText("Student at Binus University")
             identityDate.setText(DateUtil.timestampToStandardTime(post.createdAt))
 
-            postContent.setText(post.content)
+            var converter: PostSpannableConverter = PostSpannableConverter()
+            var hashUsernamePosition: HashMap<String, IntRange> = HashMap<String, IntRange>()
+            var hashIDPosition: HashMap<String, IntRange> = HashMap<String, IntRange>()
+            hashUsernamePosition = converter.getPostMatchResults(post.content)
+
+            for((username, pos) in hashUsernamePosition) {
+                val id = getUsernameId(username, users)
+                if(id != "") {
+                    hashIDPosition.put(id, pos)
+                }
+            }
+
+            var spannableContent = converter.convertPostSpannableTag(itemView.context, post.content, hashIDPosition)
+
+            postContent.text = spannableContent
 
             GlideApp.with(itemView.context)
                 .load(post.media)
                 .into(postMedia)
         }
 
+        fun getUsernameId(username: String, users: List<User>): String {
+            for(user in users) {
+                if(username == user.username) {
+                    return user.id;
+                }
+            }
+            return ""
+        }
     }
-
 }

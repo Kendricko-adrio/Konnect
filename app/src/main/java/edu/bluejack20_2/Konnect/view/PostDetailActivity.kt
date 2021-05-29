@@ -2,7 +2,9 @@ package edu.bluejack20_2.Konnect.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import edu.bluejack20_2.Konnect.R
@@ -11,6 +13,7 @@ import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.services.DateUtil
 import edu.bluejack20_2.Konnect.services.GlideApp
+import edu.bluejack20_2.Konnect.services.PostSpannableConverter
 import edu.bluejack20_2.Konnect.viewmodels.PostDetailViewModel
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.coroutines.launch
@@ -24,6 +27,7 @@ class PostDetailActivity : AppCompatActivity() {
     private lateinit var post: ActivityPost
     private lateinit var postId: String
     private lateinit var user: User
+    private lateinit var users: List<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +46,7 @@ class PostDetailActivity : AppCompatActivity() {
         lifecycleScope.launch {
             post = postDetailViewModel.getPostByDocument(postId)
             user = postDetailViewModel.getCurrentUser()
+            users = postDetailViewModel.getAllUsers()
             initializeComponents()
         }
     }
@@ -51,7 +56,8 @@ class PostDetailActivity : AppCompatActivity() {
         post_detail_identity_name.text = post.user.name
         loadImage()
         post_detail_identity_date.text = "Posted at " + DateUtil.timestampToStandardTime(post.createdAt)
-        post_detail_content.text = post.content
+        post_detail_content.text = preprocessPost(post.content)
+        post_detail_content.movementMethod = LinkMovementMethod.getInstance()
         post_detail_like_count.text = post.likes.size.toString() + " likes"
         post_detail_comment_count.text = post.comments.size.toString() + " comments"
 
@@ -59,6 +65,39 @@ class PostDetailActivity : AppCompatActivity() {
         post.comments.forEachIndexed { index, postComment ->
             post_detail_comments_list.addView(commentAdapter.getView(index, null, post_detail_comments_list))
         }
+
+        post_detail_like_button.setOnClickListener {
+            likeDislikeButton()
+        }
+
+        post_detail_comment_send.setOnClickListener {
+            addComment()
+        }
+    }
+
+    private fun preprocessPost(content: String): SpannableString {
+        var converter: PostSpannableConverter = PostSpannableConverter()
+        var hashUsernamePosition: HashMap<String, IntRange> = HashMap<String, IntRange>()
+        var hashIDPosition: HashMap<String, IntRange> = HashMap<String, IntRange>()
+        hashUsernamePosition = converter.getPostMatchResults(post.content)
+
+        for((username, pos) in hashUsernamePosition) {
+            val id = getUsernameId(username, users)
+            if(id != "") {
+                hashIDPosition.put(id, pos)
+            }
+        }
+
+        return converter.convertPostSpannableTag(applicationContext, content, hashIDPosition)
+    }
+
+    fun getUsernameId(username: String, users: List<User>): String {
+        for(user in users) {
+            if(username == user.username) {
+                return user.id;
+            }
+        }
+        return ""
     }
 
     private fun loadImage() {
@@ -71,16 +110,38 @@ class PostDetailActivity : AppCompatActivity() {
             .into(post_detail_media)
     }
 
-    private fun likeButtonUpdate() {
-        for (u in post.likes) {
-            Log.wtf(TAG, "LIKE BUTTON UPDATE " + u.id.toString() + " COMPARE " + user.id.toString())
-            if (u.id == user.id) {
-                //Change like button color
-                post_detail_like_button.setColorFilter(ContextCompat.getColor(applicationContext, R.color.purple_500), android.graphics.PorterDuff.Mode.SRC_IN)
-                return
-            }
-        }
-        post_detail_like_button.setColorFilter(ContextCompat.getColor(applicationContext, R.color.gray_400), android.graphics.PorterDuff.Mode.SRC_IN)
+    private fun likeDislikeButton() {
+        if (isLiked())
+            lifecycleScope.launch { postDetailViewModel.dislikePost(postId, user.id) }
+        else
+            lifecycleScope.launch { postDetailViewModel.likePost(postId, user.id) }
+        Toast.makeText(applicationContext, "Like Updated!", Toast.LENGTH_SHORT).show()
+        loadData()
     }
 
+    private fun likeButtonUpdate() {
+        if (isLiked()) post_detail_like_button.setColorFilter(ContextCompat.getColor(applicationContext, R.color.purple_500), android.graphics.PorterDuff.Mode.SRC_IN)
+        else post_detail_like_button.setColorFilter(ContextCompat.getColor(applicationContext, R.color.gray_400), android.graphics.PorterDuff.Mode.SRC_IN)
+    }
+
+    private fun addComment() {
+        val comment = post_detail_comment_input.text
+        if(comment.toString() == "") {
+            Toast.makeText(applicationContext, "Please input your comment!", Toast.LENGTH_LONG).show()
+        }
+        else {
+            lifecycleScope.launch {
+                postDetailViewModel.addPostComment(postId, user.id, comment.toString())
+                loadData()
+                Toast.makeText(applicationContext, "Comment added!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun isLiked(): Boolean {
+        for (u in post.likes) {
+            if (u.id == user.id) return true
+        }
+        return false
+    }
 }

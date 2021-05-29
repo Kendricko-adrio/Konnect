@@ -6,8 +6,9 @@ data class User(
         var id: String = "UserID",
         var name: String = "User Name",
         var email: String = "User Email",
+        var username: String = "Username",
         var photoUrl: String = "https://firebasestorage.googleapis.com/v0/b/konnect-867f9.appspot.com/o/avatar.jpg?alt=media&token=5aacd675-2d73-438c-93e3-418e37c20a8a",
-        var summary: String = "Summary...",
+        var summary: String = "Summary",
         var dob: Timestamp = Timestamp.now(),
         var city: City = City(),
         var experiences: MutableList<Experience> = mutableListOf<Experience>(),
@@ -21,5 +22,7 @@ data class User(
         var languages: MutableList<Language> = mutableListOf(),
         var organizations: MutableList<Organization> = mutableListOf(),
         var connections: MutableList<User> = mutableListOf(),
-        var activityPosts: MutableList<ActivityPost> = mutableListOf()
+        var activityPosts: MutableList<ActivityPost> = mutableListOf(),
+        var inbound: MutableList<User> = mutableListOf(),
+        var outbound: MutableList<User> = mutableListOf()
 )
