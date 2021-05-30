@@ -47,9 +47,11 @@ class SearchDetailAdapter(private var connectionList: MutableList<SearchData>) :
             .apply(RequestOptions().override(iconSize, iconSize)).into(holder.iv_profilePic)
         holder.tv_name.text = doc.name.toString()
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, UserProfileActivity::class.java)
-            intent.putExtra("userId", doc.doc?.id)
-            holder.itemView.context.startActivity(intent)
+            if(doc.type == 0){
+                val intent = Intent(holder.itemView.context, UserProfileActivity::class.java)
+                intent.putExtra("userId", doc.doc?.id)
+                holder.itemView.context.startActivity(intent)
+            }
 //                ContextCompat.startActivity(holder.itemView.context ,intent)
         }
 

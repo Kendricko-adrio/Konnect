@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.DocumentReference
 import edu.bluejack20_2.Konnect.models.SearchData
+import edu.bluejack20_2.Konnect.repositories.InstitutionRepository
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 import org.w3c.dom.Document
 
@@ -27,11 +28,19 @@ class SearchViewModel: ViewModel() {
                 for (doc in it){
                     val name = doc["name"].toString()
                     val photoUrl = doc["photoUrl"].toString()
-                    val item = SearchData(name, photoUrl, doc.reference)
-
+                    val item = SearchData(name, photoUrl, doc.reference, 0)
                     list.add(item)
                 }
-                stringInput.value = list
+                InstitutionRepository.getAllInstitution().addOnSuccessListener {
+                    for(doc in it){
+                        val name = doc["name"].toString()
+                        val photoUrl = doc["photoUrl"].toString()
+                        val item = SearchData(name, photoUrl, doc.reference, 1)
+                        list.add(item)
+                    }
+                    stringInput.value = list
+                }
+
             }
         }
     }
@@ -40,18 +49,6 @@ class SearchViewModel: ViewModel() {
 
         string.value = str
 
-//        UserRepository.searchByName(str).addSnapshotListener{it, e ->
-//            if(e != null){
-//                return@addSnapshotListener
-//            }
-//            val list = mutableListOf<DocumentReference>()
-//            if (it != null) {
-//                for (doc in it){
-//                    list.add(doc.reference)
-//                }
-//                stringInput.value = list
-//            }
-//        }
 
 
 

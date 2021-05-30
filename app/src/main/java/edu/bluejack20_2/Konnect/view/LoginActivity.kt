@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         googleClient = GoogleSignIn.getClient(this, googleSignIn)
+
         btnSignIn.setOnClickListener(View.OnClickListener {
             val intent: Intent = googleClient.signInIntent
             startActivityForResult(intent, 100)
@@ -67,13 +68,14 @@ class LoginActivity : AppCompatActivity() {
             val pass = txtPassword.text.toString()
             viewModel.checkUser(email, pass, this)
             viewModel.getUserStatus().observe(this, Observer {
-                if(it != ""){
+                if(it != null){
 
                     val intent = Intent(this, PhoneOTPActivity::class.java)
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                     intent.putExtra("phone", it)
                     startActivity(intent)
                 }else{
-
+                    Toast.makeText(this, "User or password is incorrect", Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -133,7 +135,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun goToHome(user: FirebaseUser){
         if(user != null){
-
             Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
