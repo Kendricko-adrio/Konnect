@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,12 +38,7 @@ class NetworkFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(NetworkViewModel::class.java)
 
-        val clayout = view?.findViewById<ConstraintLayout>(R.id.cl_manage_network)
         val invitations = view?.findViewById<ConstraintLayout>(R.id.cl_invitation)
-
-        clayout?.setOnClickListener {
-            Toast.makeText(context, "keklick", Toast.LENGTH_SHORT).show()
-        }
 
         invitations?.setOnClickListener{
             startActivity(Intent(context, InvitationsConnectionActivity::class.java))
@@ -61,6 +57,7 @@ class NetworkFragment : Fragment() {
         rv.setHasFixedSize(true)
         viewModel.loadConnection()
         viewModel.getConnection().observe(viewLifecycleOwner, Observer {
+            Log.wtf("data", it.toString())
             rv.adapter = ConnectionListAdapter(it)
         })
     }

@@ -17,7 +17,7 @@
         android:id="@+id/tv_nopost_aware"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No Post Available, make a new post or make a new connection!"
+        android:text="@string/no_post_available_make_a_new_post_or_make_a_new_connection"
         android:layout_gravity="center"
         />
 

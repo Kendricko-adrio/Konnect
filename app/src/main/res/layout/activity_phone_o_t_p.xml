@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:textAlignment="center"
-            android:text="Please Enter Your Phone Number to Continue"
+            android:text="@string/please_enter_your_phone_number_to_continue"
             />
 
         <EditText
@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="OTP CODE"
+        android:hint="@string/otp_code"
         android:textAlignment="center"
         android:inputType="number"
         android:id="@+id/et_otp"

@@ -27,10 +27,10 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.136"
+                app:layout_constraintHorizontal_bias="0.19"
                 app:layout_constraintStart_toEndOf="@+id/iv_Connection_pp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.223" />
+                app:layout_constraintVertical_bias="0.504" />
 
             <ImageView
                 android:id="@+id/iv_Connection_pp"
@@ -41,31 +41,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars"
                 />
-
-            <Button
-                android:id="@+id/btn_unfriend"
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_marginStart="20dp"
-                android:text="@string/unfriend"
-                android:textSize="7sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_Connection_pp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_connection_name"
-                app:layout_constraintVertical_bias="0.714" />
-
-            <Button
-                android:id="@+id/btn_block"
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_marginStart="28dp"
-                android:text="@string/block"
-                android:textSize="7sp"
-                android:backgroundTint="@color/red"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_unfriend"
-                app:layout_constraintTop_toBottomOf="@+id/tv_connection_name"
-                app:layout_constraintVertical_bias="0.714" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

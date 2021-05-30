@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="Log Out"
+        android:text="@string/log_out"
         app:layout_constraintEnd_toStartOf="@+id/btn_logout"
         app:layout_constraintHorizontal_bias="0.203"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Log Out"
+        android:text="@string/log_out"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="52dp"
-        android:text="Set Font"
+        android:text="@string/set_font"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_logout" />
 
@@ -92,19 +92,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Large" />
+            android:text="@string/large" />
 
         <RadioButton
             android:id="@+id/rb_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium" />
+            android:text="@string/medium" />
 
         <RadioButton
             android:id="@+id/rb_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Small" />
+            android:text="@string/small" />
 
     </RadioGroup>
 

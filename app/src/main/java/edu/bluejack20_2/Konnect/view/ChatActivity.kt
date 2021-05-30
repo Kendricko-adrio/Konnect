@@ -31,10 +31,10 @@ class ChatActivity : BaseActivity() {
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position){
                 0->{
-                    tab.text = "Chat"
+                    tab.text = getString(R.string.chat)
                 }
                 1->{
-                    tab.text = "Connections"
+                    tab.text = getString(R.string.connection)
                 }
             }
         }.attach()
