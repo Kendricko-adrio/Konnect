@@ -14,6 +14,7 @@ import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.Experience
 import edu.bluejack20_2.Konnect.services.DateUtil
 import edu.bluejack20_2.Konnect.view.ExperienceInputActivity
+import edu.bluejack20_2.Konnect.view.InstitutionProfileActivity
 import kotlinx.android.synthetic.main.listview_row_experience.view.*
 
 class ExperienceAdapter (var mctx: Context, var resources:Int, var items:List<Experience>, var isEdit: Boolean, var userId: String?): ArrayAdapter<Experience>(mctx, resources, items) {
@@ -43,6 +44,13 @@ class ExperienceAdapter (var mctx: Context, var resources:Int, var items:List<Ex
         view.experience_row_title.text = mItem.title
         view.experience_row_employment.text = mItem.employmentType.name
         view.experience_row_period.text = DateUtil.timestampToMonthYear(mItem.startDate)
+
+        imageView.setOnClickListener {
+            val intent = Intent(parent.context, InstitutionProfileActivity::class.java).apply {
+                putExtra("institutionId", mItem.institution.id)
+            }
+            parent.context.startActivity(intent)
+        }
 
         if(isEdit) {
             view.listview_edit_experience.visibility = View.VISIBLE

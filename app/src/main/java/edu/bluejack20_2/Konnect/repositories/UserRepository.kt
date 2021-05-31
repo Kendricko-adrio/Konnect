@@ -260,7 +260,8 @@ object UserRepository {
             // Experience's Institution
             val institutionRef = experience["institution_ref"] as DocumentReference
             val institution = InstitutionRepository.getInstitutionDocRef(institutionRef)
-            val institutionObj = institution.toObject(Institution::class.java)
+            val institutionObj = institution.toObject(Institution::class.java)!!
+            institutionObj.id = institution.id
 
             // Experience's Employment Type
             val employmentTypeRef = experience["employment_type_ref"] as DocumentReference
@@ -295,7 +296,8 @@ object UserRepository {
             // Education's Institution
             val institutionRef = education["institution_ref"] as DocumentReference
             val institution = InstitutionRepository.getInstitutionDocRef(institutionRef)
-            val institutionObj = institution.toObject(Institution::class.java)
+            val institutionObj = institution.toObject(Institution::class.java)!!
+            institutionObj.id = institution.id
 
             // Education's Degree
             val educationDegreeRef = education["education_degree_ref"] as DocumentReference

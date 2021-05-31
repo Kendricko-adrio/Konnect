@@ -77,11 +77,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/inst_edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:visibility="visible" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="About us"
                 android:textSize="@dimen/list_detail_title_fontsize"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/gray_900"
                 android:textStyle="bold"/>
 
@@ -98,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:text="Our Relations"
                 android:textSize="@dimen/list_detail_title_fontsize"
+                android:layout_marginTop="15dp"
                 android:textColor="@color/gray_900"
                 android:textStyle="bold"/>
 

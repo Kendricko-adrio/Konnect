@@ -14,6 +14,7 @@ import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.Education
 import edu.bluejack20_2.Konnect.services.DateUtil
 import edu.bluejack20_2.Konnect.view.EducationInputActivity
+import edu.bluejack20_2.Konnect.view.InstitutionProfileActivity
 import kotlinx.android.synthetic.main.listview_row_education.view.*
 import kotlinx.android.synthetic.main.listview_row_experience.view.*
 
@@ -41,6 +42,13 @@ class EducationAdapter (var mctx: Context, var resources:Int, var items:List<Edu
         institutionName.text = mItem.institution.name
         title.text = mItem.educationDegree.name + ", " + mItem.studyField.name
         period.text = DateUtil.timestampToYear(mItem.startDate).toString() + " - " + DateUtil.timestampToYear(mItem.endDate).toString()
+
+        imageView.setOnClickListener {
+            val intent = Intent(parent.context, InstitutionProfileActivity::class.java).apply {
+                putExtra("institutionId", mItem.institution.id)
+            }
+            parent.context.startActivity(intent)
+        }
 
         if(isEdit) {
             view.listview_edit_education.visibility = View.VISIBLE
