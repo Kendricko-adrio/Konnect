@@ -77,17 +77,17 @@ class UserProfileActivity : AppCompatActivity() {
 
         textView_connection_number.text = user.connections.size.toString() + " connections"
 
-        val experienceAdapter = ExperienceAdapter(this, R.layout.listview_row_experience, user.experiences)
+        val experienceAdapter = ExperienceAdapter(this, R.layout.listview_row_experience, user.experiences, false, userId)
         user.experiences.forEachIndexed { index, experience ->
             user_profile_experience_list.addView(experienceAdapter.getView(index, null, user_profile_experience_list))
         }
 
-        val educationAdapter = EducationAdapter(this, R.layout.listview_row_education, user.educations)
+        val educationAdapter = EducationAdapter(this, R.layout.listview_row_education, user.educations, false, userId)
         user.educations.forEachIndexed { index, education ->
             user_profile_education_list.addView(educationAdapter.getView(index, null, user_profile_education_list))
         }
 
-        val skillAdapter = SkillAdapter(this, R.layout.listview_row_skill, user.skills)
+        val skillAdapter = SkillAdapter(this, R.layout.listview_row_skill, user.skills, false, userId)
         user.skills.forEachIndexed { index, skill ->
             user_profile_skill_list.addView(skillAdapter.getView(index, null, user_profile_skill_list))
         }
@@ -98,11 +98,22 @@ class UserProfileActivity : AppCompatActivity() {
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
+
+        if(isOwn) {
+            updateButtons()
+        }
         initializeButtons()
         loadButtons()
     }
 
     private fun initializeButtons() {
+
+        user_profile_edit_identity_btn.setOnClickListener {
+            val intent = Intent(applicationContext, EditProfileActivity::class.java)
+            intent.putExtra("userId", currentUser.id)
+            startActivity(intent)
+        }
+
         user_profile_add_btn.setOnClickListener {
             lifecycleScope.launch {
                 // Current user send friend request to user
@@ -145,6 +156,7 @@ class UserProfileActivity : AppCompatActivity() {
         if(isOwn) {
             button_add_post.visibility = View.VISIBLE
             textView_empty_post.visibility = View.VISIBLE
+            user_profile_edit_identity_btn.visibility = View.VISIBLE
         } else {
             // Check friend status
             val isFriend = friendStatus()
@@ -200,9 +212,26 @@ class UserProfileActivity : AppCompatActivity() {
             .into(user_profile_identity_user_image)
     }
 
+    private fun updateButtons() {
+        user_profile_edit_experience_button.visibility = View.VISIBLE
+        user_profile_edit_skill_button.visibility = View.VISIBLE
+        user_profile_edit_education_button.visibility = View.VISIBLE
+
+        val intent = Intent(applicationContext, EditDetailProfileActivity::class.java)
+        intent.putExtra("userId", currentUser.id)
+
+        val redirectToEditDetail = View.OnClickListener() {
+            startActivity(intent)
+        }
+        user_profile_edit_experience_button.setOnClickListener(redirectToEditDetail)
+//        user_profile_edit_skill_button.setOnClickListener(redirectToEditDetail)
+//        user_profile_edit_education_button.setOnClickListener(redirectToEditDetail)
+    }
+
     private fun resetButtons() {
         button_add_post.visibility = View.GONE
         textView_empty_post.visibility = View.GONE
+        user_profile_edit_identity_btn.visibility = View.GONE
         user_profile_message_btn.visibility = View.GONE
         user_profile_add_btn.visibility = View.GONE
         user_profile_cancel_btn.visibility = View.GONE

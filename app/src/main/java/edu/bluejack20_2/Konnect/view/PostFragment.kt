@@ -38,7 +38,7 @@ class PostFragment : Fragment() {
     private lateinit var imagePreview: ImageView
     private lateinit var progressBar: ProgressBar
 
-    private lateinit var filepath: Uri
+    private var filepath: Uri = Uri.EMPTY
     private lateinit var currentUser: User
 
     companion object {
@@ -68,6 +68,7 @@ class PostFragment : Fragment() {
         inputField = add_post_field
         imageButton = add_post_image_button
         imagePreview = add_post_upload_image
+        progressBar = add_post_progressbar
 
         imageButton.setOnClickListener {
             startOpenFileChooser()
@@ -135,8 +136,7 @@ class PostFragment : Fragment() {
         }
 
         // Upload media to storage (if any)
-        if(filepath != null) {
-            progressBar = add_post_progressbar
+        if(filepath != Uri.EMPTY) {
             progressBar.visibility = View.VISIBLE
             val date: Date = Date()
             val dir = "posts/" + date.time + ".jpg"
@@ -161,18 +161,21 @@ class PostFragment : Fragment() {
                     Log.wtf(TAG, progress.toString())
                 }
         }
+        else {
+            val uri = ""
+            savePostFirestore(uri)
+        }
     }
 
     private fun savePostFirestore(uri: String) {
         var postObj: ActivityPost = ActivityPost()
         postObj.content = inputField.text.toString()
         postObj.createdAt = Timestamp.now()
-        postObj.media = uri
+        if(uri != "") postObj.media = uri
 
         // Send it to firestore here
         lifecycleScope.launch {
             viewModel.addPost(postObj, currentUser)
-            Log.wtf(TAG, "Success")
             progressBar.visibility = View.INVISIBLE // Success
         }
     }

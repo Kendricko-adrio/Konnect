@@ -106,4 +106,7 @@ dependencies {
     // desugaring to be able to use LocalDateTime at <26
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
+    // story feature
+    implementation 'com.github.shts:StoriesProgressView:3.0.0'
+
 }

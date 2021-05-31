@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.QuerySnapshot
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.City
+import edu.bluejack20_2.Konnect.models.Story
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.repositories.ActivityPostRepository
 import edu.bluejack20_2.Konnect.repositories.CityRepository
+import edu.bluejack20_2.Konnect.repositories.StoryRepository
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 
 class HomeViewModel : ViewModel() {
@@ -47,5 +49,9 @@ class HomeViewModel : ViewModel() {
 
     suspend fun getAllUsers(): List<User> {
         return UserRepository.getAll()
+    }
+
+    suspend fun getStoriesFromConnections(userId: String): HashMap<User, MutableList<Story>> {
+        return StoryRepository.getStoriesFromConnections(userId)
     }
 }

@@ -1,6 +1,7 @@
 package edu.bluejack20_2.Konnect.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,11 @@ import com.bumptech.glide.request.RequestOptions
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.Education
 import edu.bluejack20_2.Konnect.services.DateUtil
+import edu.bluejack20_2.Konnect.view.EducationInputActivity
 import kotlinx.android.synthetic.main.listview_row_education.view.*
+import kotlinx.android.synthetic.main.listview_row_experience.view.*
 
-class EducationAdapter (var mctx: Context, var resources:Int, var items:List<Education>): ArrayAdapter<Education>(mctx, resources, items) {
+class EducationAdapter (var mctx: Context, var resources:Int, var items:List<Education>, var isEdit: Boolean, var userId: String?): ArrayAdapter<Education>(mctx, resources, items) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater: LayoutInflater = LayoutInflater.from(mctx)
         val view: View = layoutInflater.inflate(resources, null)
@@ -38,6 +41,20 @@ class EducationAdapter (var mctx: Context, var resources:Int, var items:List<Edu
         institutionName.text = mItem.institution.name
         title.text = mItem.educationDegree.name + ", " + mItem.studyField.name
         period.text = DateUtil.timestampToYear(mItem.startDate).toString() + " - " + DateUtil.timestampToYear(mItem.endDate).toString()
+
+        if(isEdit) {
+            view.listview_edit_education.visibility = View.VISIBLE
+
+            view.listview_edit_education.setOnClickListener {
+                // Redirect to education edit page
+                val intent = Intent(context, EducationInputActivity::class.java).apply {
+                    putExtra("educationId", mItem.id)
+                    putExtra("userId", userId)
+                }
+
+                mctx.startActivity(intent)
+            }
+        }
 
         return view
     }

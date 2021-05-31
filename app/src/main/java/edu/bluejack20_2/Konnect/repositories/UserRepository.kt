@@ -269,6 +269,7 @@ object UserRepository {
             val employmentTypeObj = employmentType.toObject(EmploymentType::class.java)
 
             if (experienceObj != null) {
+                experienceObj.id = experience.id
                 if (institutionObj != null) {
                     experienceObj.institution = institutionObj
                 }
@@ -311,6 +312,7 @@ object UserRepository {
             Log.wtf(TAG, studyFieldObj.toString())
 
             if (educationObj != null) {
+                educationObj.id = education.id
                 if (institutionObj != null) {
                     educationObj.institution = institutionObj
                 }
@@ -338,6 +340,7 @@ object UserRepository {
             val skillObj = skill.toObject(Skill::class.java)
 
             if (skillObj != null) {
+                skillObj.id = skill.id
                 skills.add(skillObj)
             }
         }
@@ -461,6 +464,15 @@ object UserRepository {
 
         requesterRef.update("outbound_request", FieldValue.arrayRemove(db.document("/users/$requestedId"))).await()
         requestedRef.update("inbound_request", FieldValue.arrayRemove(db.document("/users/$requesterId"))).await()
+    }
+
+    suspend fun updateUserProfile(user: User) {
+        db.collection("users").document(user.id).update(
+            "name", user.name,
+            "photoUrl", user.photoUrl,
+            "dob", user.dob,
+            "summary", user.summary
+        ).await()
     }
 }
 

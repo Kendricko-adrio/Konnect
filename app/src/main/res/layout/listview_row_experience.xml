@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:gravity="center"
     android:padding="10dp">
 
     <ImageView
@@ -16,8 +17,9 @@
 
     <LinearLayout
         android:id="@+id/experience_detail_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="10dp">
 
@@ -58,5 +60,12 @@
             />
 
     </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/listview_edit_experience"
+        android:layout_width="@dimen/icon_small_size"
+        android:layout_height="@dimen/icon_small_size"
+        android:visibility="gone"
+        android:src="@drawable/ic_edit" />
 
 </LinearLayout>

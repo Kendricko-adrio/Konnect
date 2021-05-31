@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.PostRecyclerAdapter
+import edu.bluejack20_2.Konnect.adapters.StoryAdapter
+import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
@@ -18,7 +20,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private var postAdapter: PostRecyclerAdapter = PostRecyclerAdapter()
-
+    private var storyAdapter: StoryAdapter = StoryAdapter()
+    private lateinit var user: User
     private val TAG: String = "HOME_FRAGMENT"
 
     companion object {
@@ -42,13 +45,20 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             val data = viewModel.getAllPosts()
             val users = viewModel.getAllUsers()
+            user = viewModel.getCurrentUser()
+            val map = viewModel.getStoriesFromConnections(user.id)
             initRecyclerView()
+
+            Log.wtf(TAG, map.keys.toString())
+
             postAdapter.submitData(data, users)
+            storyAdapter.submitData(map)
         }
     }
 
     private fun initRecyclerView() {
         home_post_recycler_view?.apply {
+            setHasFixedSize(true)
             if(activity != null) {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                 postAdapter = PostRecyclerAdapter()
@@ -58,5 +68,15 @@ class HomeFragment : Fragment() {
                 Log.wtf(TAG, "Context null")
             }
         }
+
+        home_story_recycler_view.apply {
+            setHasFixedSize(true)
+            if(activity != null) {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                storyAdapter = StoryAdapter()
+                adapter = storyAdapter
+            }
+        }
+
     }
 }
