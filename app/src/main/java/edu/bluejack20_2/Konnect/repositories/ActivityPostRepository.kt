@@ -18,8 +18,14 @@ object ActivityPostRepository {
         val currUser =
             db.collection("users").document(FirebaseAuth.getInstance().currentUser.uid).get()
                 .await()
-        val listOfConenctions = (currUser["connections_ref"] as List<DocumentReference>).toMutableList()
+        val listOfConenctions = mutableListOf<DocumentReference>()
+        val dataFromFirestore = currUser["connections_ref"] as MutableList<DocumentReference>?
+
         listOfConenctions += currUser.reference
+        if (dataFromFirestore != null) {
+            listOfConenctions += dataFromFirestore
+        }
+
         Log.wtf("list of data", listOfConenctions.toString())
 
         val data = db.collection("activity_posts")

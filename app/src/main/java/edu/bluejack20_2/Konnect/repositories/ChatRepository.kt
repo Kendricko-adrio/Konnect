@@ -60,4 +60,9 @@ object ChatRepository{
         return list
     }
 
+    fun createChatRoom(connectionUser: String): Query{
+        val currUser = FirebaseAuth.getInstance().currentUser
+        return db.collection("chat_rooms").whereArrayContains("members", listOf(connectionUser, currUser))
+    }
+
 }
