@@ -107,6 +107,8 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     // story feature
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'com.github.shts:StoriesProgressView:3.0.0'
+    implementation 'com.github.pwittchen:swipe-rx2:0.3.0'
 
 }

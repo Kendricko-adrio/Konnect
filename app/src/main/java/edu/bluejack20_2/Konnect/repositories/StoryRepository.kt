@@ -3,6 +3,7 @@ package edu.bluejack20_2.Konnect.repositories
 import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import edu.bluejack20_2.Konnect.models.Story
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.services.DateUtil
@@ -24,7 +25,9 @@ object StoryRepository {
         val now = DateUtil.convertLocalDateTimetoDate(LocalDateTime.now())
 
         // Get all connection
-        val connections = UserRepository.getConnections(userId)
+        var connections = UserRepository.getConnections(userId)
+        val user = UserRepository.getUserByDocument(userId)!!
+        connections.add(0, user)
         Log.wtf(TAG, now.toString())
 
         val currentUser = UserRepository.getCurrentUser()
@@ -38,6 +41,7 @@ object StoryRepository {
             val querySnapshot = db.collection("stories")
                 .whereEqualTo("user_ref", db.document("/users/" + connection.id))
                 .whereGreaterThan("deletedAt", Timestamp(now))
+                .orderBy("deletedAt", Query.Direction.DESCENDING)
                 .get()
                 .await()
 
@@ -54,6 +58,37 @@ object StoryRepository {
             }
         }
         return stories
+    }
+
+    suspend fun getStoryByUserId(userId: String): MutableList<Story> {
+        val stories: MutableList<Story> = mutableListOf()
+        val now = DateUtil.convertLocalDateTimetoDate(LocalDateTime.now())
+
+        val querySnapshot = db.collection("stories")
+            .whereEqualTo("user_ref", db.document("/users/$userId"))
+            .get()
+            .await()
+
+        for(document in querySnapshot.documents) {
+            var story = document.toObject(Story::class.java)
+            if(story != null) {
+                stories.add(story)
+            }
+        }
+        return stories
+    }
+
+    suspend fun addStory(story: Story) {
+        val ref = db.collection("stories").document()
+
+        val map = hashMapOf(
+            "user_ref" to db.document("/users/${story.user.id}"),
+            "media" to story.media,
+            "createdAt" to story.createdAt,
+            "deletedAt" to story.deletedAt
+        )
+
+        ref.set(map).await()
     }
 
 }

@@ -5,9 +5,9 @@ import java.time.LocalDateTime
 import java.util.*
 
 data class Story(
-        val id: String = "",
-        val user: User = User(),
-        val media: String = "",
-        val createdAt: Timestamp = Timestamp.now(),
-        val deletedAt: Timestamp = Timestamp.now()
+    val id: String = "",
+    var user: User = User(),
+    var media: String = "",
+    var createdAt: Timestamp = Timestamp.now(),
+    var deletedAt: Timestamp = Timestamp.now()
 )

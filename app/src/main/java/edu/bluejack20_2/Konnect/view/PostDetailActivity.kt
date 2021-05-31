@@ -61,6 +61,8 @@ class PostDetailActivity : AppCompatActivity() {
         post_detail_like_count.text = post.likes.size.toString() + " likes"
         post_detail_comment_count.text = post.comments.size.toString() + " comments"
 
+        post_detail_comments_list.removeAllViews()
+
         val commentAdapter = CommentAdapter(this, R.layout.listview_row_comment, post.comments)
         post.comments.forEachIndexed { index, postComment ->
             post_detail_comments_list.addView(commentAdapter.getView(index, null, post_detail_comments_list))

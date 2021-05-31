@@ -40,11 +40,10 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        tv_nopost_aware.visibility = View.GONE
+        tv_nopost_aware?.visibility = View.GONE
         // Code ViewModel here
         lifecycleScope.launch {
             val data = viewModel.getAllPosts()
-            Log.wtf("data yang terstore ke rv", data.toString())
             if(data.size == 0){
                 tv_nopost_aware.visibility = View.VISIBLE
                 home_post_recycler_view.visibility = View.GONE
@@ -57,7 +56,7 @@ class HomeFragment : Fragment() {
             Log.wtf(TAG, map.keys.toString())
 
             postAdapter.submitData(data, users)
-            storyAdapter.submitData(map)
+            storyAdapter.submitData(map, user.id)
         }
     }
 

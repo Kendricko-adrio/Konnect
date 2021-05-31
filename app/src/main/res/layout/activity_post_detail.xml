@@ -152,7 +152,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/post_detail_comment_send"/>
+        app:layout_constraintRight_toLeftOf="@id/post_detail_comment_send" />
 
     <ImageView
         android:id="@+id/post_detail_comment_send"
