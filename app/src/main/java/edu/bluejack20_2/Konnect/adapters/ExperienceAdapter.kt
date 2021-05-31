@@ -1,6 +1,7 @@
 package edu.bluejack20_2.Konnect.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,10 @@ import com.bumptech.glide.request.RequestOptions
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.Experience
 import edu.bluejack20_2.Konnect.services.DateUtil
+import edu.bluejack20_2.Konnect.view.ExperienceInputActivity
 import kotlinx.android.synthetic.main.listview_row_experience.view.*
 
-class ExperienceAdapter (var mctx: Context, var resources:Int, var items:List<Experience>): ArrayAdapter<Experience>(mctx, resources, items) {
+class ExperienceAdapter (var mctx: Context, var resources:Int, var items:List<Experience>, var isEdit: Boolean, var userId: String?): ArrayAdapter<Experience>(mctx, resources, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater: LayoutInflater = LayoutInflater.from(mctx)
@@ -41,6 +43,19 @@ class ExperienceAdapter (var mctx: Context, var resources:Int, var items:List<Ex
         view.experience_row_title.text = mItem.title
         view.experience_row_employment.text = mItem.employmentType.name
         view.experience_row_period.text = DateUtil.timestampToMonthYear(mItem.startDate)
+
+        if(isEdit) {
+            view.listview_edit_experience.visibility = View.VISIBLE
+
+            view.listview_edit_experience.setOnClickListener {
+                // Redirect to experience edit page
+                val intent = Intent(context, ExperienceInputActivity::class.java).apply {
+                    putExtra("experienceId", mItem.id)
+                    putExtra("userId", userId)
+                }
+                mctx.startActivity(intent)
+            }
+        }
 
         return view
     }

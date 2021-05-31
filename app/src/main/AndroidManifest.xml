@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konnect">
-        <activity android:name=".view.UserProfileConnectionActivity"></activity>
+        <activity android:name=".view.SkillInputActivity"></activity>
+        <activity android:name=".view.EducationInputActivity" />
+        <activity android:name=".view.ExperienceInputActivity" />
+        <activity android:name=".view.EditDetailProfileActivity" />
+        <activity android:name=".view.EditProfileActivity" />
+        <activity android:name=".view.UserProfileConnectionActivity" />
         <activity android:name=".view.PostDetailActivity" />
         <activity android:name=".view.PhoneOTPActivity" />
         <activity android:name=".view.RegisterActivity" />

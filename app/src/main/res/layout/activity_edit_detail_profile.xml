@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".view.EditDetailProfileActivity"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/profile_title_size"
+                android:textColor="@color/gray_900"
+                android:textStyle="bold"
+                android:text="Experience"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/edit_detail_profile_add_experience_button"
+                android:layout_width="@dimen/icon_standard_size"
+                android:layout_height="@dimen/icon_standard_size"
+                android:src="@drawable/ic_add_update_profile" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_detail_profile_experience_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/profile_title_size"
+                android:textColor="@color/gray_900"
+                android:textStyle="bold"
+                android:text="Skill"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/edit_detail_profile_skill_button"
+                android:layout_width="@dimen/icon_standard_size"
+                android:layout_height="@dimen/icon_standard_size"
+                android:src="@drawable/ic_add_update_profile" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_detail_profile_skill_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/profile_title_size"
+                android:textColor="@color/gray_900"
+                android:textStyle="bold"
+                android:text="Education"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/edit_detail_profile_education_button"
+                android:layout_width="@dimen/icon_standard_size"
+                android:layout_height="@dimen/icon_standard_size"
+                android:src="@drawable/ic_add_update_profile" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_detail_profile_education_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+</ScrollView>

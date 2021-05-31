@@ -2,9 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
+    android:gravity="center"
     >
 
     <ImageView
@@ -18,8 +19,9 @@
 
     <LinearLayout
         android:id="@+id/education_detail_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="10dp">
 
@@ -49,5 +51,12 @@
             android:textColor="@color/black" />
 
     </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/listview_edit_education"
+        android:layout_width="@dimen/icon_small_size"
+        android:layout_height="@dimen/icon_small_size"
+        android:visibility="gone"
+        android:src="@drawable/ic_edit" />
 
 </LinearLayout>

@@ -35,7 +35,7 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         when(holder) {
             is PostViewHolder -> {
-                holder.bind(items.get(position), users)
+                holder.bind(items[position], users)
                 holder.itemView.setOnClickListener {
                     Log.wtf("PostRecyclerAdapter", "Clicked!!")
                     val intent = Intent(holder.itemView.context, PostDetailActivity::class.java).apply {
@@ -88,7 +88,7 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             postContent.text = spannableContent
 
             GlideApp.with(itemView.context)
-                .load(post.media)
+                .load(post?.media)
                 .into(postMedia)
         }
 
