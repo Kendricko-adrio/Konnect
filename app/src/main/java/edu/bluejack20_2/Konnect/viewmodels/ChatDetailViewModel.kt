@@ -28,7 +28,7 @@ class ChatDetailViewModel : ViewModel(){
                     val temp = mutableListOf<Chat>()
                     for(data in documentSnapshot){
                         val chat = Chat()
-                        Log.wtf("data", data.toString())
+//                        Log.wtf("data", data.toString())
                         chat.from = data["from"] as DocumentReference
 //                        chat.created_at = data["created_at"] as Timestamp
                         chat.to = data["to"] as DocumentReference

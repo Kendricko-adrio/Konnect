@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Skill"
+        android:text="@string/skill"
         android:textSize="@dimen/list_detail_title_fontsize"
         android:textColor="@color/black"
         android:textStyle="bold" />

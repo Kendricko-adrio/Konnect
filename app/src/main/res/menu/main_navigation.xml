@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:title="Home"
+        android:title="@string/home"
         android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/networkFragment"
-        android:title="My Network"
+        android:title="@string/my_network"
         android:icon="@drawable/ic_network"/>
     <item
         android:id="@+id/postFragment"
-        android:title="Post"
+        android:title="@string/post"
         android:icon="@drawable/ic_add_post"/>
     <item
         android:id="@+id/notificationFragment"
-        android:title="Notifications"
+        android:title="@string/notifications"
         android:icon="@drawable/ic_notification"/>
     <item
         android:id="@+id/settingFragment"
-        android:title="Settings"
+        android:title="@string/settings"
         android:icon="@drawable/ic_settings"/>
 </menu>

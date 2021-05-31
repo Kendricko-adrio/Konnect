@@ -4,6 +4,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack20_2.Konnect.models.Institution
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
 
 object InstitutionRepository {
@@ -26,4 +28,8 @@ object InstitutionRepository {
         }
         return insts
     }
+    fun getAllInstitution(): Task<QuerySnapshot> {
+        return db.collection("institutions").get()
+    }
+
 }

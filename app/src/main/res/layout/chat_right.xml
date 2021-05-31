@@ -27,8 +27,6 @@
                 android:padding="15dp"
                 android:text=""
                 android:textColor="@color/white"
-
-                android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/ivUserPicture"
                 app:layout_constraintTop_toTopOf="parent" />
 

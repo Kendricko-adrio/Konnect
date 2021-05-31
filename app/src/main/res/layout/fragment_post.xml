@@ -25,7 +25,7 @@
             android:background="@color/purple_500"
             android:paddingVertical="5dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="Add Post">
+            app:title="@string/add_post">
 
             <ImageView
                 android:id="@+id/add_post_send_button"
@@ -96,7 +96,7 @@
         android:id="@+id/add_post_field"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:hint="Write something to your colleagues!"
+        android:hint="@string/write_something_to_your_colleagues"
         android:gravity="top"
         android:inputType="textMultiLine"
         app:layout_constraintTop_toBottomOf="@id/add_post_header"

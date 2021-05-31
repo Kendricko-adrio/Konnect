@@ -20,7 +20,7 @@ object ChatRepository{
             .orderBy("created_at", Query.Direction.DESCENDING)
     }
 
-    fun loadLastChat(): Task<QuerySnapshot>{
+    fun loadRoomChat(): Task<QuerySnapshot>{
         val ref = db.collection("users").document(FirebaseAuth.getInstance().currentUser.uid)
 //        Log.wtf("test", FirebaseAuth.getInstance().currentUser.uid)
         return db.collection("chat_rooms")

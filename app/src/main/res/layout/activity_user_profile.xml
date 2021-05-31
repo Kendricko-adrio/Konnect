@@ -34,7 +34,7 @@
             android:id="@+id/user_profile_identity_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/name"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textAlignment="center"
@@ -45,7 +45,7 @@
             android:id="@+id/user_profile_identity_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title"
             android:textSize="16sp"
             android:textAlignment="center"
             android:textColor="@color/gray_200"
@@ -55,7 +55,7 @@
             android:id="@+id/user_profile_identity_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Location"
+            android:text="@string/location"
             android:textSize="16sp"
             android:textAlignment="center"
             android:textColor="@color/gray_200" />
@@ -64,7 +64,7 @@
             android:id="@+id/user_profile_identity_dob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DOB"
+            android:text="@string/dob"
             android:textSize="14sp"
             android:textAlignment="center"
             android:textColor="@color/gray_200" />
@@ -145,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Activity"
+                android:text="@string/activity"
                 android:textSize="@dimen/list_detail_title_fontsize"
                 android:textColor="@color/gray_900"
                 android:textStyle="bold" />
@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:text="Start a post" />
+                android:text="@string/start_a_post" />
 
             <TextView
                 android:id="@+id/textView_empty_post"
@@ -178,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:text="About Me"
+                android:text="@string/about_me"
                 android:textSize="@dimen/user_profile_content_title_fontsize"
                 android:textColor="@color/gray_900"
                 android:textStyle="bold"/>
@@ -187,7 +187,7 @@
                 android:id="@+id/user_profile_about_me_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Summary"
+                android:text="@string/summary"
                 android:textSize="@dimen/user_profile_content_fontsize"
                 android:textColor="@color/black" />
 
@@ -200,10 +200,10 @@
 
                 <TextView
                     android:id="@+id/user_profile_experience_title"
-                    android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Experience"
+                    android:text="@string/experience"
                     android:textSize="@dimen/user_profile_content_title_fontsize"
                     android:textColor="@color/gray_900"
                     android:textStyle="bold"/>
@@ -216,7 +216,6 @@
                     android:visibility="gone"/>
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/user_profile_experience_list"
@@ -237,7 +236,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Skill"
+                    android:text="@string/skill"
                     android:textSize="@dimen/user_profile_content_title_fontsize"
                     android:textColor="@color/gray_900"
                     android:textStyle="bold"/>
@@ -270,7 +269,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Education"
+                    android:text="@string/education"
                     android:textSize="@dimen/user_profile_content_title_fontsize"
                     android:textColor="@color/gray_900"
                     android:textStyle="bold"/>

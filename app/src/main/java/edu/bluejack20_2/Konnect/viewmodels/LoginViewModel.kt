@@ -13,10 +13,10 @@ import kotlin.coroutines.coroutineContext
 
 class LoginViewModel: ViewModel() {
 
-    private var isUserInDb: MutableLiveData<String> = MutableLiveData("")
+    private var isUserInDb: MutableLiveData<String?> = MutableLiveData(null)
 
 
-    fun getUserStatus(): LiveData<String>{
+    fun getUserStatus(): MutableLiveData<String?>{
         return isUserInDb
     }
 
@@ -25,11 +25,12 @@ class LoginViewModel: ViewModel() {
             Log.wtf("data", it.toString())
             for (data in it){
                 if(data == null){
-                    isUserInDb.value = ""
-                    Toast.makeText(context, "User or password is incorrect", Toast.LENGTH_SHORT).show()
+
+                    isUserInDb.value = null
+
                 }else{
                     isUserInDb.value = data["phoneNumber"].toString()
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+
                 }
             }
         }.addOnFailureListener{

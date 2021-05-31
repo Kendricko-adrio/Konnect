@@ -11,6 +11,7 @@ import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.EducationAdapter
 import edu.bluejack20_2.Konnect.adapters.ExperienceAdapter
 import edu.bluejack20_2.Konnect.adapters.SkillAdapter
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.services.DateUtil
 import edu.bluejack20_2.Konnect.services.GlideApp
@@ -18,7 +19,7 @@ import edu.bluejack20_2.Konnect.viewmodels.UserProfileViewModel
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.coroutines.launch
 
-class UserProfileActivity : AppCompatActivity() {
+class UserProfileActivity : BaseActivity() {
 
     private val TAG = "USER_PROFILE_ACTIVITY"
 

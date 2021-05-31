@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ServerTimestamp
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.ChatTextAdapter
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.Chat
 import edu.bluejack20_2.Konnect.models.ChatDetail
 import edu.bluejack20_2.Konnect.repositories.ChatRepository
@@ -31,11 +32,8 @@ import edu.bluejack20_2.Konnect.viewmodels.ChatDetailViewModel
 import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
 
-class ChatDetailActivity : AppCompatActivity() {
+class ChatDetailActivity : BaseActivity() {
 
-    fun sendButton() {
-
-    }
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {

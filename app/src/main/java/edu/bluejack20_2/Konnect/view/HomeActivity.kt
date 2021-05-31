@@ -24,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.City
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.view.fragment.SearchFragment
@@ -32,7 +33,7 @@ import edu.bluejack20_2.Konnect.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private val TAG = "HOME_ACTIVITY"
 

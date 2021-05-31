@@ -14,18 +14,23 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.models.SearchData
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 import edu.bluejack20_2.Konnect.view.UserProfileActivity
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import kotlin.coroutines.coroutineContext
 
-class SearchDetailAdapter(private var connectionList : MutableList<DocumentReference>): RecyclerView.Adapter<SearchDetailHolder>(), Filterable{
+class SearchDetailAdapter(private var connectionList: MutableList<SearchData>) :
+    RecyclerView.Adapter<SearchDetailHolder>(), Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchDetailHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.search_detail, parent,false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.search_detail, parent, false)
         return SearchDetailHolder(view)
     }
-    var connectionFilterList = mutableListOf<DocumentReference>()
+
+    var connectionFilterList = mutableListOf<SearchData>()
+
     init {
         connectionFilterList = connectionList
     }
@@ -36,40 +41,41 @@ class SearchDetailAdapter(private var connectionList : MutableList<DocumentRefer
 
     override fun onBindViewHolder(holder: SearchDetailHolder, position: Int) {
         val doc = connectionFilterList[position]
-        doc.get().addOnSuccessListener {
-            val iconSize = 100
-            Glide.with(holder.itemView).load(it["photoUrl"].toString()).apply(RequestOptions().override(iconSize, iconSize)).into(holder.iv_profilePic)
-            holder.tv_name.text = it["name"].toString()
-            holder.itemView.setOnClickListener {
+
+        val iconSize = 100
+        Glide.with(holder.itemView).load(doc.photoUrl.toString())
+            .apply(RequestOptions().override(iconSize, iconSize)).into(holder.iv_profilePic)
+        holder.tv_name.text = doc.name.toString()
+        holder.itemView.setOnClickListener {
+            if(doc.type == 0){
                 val intent = Intent(holder.itemView.context, UserProfileActivity::class.java)
-                intent.putExtra("userId", doc.id)
+                intent.putExtra("userId", doc.doc?.id)
                 holder.itemView.context.startActivity(intent)
-//                ContextCompat.startActivity(holder.itemView.context ,intent)
             }
+//                ContextCompat.startActivity(holder.itemView.context ,intent)
         }
+
     }
 
     override fun getFilter(): Filter {
-        return object : Filter(){
+        return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val search = constraint.toString()
                 val filterResult = FilterResults()
-                if(search == ""){
+                if (search == "") {
                     connectionFilterList = connectionList
                     filterResult.values = connectionFilterList
                     return filterResult
                 }
-                val resultList = mutableListOf<DocumentReference>()
-                for (row in connectionList){
-                    row.get().addOnSuccessListener {
-                        if(it["name"].toString().toLowerCase(Locale.ROOT).contains(search.toLowerCase(Locale.ROOT))){
-                            resultList.add(row)
+                val resultList = mutableListOf<SearchData>()
+                for (row in connectionList) {
 
-                        }
+                    if (row.name.toString().toLowerCase(Locale.ROOT)
+                            .contains(search.toLowerCase(Locale.ROOT))
+                    ) {
+                        resultList.add(row)
                     }
-                }
-                while (resultList.isEmpty()){
-                    Thread.sleep(50)
+
                 }
                 filterResult.values = resultList
                 return filterResult
@@ -77,17 +83,18 @@ class SearchDetailAdapter(private var connectionList : MutableList<DocumentRefer
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                connectionFilterList = results?.values as MutableList<DocumentReference>
+                connectionFilterList = results?.values as MutableList<SearchData>
                 notifyDataSetChanged()
             }
         }
     }
 }
 
-class SearchDetailHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class SearchDetailHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     lateinit var iv_profilePic: ImageView
     lateinit var tv_name: TextView
-    init{
+
+    init {
         iv_profilePic = itemView.findViewById(R.id.iv_Connection_pp)
         tv_name = itemView.findViewById(R.id.tv_connection_name)
     }

@@ -48,7 +48,8 @@ class ChatListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
 
 
-        viewModel.loadChatRoom()
+//        viewModel.loadChatRoom()
+        viewModel.loadNewChat()
         viewModel.getChatList().observe(viewLifecycleOwner, Observer {
             val adapter = ChatDetailAdapter(it)
             recyclerView.adapter = adapter

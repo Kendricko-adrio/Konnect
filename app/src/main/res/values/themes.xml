@@ -20,6 +20,10 @@
         <item name="android:background">@color/purple_500</item>
     </style>
 
+    <style name="background_white">
+        <item name="android:background">@color/white</item>
+    </style>
+
 <!--    <style name="MaterialComponen"-->
 
     <style name="textFont">
@@ -36,4 +40,8 @@
     <style name="Theme.Konnect.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
 <!--        <item name="test"></item>-->
     </style>
+
+
+
+
 </resources>

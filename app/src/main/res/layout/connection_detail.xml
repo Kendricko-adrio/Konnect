@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:outlineSpotShadowColor="@color/black"
     >
 
     <androidx.cardview.widget.CardView
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
                 android:layout_marginStart="20dp"
-                android:text="Unfriend"
+                android:text="@string/unfriend"
                 android:textSize="7sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_Connection_pp"
@@ -58,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
                 android:layout_marginStart="28dp"
-                android:text="Block"
+                android:text="@string/block"
                 android:textSize="7sp"
                 android:backgroundTint="@color/red"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -1,6 +1,7 @@
 package edu.bluejack20_2.Konnect.repositories
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.PostComment
@@ -14,13 +15,22 @@ object ActivityPostRepository {
 
     suspend fun getAll(): List<ActivityPost> {
         val list = mutableListOf<ActivityPost>()
-        val data = db.collection("activity_posts")
-                .orderBy("createdAt", Query.Direction.DESCENDING)
-                .get()
+        val currUser =
+            db.collection("users").document(FirebaseAuth.getInstance().currentUser.uid).get()
                 .await()
+        val listOfConenctions = (currUser["connections_ref"] as List<DocumentReference>).toMutableList()
+        listOfConenctions += currUser.reference
+        Log.wtf("list of data", listOfConenctions.toString())
+
+        val data = db.collection("activity_posts")
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .whereIn("user_ref", listOfConenctions)
+            .get()
+            .await()
 
         try {
-            for(post in data.documents) {
+            for (post in data.documents) {
+
                 val userRef = post["user_ref"] as DocumentReference
                 val user = getActivityPostUser(userRef)
 
@@ -28,13 +38,13 @@ object ActivityPostRepository {
                 pObj.id = post.id
                 var uObj = user.toObject(User::class.java)
 
-                if(pObj != null && uObj != null) {
+                if (pObj != null && uObj != null) {
                     pObj.user = uObj
                     list.add(pObj)
                 }
             }
 
-        }catch(e: Exception) {
+        } catch (e: Exception) {
             Log.d(TAG, e.toString())
         }
 
@@ -79,7 +89,7 @@ object ActivityPostRepository {
             userObj.id = user.id
 
             // Comments
-            if(query["comments_ref"] != null) {
+            if (query["comments_ref"] != null) {
                 val commentsRef = query["comments_ref"] as List<DocumentReference>
                 for (commentRef in commentsRef) {
                     Log.wtf(TAG, "comments")
@@ -91,8 +101,8 @@ object ActivityPostRepository {
                     val commentUser = UserRepository.getUserDocRef(commentUserRef)
                     val commentUserObj = commentUser.toObject(User::class.java)
 
-                    if(commentObj != null) {
-                        if(commentUserObj != null) {
+                    if (commentObj != null) {
+                        if (commentUserObj != null) {
                             commentObj.user = commentUserObj
                         }
                         comments.add(commentObj)
@@ -101,7 +111,7 @@ object ActivityPostRepository {
             }
 
             // Likes
-            if(query["likes_ref"] != null) {
+            if (query["likes_ref"] != null) {
                 val likesRef = query["likes_ref"] as List<DocumentReference>
                 for (likeRef in likesRef) {
                     Log.wtf(TAG, "likes")
@@ -109,7 +119,7 @@ object ActivityPostRepository {
                     val likeObj = like.toObject(User::class.java)!!
                     likeObj.id = like.id
 
-                    if(likeObj != null) {
+                    if (likeObj != null) {
                         likes.add(likeObj)
                     }
                 }
@@ -125,7 +135,7 @@ object ActivityPostRepository {
                 post.likes = likes
             }
             return post
-        }catch(e: Exception) {
+        } catch (e: Exception) {
             Log.d(TAG, e.toString())
         }
         return null
