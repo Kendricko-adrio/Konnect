@@ -9,6 +9,13 @@
     android:orientation="vertical"
     tools:context=".view.HomeFragment">
 
+    <ProgressBar
+        android:id="@+id/home_progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:layout_marginTop="50dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_story_recycler_view"
         android:layout_width="match_parent"

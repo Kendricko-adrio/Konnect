@@ -48,7 +48,7 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun getFileExtensions(uri: Uri): String? {
-        val contentResolver : ContentResolver = getContentResolver()
+        val contentResolver : ContentResolver = contentResolver
         val mimeTypeMap: MimeTypeMap = MimeTypeMap.getSingleton()
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
     }
@@ -89,6 +89,9 @@ class AddStoryActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        Log.wtf(TAG, "Request Code: $requestCode what it should have been ${CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE}")
+        Log.wtf(TAG, "resultCode: $resultCode what is should have been $RESULT_OK")
+
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
             filepath = result.uri
@@ -96,7 +99,7 @@ class AddStoryActivity : AppCompatActivity() {
             publishStory()
         }
         else {
-            Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Something went wrong! But I don't know what it is :(", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }

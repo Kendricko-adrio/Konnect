@@ -10,7 +10,8 @@ data class Institution(
     var summary: String = "",
     var website: String = "",
     var relations: MutableList<User> = mutableListOf<User>(),
-    var admins: MutableList<User> = mutableListOf()
+    var admins: MutableList<User> = mutableListOf(),
+    var posts: MutableList<InstitutionPost> = mutableListOf()
 ) {
     override fun toString(): String {
         return name

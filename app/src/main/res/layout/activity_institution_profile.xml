@@ -118,6 +118,21 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Institution Post"
+                android:textSize="@dimen/list_detail_title_fontsize"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/gray_900"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/inst_profile_post_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

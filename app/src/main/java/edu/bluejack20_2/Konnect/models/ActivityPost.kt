@@ -7,6 +7,7 @@ data class ActivityPost(
     var user: User = User(),
     var content: String = "",
     var media: String = "",
+    var mediaType: String = "",
     var likes: MutableList<User> = mutableListOf<User>(),
     var comments: MutableList<PostComment> = mutableListOf<PostComment>(),
     var createdAt: Timestamp = Timestamp.now(),

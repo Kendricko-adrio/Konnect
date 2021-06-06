@@ -140,7 +140,6 @@ object UserRepository {
                     db.collection("users").document(user.uid).set(data)
                 } else {
                     // User already exists
-                    Log.wtf("test", "DocumentSnapshot data: ${document.get("name")}")
                 }
             }
 
@@ -307,11 +306,8 @@ object UserRepository {
 
             // Study Field
             val studyFieldRef = education["study_field_ref"] as DocumentReference
-            Log.wtf(TAG, studyFieldRef.toString())
             val studyField = StudyFieldRepository.getStudyFieldDocRef(studyFieldRef)
-            Log.wtf(TAG, studyField.toString())
             val studyFieldObj = studyField.toObject(StudyField::class.java)
-            Log.wtf(TAG, studyFieldObj.toString())
 
             if (educationObj != null) {
                 educationObj.id = education.id
@@ -412,8 +408,6 @@ object UserRepository {
         for (requestRef in requestsRef) {
             val request = getUserDocRef(requestRef)
             val requestObj = request.toObject(User::class.java)
-            Log.wtf(TAG, request.toString())
-            Log.wtf(TAG, requestObj.toString())
             if(requestObj != null) {
                 requestObj.id = request.id
                 requests.add(requestObj)
@@ -449,9 +443,6 @@ object UserRepository {
     suspend fun acceptFriend(requesterId: String, requestedId: String) {
         val requesterRef = db.collection("users").document(requesterId)
         val requestedRef = db.collection("users").document(requestedId)
-
-        Log.wtf(TAG, "Requester: " + requesterId)
-        Log.wtf(TAG, "Requested: "  + requestedId)
 
         requesterRef.update("outbound_request", FieldValue.arrayRemove(db.document("/users/$requestedId"))).await()
         requestedRef.update("inbound_request", FieldValue.arrayRemove(db.document("/users/$requesterId"))).await()

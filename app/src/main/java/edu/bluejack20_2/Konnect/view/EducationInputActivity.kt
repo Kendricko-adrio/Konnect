@@ -209,19 +209,20 @@ class EducationInputActivity : AppCompatActivity() {
     }
 
     private fun save() {
-        education.institution = selectedInstitution
-        education.educationDegree = selectedDegree
-        education.studyField = selectedField
-        education.startDate = Timestamp(startCalendar.time)
-        education.endDate = Timestamp(endCalendar.time)
-        education.description = education_input_description_input.text.toString()
+        if(clientValidation()) {
+            education.institution = selectedInstitution
+            education.educationDegree = selectedDegree
+            education.studyField = selectedField
+            education.startDate = Timestamp(startCalendar.time)
+            education.endDate = Timestamp(endCalendar.time)
+            education.description = education_input_description_input.text.toString()
 
-        uploadFirestore()
+            uploadFirestore()
+        }
     }
 
     private fun uploadFirestore() {
         lifecycleScope.launch {
-            Log.wtf(TAG, "Education: " + education.toString())
             if(intent.hasExtra("educationId")) {
                 viewModel.updateEducation(education)
                 Toast.makeText(applicationContext, "Education updated", Toast.LENGTH_LONG).show()
@@ -231,6 +232,22 @@ class EducationInputActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Education added", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun clientValidation(): Boolean {
+        if(Timestamp(startCalendar.time) > Timestamp(endCalendar.time)) {
+            Toast.makeText(applicationContext, "Start date cannot exceed end date!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        else if(Timestamp(startCalendar.time) > Timestamp.now()) {
+            Toast.makeText(applicationContext, "Start date cannot exceed today's date!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        else if(education_input_description_input.text.toString().isEmpty()) {
+            Toast.makeText(applicationContext, "Description cannot be empty!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
 }

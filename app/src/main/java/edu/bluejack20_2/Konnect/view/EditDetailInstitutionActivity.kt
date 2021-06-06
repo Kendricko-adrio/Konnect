@@ -15,10 +15,10 @@ import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.City
 import edu.bluejack20_2.Konnect.models.Institution
+import edu.bluejack20_2.Konnect.services.GlideApp
 import edu.bluejack20_2.Konnect.viewmodels.EditDetailInstitutionViewModel
 import kotlinx.android.synthetic.main.activity_edit_detail_institution.*
 import kotlinx.android.synthetic.main.activity_edit_detail_institution.edit_profile_picture
-import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -61,10 +61,18 @@ class EditDetailInstitutionActivity : AppCompatActivity() {
         edit_institution_name_input.setText(institution.name)
         edit_institution_summary_input.setText(institution.summary)
 
+        GlideApp.with(applicationContext)
+            .load(institution.photoUrl)
+            .into(edit_profile_picture)
+
         initCitySpinner()
 
-        edit_institution_save_button.setOnClickListener {
+        edit_profile_add_picture.setOnClickListener {
+            openFileChooser()
+        }
 
+        edit_institution_save_button.setOnClickListener {
+            save()
         }
     }
 

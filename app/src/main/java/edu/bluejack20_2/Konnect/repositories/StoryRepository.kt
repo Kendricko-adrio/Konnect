@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.models.Story
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.services.DateUtil
@@ -17,6 +18,7 @@ object StoryRepository {
     private val TAG = "STORY_REPO"
 
     private val db = FirebaseFirestore.getInstance()
+    private val storageRef = FirebaseStorage.getInstance()
 
     suspend fun getStoriesFromConnections(userId: String): LinkedHashMap<User, MutableList<Story>> {
 
@@ -47,7 +49,14 @@ object StoryRepository {
 
             for(document in querySnapshot.documents) {
                 var story = document.toObject(Story::class.java)
+
                 if (story != null) {
+                    if(story.media != "") {
+                        val httpReference = storageRef.getReferenceFromUrl(story.media)
+                        httpReference.metadata.addOnSuccessListener {
+                            story.mediaType = it.contentType!!
+                        }
+                    }
                     stories.get(connection)?.add(story)
                 }
             }
@@ -71,7 +80,15 @@ object StoryRepository {
 
         for(document in querySnapshot.documents) {
             var story = document.toObject(Story::class.java)
+            Log.wtf(TAG, "Story: " + story.toString())
             if(story != null) {
+                if(story.media != "") {
+                    val httpReference = storageRef.getReferenceFromUrl(story.media)
+                    httpReference.metadata.addOnSuccessListener {
+                        Log.wtf(TAG, it.contentType)
+                        story.mediaType = it.contentType!!
+                    }.await()
+                }
                 stories.add(story)
             }
         }
