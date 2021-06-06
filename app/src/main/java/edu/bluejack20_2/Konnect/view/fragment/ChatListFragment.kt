@@ -45,7 +45,10 @@ class ChatListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_chat_list, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.rvUserList) as RecyclerView
 
-        recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
+        val linear = LinearLayoutManager(view.context, LinearLayout.VERTICAL, false)
+        linear.reverseLayout = true
+        linear.stackFromEnd = true
+        recyclerView.layoutManager = linear
 
 
 //        viewModel.loadChatRoom()
