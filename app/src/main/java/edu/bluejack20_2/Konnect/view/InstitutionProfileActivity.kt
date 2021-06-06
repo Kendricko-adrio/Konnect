@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.adapters.InstitutionPostAdapter
 import edu.bluejack20_2.Konnect.adapters.UserRelationAdapter
 import edu.bluejack20_2.Konnect.models.Institution
+import edu.bluejack20_2.Konnect.models.InstitutionPost
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.services.GlideApp
 import edu.bluejack20_2.Konnect.viewmodels.InstitutionProfileViewModel
@@ -23,6 +25,7 @@ class InstitutionProfileActivity : AppCompatActivity() {
     private lateinit var institutionId: String
     private lateinit var institution: Institution
     private lateinit var currentUser: User
+    private lateinit var posts: MutableList<InstitutionPost>
 
     private var isAdmin = false
 
@@ -44,6 +47,7 @@ class InstitutionProfileActivity : AppCompatActivity() {
         lifecycleScope.launch {
             institution = viewModel.getInstitutionById(institutionId)!!
             relations = viewModel.loadRelations(institutionId)
+            posts = viewModel.getInstitutionPostByInstitution(institutionId)
             currentUser = viewModel.getCurrentUser()!!
 
             initializeComponents()
@@ -64,6 +68,11 @@ class InstitutionProfileActivity : AppCompatActivity() {
         val relationAdapter = UserRelationAdapter(this, R.layout.listview_row_user_relation, relations)
         relations.forEachIndexed { index, relation ->
             inst_profile_relation_list.addView(relationAdapter.getView(index, null, inst_profile_relation_list))
+        }
+
+        val postAdapter = InstitutionPostAdapter(this, R.layout.layout_activity_institution_post, posts, institution)
+        posts.forEachIndexed { index, institutionPost ->
+            inst_profile_post_list.addView(postAdapter.getView(index, null, inst_profile_post_list))
         }
 
         Log.wtf(TAG, institution.admins.toString())

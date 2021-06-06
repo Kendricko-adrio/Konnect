@@ -42,11 +42,8 @@ class StoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                     val stories = it
                     holder.bind(key, stories)
                     holder.itemView.setOnClickListener {
-                        Log.wtf(TAG, "position: " + position)
                         if(position == 0) {
                             // Story of the current user
-                            Log.wtf(TAG, "current user")
-                            Log.wtf(TAG, "size: " + stories.size.toString())
                             if(stories.size > 0) {
                                 // Ask the user to add a story or view story
                                 val alertDialog = AlertDialog.Builder(holder.itemView.context).create()
@@ -98,7 +95,6 @@ class StoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     fun submitData(storyMap: HashMap<User, MutableList<Story>>, userId: String) {
         items = storyMap
         this.userId = userId
-        Log.wtf(TAG, "Story map: " + storyMap.toString())
     }
 
     class StoryViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView) {

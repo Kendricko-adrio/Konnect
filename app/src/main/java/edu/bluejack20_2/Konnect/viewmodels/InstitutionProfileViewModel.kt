@@ -1,7 +1,9 @@
 package edu.bluejack20_2.Konnect.viewmodels
 
 import edu.bluejack20_2.Konnect.models.Institution
+import edu.bluejack20_2.Konnect.models.InstitutionPost
 import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.repositories.InstitutionPostRepository
 import edu.bluejack20_2.Konnect.repositories.InstitutionRepository
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 
@@ -17,6 +19,10 @@ class InstitutionProfileViewModel {
 
     suspend fun getCurrentUser(): User? {
         return UserRepository.getCurrentUser()
+    }
+
+    suspend fun getInstitutionPostByInstitution(institutionId: String): MutableList<InstitutionPost> {
+        return InstitutionPostRepository.getInstitutionPostByInstitution(institutionId)
     }
 
 }

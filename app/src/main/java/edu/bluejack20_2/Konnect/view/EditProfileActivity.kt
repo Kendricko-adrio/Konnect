@@ -154,14 +154,16 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun save() {
-        user.name = edit_profile_name_input.text.toString()
-        user.summary = edit_profile_summary_input.text.toString()
-        user.dob = Timestamp(calendar.time)
-        edit_profile_progress_bar.visibility = View.VISIBLE
-        if(filepath != Uri.EMPTY) {
-            uploadImage()
-        } else {
-            uploadFirestore()
+        if(clientValidation()) {
+            user.name = edit_profile_name_input.text.toString()
+            user.summary = edit_profile_summary_input.text.toString()
+            user.dob = Timestamp(calendar.time)
+            edit_profile_progress_bar.visibility = View.VISIBLE
+            if(filepath != Uri.EMPTY) {
+                uploadImage()
+            } else {
+                uploadFirestore()
+            }
         }
     }
 
@@ -173,5 +175,21 @@ class EditProfileActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun clientValidation(): Boolean {
+        if(edit_profile_name_input.text.toString().isEmpty()) {
+            Toast.makeText(applicationContext, "User name cannot be empty!", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        else if(Timestamp(calendar.time).compareTo(Timestamp.now()) > 0) {
+            Toast.makeText(applicationContext, "Date of Birth cannot exceed today's date", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        else if(edit_profile_summary_input.text.toString().isEmpty()) {
+            Toast.makeText(applicationContext, "Summary cannot be empty!", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        return true;
     }
 }

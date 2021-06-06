@@ -206,15 +206,17 @@ class ExperienceInputActivity : AppCompatActivity() {
     }
 
     private fun save() {
-        experience.institution = selectedInstitution
-        experience.title = experience_input_title.text.toString()
-        experience.employmentType = selectedEmploymentType
-        experience.startDate = Timestamp(startCalendar.time)
-        experience.isWorking = isWorking
-        if(!isWorking) experience.endDate = Timestamp(endCalendar.time)
-        experience.description = experience_input_desription.text.toString()
+        if(clientValidation()) {
+            experience.institution = selectedInstitution
+            experience.title = experience_input_title.text.toString()
+            experience.employmentType = selectedEmploymentType
+            experience.startDate = Timestamp(startCalendar.time)
+            experience.isWorking = isWorking
+            if(!isWorking) experience.endDate = Timestamp(endCalendar.time)
+            experience.description = experience_input_desription.text.toString()
 
-        uploadFirestore()
+            uploadFirestore()
+        }
     }
 
     private fun uploadFirestore() {
@@ -229,5 +231,25 @@ class ExperienceInputActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Experience added", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun clientValidation(): Boolean {
+        if(experience_input_title.text.toString().isEmpty()) {
+            Toast.makeText(applicationContext, "Title cannot be empty!", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        else if(Timestamp(startCalendar.time) > Timestamp.now()) {
+            Toast.makeText(applicationContext, "Start date cannot exceed today's date", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        else if(isWorking && Timestamp(startCalendar.time) > Timestamp(endCalendar.time)) {
+            Toast.makeText(applicationContext, "Start date cannot exceed end date", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        else if(experience_input_desription.text.toString().isEmpty()) {
+            Toast.makeText(applicationContext, "Description cannot be empty!", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        return true;
     }
 }

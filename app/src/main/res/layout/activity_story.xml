@@ -5,16 +5,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.StoryActivity">
+    tools:context=".view.StoryActivity"
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/story_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:src="@drawable/ic_profile_placeholder"
         android:scaleType="centerCrop" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <VideoView
+            android:id="@+id/story_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+
     <LinearLayout
+        android:id="@+id/story_field"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -50,7 +70,8 @@
             android:id="@+id/story_photo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_profile_placeholder"/>
 
         <TextView
             android:id="@+id/story_username"
@@ -63,6 +84,15 @@
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
             android:layout_toEndOf="@id/story_photo"/>
+
+        <ProgressBar
+            android:id="@+id/story_loading_bar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/story_username" />
 
     </RelativeLayout>
 

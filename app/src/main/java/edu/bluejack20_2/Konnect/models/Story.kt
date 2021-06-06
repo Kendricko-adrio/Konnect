@@ -8,6 +8,7 @@ data class Story(
     val id: String = "",
     var user: User = User(),
     var media: String = "",
+    var mediaType: String = "",
     var createdAt: Timestamp = Timestamp.now(),
     var deletedAt: Timestamp = Timestamp.now()
 )

@@ -96,6 +96,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@color/black"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_content" />
+
+        <VideoView
+            android:id="@+id/post_video"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:visibility="gone"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/post_content" />

@@ -1,13 +1,17 @@
 package edu.bluejack20_2.Konnect.adapters
 
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
+import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.User
@@ -87,9 +91,35 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             postContent.text = spannableContent
 
+            if(post.mediaType.startsWith("image/")) {
+                Log.wtf("Post Adapter", "Image " + post.media)
+                setPostImage(post.media)
+            }
+            else if(post.mediaType.startsWith("video/")) {
+                Log.wtf("Post Adapter", "Video " + post.media)
+                setPostVideo(post.media)
+            }
+        }
+
+        private fun setPostImage(url: String) {
+            itemView.post_media.visibility = View.VISIBLE
             GlideApp.with(itemView.context)
-                .load(post?.media)
+                .load(url)
                 .into(postMedia)
+        }
+
+        private fun setPostVideo(url: String) {
+            itemView.post_video.visibility = View.VISIBLE
+            val mediaController = MediaController(itemView.context)
+
+            val videoView: VideoView = itemView.post_video
+
+//            videoView.setMediaController(mediaController)
+//            mediaController.setAnchorView(videoView)
+
+            val uri = Uri.parse(url)
+            videoView.setVideoURI(uri)
+            videoView.start()
         }
 
         fun getUsernameId(username: String, users: List<User>): String {

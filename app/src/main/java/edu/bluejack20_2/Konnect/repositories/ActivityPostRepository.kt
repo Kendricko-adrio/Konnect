@@ -3,6 +3,7 @@ package edu.bluejack20_2.Konnect.repositories
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.PostComment
 import edu.bluejack20_2.Konnect.models.User
@@ -12,6 +13,7 @@ object ActivityPostRepository {
 
     private var db = FirebaseFirestore.getInstance()
     private val TAG = "ACTIVITY_POST_REPO"
+    private val storageRef = FirebaseStorage.getInstance()
 
     suspend fun getAll(): List<ActivityPost> {
         val list = mutableListOf<ActivityPost>()
@@ -42,9 +44,17 @@ object ActivityPostRepository {
 
                 val pObj = post.toObject(ActivityPost::class.java)!!
                 pObj.id = post.id
+
+                if(pObj.media != "") {
+                    val httpReference = storageRef.getReferenceFromUrl(pObj.media)
+                    httpReference.metadata.addOnSuccessListener {
+                        pObj.mediaType = it.contentType!!
+                    }
+                }
+
                 var uObj = user.toObject(User::class.java)
 
-                if (pObj != null && uObj != null) {
+                if (uObj != null) {
                     pObj.user = uObj
                     list.add(pObj)
                 }
@@ -87,6 +97,13 @@ object ActivityPostRepository {
             // Post
             post = query.toObject(ActivityPost::class.java)!!
             post.id = query.id
+
+            if(post.media != "") {
+                val httpReference = storageRef.getReferenceFromUrl(post.media)
+                httpReference.metadata.addOnSuccessListener {
+                    post.mediaType = it.contentType!!
+                }
+            }
 
             // User
             val userRef = query["user_ref"] as DocumentReference

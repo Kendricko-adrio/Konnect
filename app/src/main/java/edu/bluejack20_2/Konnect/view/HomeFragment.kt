@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
         tv_nopost_aware?.visibility = View.GONE
         // Code ViewModel here
         lifecycleScope.launch {
+            home_progress_bar.visibility = View.VISIBLE
             val data = viewModel.getAllPosts()
             if(data.size == 0){
                 tv_nopost_aware.visibility = View.VISIBLE
@@ -51,9 +52,9 @@ class HomeFragment : Fragment() {
             val users = viewModel.getAllUsers()
             user = viewModel.getCurrentUser()
             val map = viewModel.getStoriesFromConnections(user.id)
-            initRecyclerView()
 
-            Log.wtf(TAG, map.keys.toString())
+            home_progress_bar.visibility = View.GONE
+            initRecyclerView()
 
             postAdapter.submitData(data, users)
             storyAdapter.submitData(map, user.id)
@@ -81,6 +82,5 @@ class HomeFragment : Fragment() {
                 adapter = storyAdapter
             }
         }
-
     }
 }
