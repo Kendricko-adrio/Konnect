@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
             user = viewModel.getCurrentUser()
             val map = viewModel.getStoriesFromConnections(user.id)
 
-            home_progress_bar.visibility = View.GONE
+            home_progress_bar?.visibility = View.GONE
             initRecyclerView()
 
             postAdapter.submitData(data, users)

@@ -32,7 +32,7 @@ class StoryActivity : AppCompatActivity(), StoriesProgressView.StoriesListener {
 
     private lateinit var storiesProgressView: StoriesProgressView
     private lateinit var userId: String
-    private lateinit var user: User
+    private var user: User? = null
 
     private val onTouchListener = object: View.OnTouchListener {
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -106,7 +106,7 @@ class StoryActivity : AppCompatActivity(), StoriesProgressView.StoriesListener {
         lifecycleScope.launch {
             Log.wtf(TAG, "Fetching new story")
             holdStory()
-            user = viewModel.getUserById(userId)!!
+            user = viewModel.getUserById(userId)
             stories = viewModel.getStoryByUserId(userId)
 
             storiesProgressView.setStoriesCount(stories.size)
@@ -119,9 +119,9 @@ class StoryActivity : AppCompatActivity(), StoriesProgressView.StoriesListener {
             changeStory(stories.get(counter))
 
             // Load the username above and picture above
-            story_username.setText(user.username)
+            story_username.setText(user?.username)
             GlideApp.with(applicationContext)
-                .load(user.photoUrl)
+                .load(user?.photoUrl)
                 .into(story_photo)
         }
     }

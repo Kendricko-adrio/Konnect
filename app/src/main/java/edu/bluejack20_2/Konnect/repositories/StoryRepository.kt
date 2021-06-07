@@ -47,6 +47,10 @@ object StoryRepository {
                 .get()
                 .await()
 
+            Log.wtf(TAG, connection.username.toString())
+            Log.wtf(TAG, querySnapshot.documents.size.toString())
+
+
             for(document in querySnapshot.documents) {
                 var story = document.toObject(Story::class.java)
 
@@ -75,6 +79,8 @@ object StoryRepository {
 
         val querySnapshot = db.collection("stories")
             .whereEqualTo("user_ref", db.document("/users/$userId"))
+            .whereGreaterThan("deletedAt", Timestamp(now))
+            .orderBy("deletedAt", Query.Direction.DESCENDING)
             .get()
             .await()
 
