@@ -65,6 +65,7 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val identityName = itemView.identity_name
         val identityTitle = itemView.identity_title
         val identityDate = itemView.identity_date
+        val identityProfilePicture = itemView.identity_profile_picture
 
         val postContent = itemView.post_content
         val postMedia = itemView.post_media
@@ -74,6 +75,10 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             identityName.setText(post.user.name)
             identityTitle.setText("Student at Binus University")
             identityDate.setText(DateUtil.timestampToStandardTime(post.createdAt))
+
+            GlideApp.with(itemView.context)
+                .load(post.user.photoUrl)
+                .into(identityProfilePicture)
 
             val converter = PostSpannableConverter()
             val hashIDPosition: HashMap<String, IntRange> = HashMap()
