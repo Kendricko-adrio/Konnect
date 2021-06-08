@@ -21,13 +21,17 @@
     </style>
 
     <style name="background_white">
-        <item name="android:background">@color/white</item>
+        <item name="android:color">@color/white</item>
     </style>
 
 <!--    <style name="MaterialComponen"-->
 
     <style name="textFont">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="backgroundProfile">
+        <item name="android:background">@color/gray_100</item>
     </style>
 
     <style name="Theme.Konnect.NoActionBar">

@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.models.SearchData
 import edu.bluejack20_2.Konnect.repositories.UserRepository
+import edu.bluejack20_2.Konnect.view.InstitutionProfileActivity
 import edu.bluejack20_2.Konnect.view.UserProfileActivity
 import kotlinx.coroutines.tasks.await
 import java.util.*
@@ -50,6 +51,11 @@ class SearchDetailAdapter(private var connectionList: MutableList<SearchData>) :
             if(doc.type == 0){
                 val intent = Intent(holder.itemView.context, UserProfileActivity::class.java)
                 intent.putExtra("userId", doc.doc?.id)
+                holder.itemView.context.startActivity(intent)
+            }
+            if(doc.type == 1){
+                val intent = Intent(holder.itemView.context, InstitutionProfileActivity::class.java)
+                intent.putExtra("institutionId", doc.doc?.id)
                 holder.itemView.context.startActivity(intent)
             }
 //                ContextCompat.startActivity(holder.itemView.context ,intent)

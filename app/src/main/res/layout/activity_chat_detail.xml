@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
         android:id="@+id/rv_chat"
         android:layout_above="@+id/rl_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         />
 
     <RelativeLayout
@@ -27,7 +29,6 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-
             android:layout_toLeftOf="@+id/btn_send"
             android:layout_centerVertical="true"
             />

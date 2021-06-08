@@ -24,7 +24,7 @@
             android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="224dp"
+            android:layout_marginTop="68dp"
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/custom_email_icon"
             android:drawablePadding="12dp"
@@ -34,7 +34,7 @@
             android:textAlignment="textStart"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,6 +99,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito"
         android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:text="Login and get started with Konnect"
         android:textAllCaps="true"
         android:textColor="@color/gray_100"

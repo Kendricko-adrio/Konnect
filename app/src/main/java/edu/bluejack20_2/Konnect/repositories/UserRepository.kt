@@ -22,6 +22,7 @@ object UserRepository {
         return db.collection("users").document(user)
     }
 
+
     suspend fun getAll(): MutableList<User> {
         var users = mutableListOf<User>()
         var usersRef = db.collection("users").get().await()
@@ -159,6 +160,9 @@ object UserRepository {
                 user.id = query.documents.first().id
                 connections = loadConnections(query.documents.first())
                 user.connections = connections
+//                user.block_user_ref = query.documents[0]["block_user_ref"] as MutableList<DocumentReference>
+
+
                 return user
             } catch (e: Exception) {
                 Log.d(TAG, e.toString())

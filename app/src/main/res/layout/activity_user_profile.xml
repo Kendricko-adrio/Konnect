@@ -7,7 +7,7 @@
     tools:context=".view.UserProfileActivity"
     android:layout_marginHorizontal="5dp"
     android:layout_marginVertical="5dp"
-    android:background="@color/purple_500">
+    style="@style/header_background">
 
     <LinearLayout
         android:id="@+id/user_profile_identity_container"
@@ -79,6 +79,7 @@
         android:paddingTop="20dp"
         android:paddingHorizontal="15dp"
         android:paddingBottom="5dp"
+        style="@style/backgroundProfile"
         android:background="@drawable/card_background_container">
 
         <LinearLayout

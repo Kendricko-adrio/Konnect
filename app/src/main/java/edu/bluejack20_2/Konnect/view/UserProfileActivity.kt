@@ -7,12 +7,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.common.UserRecoverableException
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.EducationAdapter
 import edu.bluejack20_2.Konnect.adapters.ExperienceAdapter
 import edu.bluejack20_2.Konnect.adapters.SkillAdapter
 import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.repositories.UserRepository
 import edu.bluejack20_2.Konnect.services.DateUtil
 import edu.bluejack20_2.Konnect.services.GlideApp
 import edu.bluejack20_2.Konnect.viewmodels.UserProfileViewModel
@@ -31,12 +33,18 @@ class UserProfileActivity : BaseActivity() {
 
     private var isOwn: Boolean = false
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
         loadIntentExtras()
         loadData()
+    }
+
+    private fun checkBlock(){
+
     }
 
     private fun loadIntentExtras() {
@@ -48,6 +56,27 @@ class UserProfileActivity : BaseActivity() {
         lifecycleScope.launch {
             user = userProfileViewModel.getUserByDocument(userId)
             currentUser = userProfileViewModel.getCurrentUser()
+
+            Log.wtf("block", currentUser.block_user_ref.toString())
+
+            val userRef = UserRepository.getUserByDoc(user.id)
+            for(data in currentUser.block_user_ref){
+                if(data == userRef){
+                    startActivity(Intent(this@UserProfileActivity, HomeActivity::class.java))
+                    Toast.makeText(this@UserProfileActivity, "You have block this user", Toast.LENGTH_SHORT).show()
+                    finish()
+                    break
+                }
+            }
+            val currUserRef = UserRepository.getUserByDoc(currentUser.id)
+            for(data in user.block_user_ref){
+                if(data == currUserRef){
+                    startActivity(Intent(this@UserProfileActivity, HomeActivity::class.java))
+                    Toast.makeText(this@UserProfileActivity, "You have been block by this user", Toast.LENGTH_SHORT).show()
+                    finish()
+                    break
+                }
+            }
 
             if(user.id == currentUser.id) isOwn = true
 

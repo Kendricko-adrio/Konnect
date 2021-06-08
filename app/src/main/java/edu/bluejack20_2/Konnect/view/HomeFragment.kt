@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
             user = viewModel.getCurrentUser()
             val map = viewModel.getStoriesFromConnections(user.id)
 
-            home_progress_bar.visibility = View.GONE
+            home_progress_bar?.visibility = View.GONE
             initRecyclerView()
 
             postAdapter.submitData(data, users)
@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        home_story_recycler_view.apply {
+        home_story_recycler_view?.apply {
             setHasFixedSize(true)
             if(activity != null) {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)

@@ -23,7 +23,6 @@ class ChatTextAdapter(var chatArr: MutableList<Chat>) : RecyclerView.Adapter<Cha
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatTextHolder {
         if (viewType == MSG_TYPE_LEFT) {
-
             var view: View =
                 LayoutInflater.from(parent.context).inflate(R.layout.chat_left, parent, false)
             return ChatTextHolder(view)

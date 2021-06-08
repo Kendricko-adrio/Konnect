@@ -1,6 +1,7 @@
 package edu.bluejack20_2.Konnect.models
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentReference
 
 data class User(
         var id: String = "UserID",
@@ -24,5 +25,6 @@ data class User(
         var connections: MutableList<User> = mutableListOf(),
         var activityPosts: MutableList<ActivityPost> = mutableListOf(),
         var inbound: MutableList<User> = mutableListOf(),
-        var outbound: MutableList<User> = mutableListOf()
+        var outbound: MutableList<User> = mutableListOf(),
+        var block_user_ref : MutableList<DocumentReference> = mutableListOf()
 )
