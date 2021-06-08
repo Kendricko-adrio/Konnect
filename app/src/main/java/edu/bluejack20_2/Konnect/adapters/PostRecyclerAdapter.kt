@@ -1,6 +1,7 @@
 package edu.bluejack20_2.Konnect.adapters
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -41,7 +42,6 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is PostViewHolder -> {
                 holder.bind(items[position], users)
                 holder.itemView.setOnClickListener {
-                    Log.wtf("PostRecyclerAdapter", "Clicked!!")
                     val intent = Intent(holder.itemView.context, PostDetailActivity::class.java).apply {
                         putExtra("postId", items.get(position).id)
                     }
@@ -65,7 +65,7 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val identityName = itemView.identity_name
         val identityTitle = itemView.identity_title
         val identityDate = itemView.identity_date
-        val identityDp = itemView.identity_profile_picture
+        val identityProfilePicture = itemView.identity_profile_picture
         val postContent = itemView.post_content
         val postMedia = itemView.post_media
 
@@ -74,12 +74,15 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             identityName.setText(post.user.name)
             identityTitle.setText("Student at Binus University")
             identityDate.setText(DateUtil.timestampToStandardTime(post.createdAt))
-            Glide.with(itemView).load(post.user.photoUrl).into(identityDp)
 
-            var converter: PostSpannableConverter = PostSpannableConverter()
-            var hashUsernamePosition: HashMap<String, IntRange> = HashMap<String, IntRange>()
-            var hashIDPosition: HashMap<String, IntRange> = HashMap<String, IntRange>()
-            hashUsernamePosition = converter.getPostMatchResults(post.content)
+
+            GlideApp.with(itemView.context)
+                .load(post.user.photoUrl)
+                .into(identityProfilePicture)
+
+            val converter = PostSpannableConverter()
+            val hashIDPosition: HashMap<String, IntRange> = HashMap()
+            val hashUsernamePosition = converter.getPostMatchResults(post.content)
 
             for((username, pos) in hashUsernamePosition) {
                 val id = getUsernameId(username, users)
@@ -115,15 +118,17 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             val videoView: VideoView = itemView.post_video
 
-//            videoView.setMediaController(mediaController)
-//            mediaController.setAnchorView(videoView)
-
             val uri = Uri.parse(url)
             videoView.setVideoURI(uri)
+            videoView.setOnPreparedListener(object: MediaPlayer.OnPreparedListener {
+                override fun onPrepared(mp: MediaPlayer?) {
+                    mp?.isLooping = true
+                }
+            })
             videoView.start()
         }
 
-        fun getUsernameId(username: String, users: List<User>): String {
+        private fun getUsernameId(username: String, users: List<User>): String {
             for(user in users) {
                 if(username == user.username) {
                     return user.id;

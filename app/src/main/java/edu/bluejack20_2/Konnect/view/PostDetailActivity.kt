@@ -1,9 +1,13 @@
 package edu.bluejack20_2.Konnect.view
 
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -53,13 +57,25 @@ class PostDetailActivity : AppCompatActivity() {
 
     private fun initializeComponents() {
         likeButtonUpdate()
+        resetMedia()
         post_detail_identity_name.text = post.user.name
-        loadImage()
         post_detail_identity_date.text = "Posted at " + DateUtil.timestampToStandardTime(post.createdAt)
         post_detail_content.text = preprocessPost(post.content)
         post_detail_content.movementMethod = LinkMovementMethod.getInstance()
         post_detail_like_count.text = post.likes.size.toString() + " likes"
         post_detail_comment_count.text = post.comments.size.toString() + " comments"
+
+        GlideApp.with(applicationContext)
+            .load(post.user.photoUrl)
+            .into(post_detail_identity_image)
+
+        Log.wtf(TAG, post.mediaType)
+        if(post.mediaType.startsWith("image/")) {
+            setPostImage(post.media)
+        }
+        else if(post.mediaType.startsWith("video/")) {
+            setPostVideo(post.media)
+        }
 
         post_detail_comments_list.removeAllViews()
 
@@ -93,7 +109,7 @@ class PostDetailActivity : AppCompatActivity() {
         return converter.convertPostSpannableTag(applicationContext, content, hashIDPosition)
     }
 
-    fun getUsernameId(username: String, users: List<User>): String {
+    private fun getUsernameId(username: String, users: List<User>): String {
         for(user in users) {
             if(username == user.username) {
                 return user.id;
@@ -102,14 +118,24 @@ class PostDetailActivity : AppCompatActivity() {
         return ""
     }
 
-    private fun loadImage() {
+    private fun setPostImage(url: String) {
+        post_detail_media.visibility = View.VISIBLE
         GlideApp.with(applicationContext)
-            .load(post.user.photoUrl)
-            .into(post_detail_identity_image)
-
-        GlideApp.with(applicationContext)
-            .load(post.media)
+            .load(url)
             .into(post_detail_media)
+    }
+
+    private fun setPostVideo(url: String) {
+        post_detail_video.visibility = View.VISIBLE
+
+        val uri = Uri.parse(url)
+        post_detail_video.setVideoURI(uri)
+        post_detail_video.setOnPreparedListener(object: MediaPlayer.OnPreparedListener {
+            override fun onPrepared(mp: MediaPlayer?) {
+                mp?.isLooping = true
+            }
+        })
+        post_detail_video.start()
     }
 
     private fun likeDislikeButton() {
@@ -145,5 +171,10 @@ class PostDetailActivity : AppCompatActivity() {
             if (u.id == user.id) return true
         }
         return false
+    }
+
+    private fun resetMedia() {
+        post_detail_media.visibility = View.GONE
+        post_detail_video.visibility = View.GONE
     }
 }
