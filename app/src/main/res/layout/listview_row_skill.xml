@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:text="@string/skill"
         android:textSize="@dimen/list_detail_title_fontsize"
-        android:textColor="@color/black"
+        style="@style/font_detail_color"
         android:textStyle="bold" />
 
     <de.hdodenhof.circleimageview.CircleImageView

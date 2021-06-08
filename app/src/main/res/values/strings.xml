@@ -145,5 +145,13 @@
     <string name="notifications">Notifications</string>
     <string name="settings">Settings</string>
     <string name="website">Website</string>
-
+    <string name="posts_you_created_shared_or_commented_on_in_the_last_90_days_are_displayed_here">Posts you created, shared, or commented on in the last 90 days are displayed here.</string>
+    <string name="institution_post">Institution Post</string>
+    <string name="about_us">About us</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="living_at">Living In </string>
+    <string name="no_exp">No experience yet</string>
+    <string name="no_sum">No summary</string>
+    <string name="birthday">Birth date, </string>
+    <string name="connections"> connections</string>
 </resources>

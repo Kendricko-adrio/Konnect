@@ -16,12 +16,25 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <style name="button_profile">
+        <item name="android:backgroundTint">@color/purple_200</item>
+    </style>
+
     <style name="header_background">
         <item name="android:background">@color/purple_500</item>
     </style>
 
     <style name="background_white">
         <item name="android:color">@color/white</item>
+    </style>
+
+    <style name="font_title_color">
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+    <style name="font_detail_color">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 <!--    <style name="MaterialComponen"-->

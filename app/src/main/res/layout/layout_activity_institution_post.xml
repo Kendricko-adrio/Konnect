@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/identity_name"
-            style="@style/textFont"
+            style="@style/font_detail_color"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
             android:text="Posted 3 days ago"
-            android:textColor="@color/gray_700"
+            style="@style/font_detail_color"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/identity_profile_picture"
@@ -59,11 +59,12 @@
 
     <TextView
         android:id="@+id/post_content"
-        style="@style/textFont"
+        style="@style/font_detail_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/post_content"
         android:layout_marginBottom="10dp"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/identity_container"

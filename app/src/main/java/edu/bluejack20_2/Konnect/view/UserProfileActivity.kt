@@ -92,20 +92,20 @@ class UserProfileActivity : BaseActivity() {
             val firstExperience = user.experiences.first()
             user_profile_identity_title.text = firstExperience.title + " at " + firstExperience.institution.name
         }else {
-            user_profile_identity_title.text = "No experience yet"
+            user_profile_identity_title.text = getString(R.string.no_exp)
         }
 
-        user_profile_identity_location.text = "Living in " + user.city.name + ", " + user.city.countryName
+        user_profile_identity_location.text = getString(R.string.living_at) + user.city.name + ", " + user.city.countryName
 
         if(user.summary != "") {
             user_profile_about_me_content.text = user.summary
         } else {
-            user_profile_about_me_content.text = "No summary"
+            user_profile_about_me_content.text = getString(R.string.no_sum)
         }
 
-        user_profile_identity_dob.text = "Birth date, " + DateUtil.timestampToStandardDate(user.dob)
+        user_profile_identity_dob.text = getString(R.string.birthday) + DateUtil.timestampToStandardDate(user.dob)
 
-        textView_connection_number.text = user.connections.size.toString() + " connections"
+        textView_connection_number.text = user.connections.size.toString() + getString(R.string.connection)
 
         val experienceAdapter = ExperienceAdapter(this, R.layout.listview_row_experience, user.experiences, false, userId)
         user.experiences.forEachIndexed { index, experience ->

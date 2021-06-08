@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Institution Name"
             android:textSize="@dimen/list_detail_title_fontsize"
-            android:textColor="@color/black"
+            style="@style/font_detail_color"
             android:textStyle="bold" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="Education Title"
             android:textSize="@dimen/list_detail_detail_fontsize"
-            android:textColor="@color/black" />
+            style="@style/font_detail_color" />
 
         <TextView
             android:id="@+id/education_period"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Period"
             android:textSize="@dimen/list_detail_detail_fontsize"
-            android:textColor="@color/black" />
+            style="@style/font_detail_color" />
 
     </LinearLayout>
 
