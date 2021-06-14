@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.repositories.ActivityPostRepository
+import edu.bluejack20_2.Konnect.repositories.NotificationRepository
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 
 class PostViewModel : ViewModel() {
@@ -17,8 +18,8 @@ class PostViewModel : ViewModel() {
         return User()
     }
 
-    suspend fun addPost(post: ActivityPost, user: User) {
-        ActivityPostRepository.addPost(post, user)
+    suspend fun addPost(post: ActivityPost, user: User): String {
+        return ActivityPostRepository.addPost(post, user)
     }
 
     suspend fun getAllUserIDByUsername(tags: MutableList<String>): MutableList<String> {
@@ -41,5 +42,9 @@ class PostViewModel : ViewModel() {
             }
         }
         return connections
+    }
+
+    suspend fun addNotification(userId: String, relatedUserId: String, type: String, postId: String) {
+        NotificationRepository.addNotification(userId, relatedUserId, type, postId)
     }
 }

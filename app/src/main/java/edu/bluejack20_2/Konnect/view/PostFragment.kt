@@ -1,10 +1,14 @@
 package edu.bluejack20_2.Konnect.view
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
@@ -17,6 +21,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
@@ -50,7 +57,12 @@ class PostFragment : Fragment() {
 
     private var isImage = false
 
+    private var taggedUsers: MutableList<String> = mutableListOf()
+
     var converter: PostSpannableConverter = PostSpannableConverter()
+
+    private val CHANNEL_ID: String = "Channel1"
+
 
     companion object {
         fun newInstance() = PostFragment()
@@ -70,6 +82,39 @@ class PostFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
         loadData()
+        createNotificationChannel()
+    }
+
+    private fun addNotification(postId: String, content: String) {
+
+        val contentIntent = Intent(requireActivity().applicationContext, PostDetailActivity::class.java)
+        contentIntent.putExtra("postId", postId)
+        val contentPendingIntent = PendingIntent.getActivity(
+            requireContext().applicationContext,
+            0,
+            contentIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        var notificationBuilder = NotificationCompat.Builder(activity?.applicationContext!!, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_profile_placeholder)
+            .setContentTitle("Congratulations ${currentUser.username}, you have successfully added a new post to your network!")
+            .setContentText(content)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(contentPendingIntent)
+            .setAutoCancel(true)
+
+        val notificationManager = NotificationManagerCompat.from(requireActivity().applicationContext)
+        notificationManager.notify(1, notificationBuilder.build())
+    }
+
+    private fun createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            var importance = NotificationManager.IMPORTANCE_DEFAULT
+            var channel = NotificationChannel(CHANNEL_ID, "Notif", importance)
+            val notificationManager = requireActivity().getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
     private fun initializeComponents() {
@@ -131,8 +176,10 @@ class PostFragment : Fragment() {
                 }
 
                 Log.wtf(TAG, hashIDPosition.toString())
+                taggedUsers = mutableListOf()
 
-                for ((_, pos) in hashIDPosition) {
+                for ((id, pos) in hashIDPosition) {
+                    taggedUsers.add(id)
                     s?.setSpan(
                         ForegroundColorSpan(Color.BLUE),
                         pos.start,
@@ -255,7 +302,11 @@ class PostFragment : Fragment() {
 
         // Send it to firestore here
         lifecycleScope.launch {
-            viewModel.addPost(postObj, currentUser)
+            val postId = viewModel.addPost(postObj, currentUser)
+            for(taggedUser in taggedUsers) {
+                viewModel.addNotification(taggedUser, currentUser.id, "tag", postId)
+            }
+            addNotification(postId, postObj.content)
             progressBar.visibility = View.INVISIBLE // Success
             startActivity(Intent(activity?.applicationContext, HomeActivity::class.java))
         }
@@ -285,7 +336,7 @@ class PostFragment : Fragment() {
     }
 
     private fun resetMediaContainer() {
-        add_post_upload_image.visibility = View.GONE
-        add_post_upload_video.visibility = View.GONE
+        add_post_upload_image?.visibility = View.GONE
+        add_post_upload_video?.visibility = View.GONE
     }
 }

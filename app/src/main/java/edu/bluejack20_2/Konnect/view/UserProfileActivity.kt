@@ -1,11 +1,14 @@
 package edu.bluejack20_2.Konnect.view
 
+import android.app.Notification
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.UserRecoverableException
 import edu.bluejack20_2.Konnect.R
@@ -33,7 +36,7 @@ class UserProfileActivity : BaseActivity() {
 
     private var isOwn: Boolean = false
 
-
+    private val CHANNEL_ID: String = "Channel1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,9 +82,21 @@ class UserProfileActivity : BaseActivity() {
             }
 
             if(user.id == currentUser.id) isOwn = true
+            else userProfileViewModel.addNotification(user.id, currentUser.id, "viewer", "")
 
             initializeComponents()
         }
+    }
+
+    private fun addNotification() {
+        var notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_profile_placeholder)
+            .setContentTitle("Someone just viewed your profile!")
+            .setContentText("Content just viewed profile")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.notify(1, notificationBuilder.build())
     }
 
     private fun initializeComponents() {
@@ -148,6 +163,7 @@ class UserProfileActivity : BaseActivity() {
             lifecycleScope.launch {
                 // Current user send friend request to user
                 userProfileViewModel.addFriend(currentUser.id, user.id)
+                userProfileViewModel.addNotification(user.id, currentUser.id, "invitation", "")
                 Toast.makeText(applicationContext, "Add Friend", Toast.LENGTH_SHORT)
                 loadButtons()
             }

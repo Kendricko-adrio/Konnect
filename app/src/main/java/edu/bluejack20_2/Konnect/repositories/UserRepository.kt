@@ -1,6 +1,8 @@
 package edu.bluejack20_2.Konnect.repositories
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -175,6 +177,10 @@ object UserRepository {
         return ref.get().await()
     }
 
+    fun getUserDocumentReference(ref: DocumentReference): Task<DocumentSnapshot> {
+        return ref.get()
+    }
+
     suspend fun getUserByDocument(id: String): User? {
         // We need to load several references from the user document
         // City : Reference
@@ -231,6 +237,12 @@ object UserRepository {
             Log.d(TAG, e.toString())
         }
         return null
+    }
+
+    fun getUserNotification(id: String): Query {
+        return db.collection("notifications")
+            .whereEqualTo("user_ref", db.document("/users/$id"))
+            .orderBy("createdAt", Query.Direction.DESCENDING)
     }
 
     suspend fun getConnections(id: String): MutableList<User> {
