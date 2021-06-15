@@ -42,7 +42,8 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun loadIntentExtras() {
-        postId = intent.getStringExtra("postId")!!
+        postId = intent.getStringExtra("postId").toString()
+        Log.wtf(TAG, postId)
     }
 
     private fun loadData() {

@@ -86,6 +86,10 @@ class ChatDetailActivity : BaseActivity() {
             ChatRepository.setChatText(map)
             msg.setText("")
 
+            lifecycleScope.launch {
+                viewModel.addNotification(toRef.id, userRef.id, "chat", "")
+            }
+
         })
     }
 }
