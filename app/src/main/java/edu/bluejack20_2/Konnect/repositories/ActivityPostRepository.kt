@@ -72,7 +72,7 @@ object ActivityPostRepository {
         return snapshot
     }
 
-    suspend fun addPost(post: ActivityPost, user: User) {
+    suspend fun addPost(post: ActivityPost, user: User): String {
         val ref = db.collection("activity_posts").document()
 
         // Send it to firestore here
@@ -84,6 +84,7 @@ object ActivityPostRepository {
         )
 
         ref.set(post).await()
+        return ref.id
     }
 
     suspend fun getPostByDocument(id: String): ActivityPost? {
