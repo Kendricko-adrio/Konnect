@@ -8,6 +8,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import edu.bluejack20_2.Konnect.models.Chat
 import edu.bluejack20_2.Konnect.repositories.ChatRepository
+import edu.bluejack20_2.Konnect.repositories.NotificationRepository
 
 class ChatDetailViewModel : ViewModel(){
 
@@ -41,6 +42,10 @@ class ChatDetailViewModel : ViewModel(){
                     listChat.value = temp
                 }
             }
+    }
+
+    suspend fun addNotification(userId: String, relatedUserId: String, type: String, postId: String) {
+        NotificationRepository.addNotification(userId, relatedUserId, type, postId)
     }
 
 }
