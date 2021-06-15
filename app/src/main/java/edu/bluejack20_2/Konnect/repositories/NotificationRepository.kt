@@ -12,6 +12,24 @@ object NotificationRepository {
     suspend fun addNotification(userId: String, relatedUserId: String, type: String, postId: String) {
         val ref = db.collection("notifications").document()
 
+        if(type == "chat") {
+            val n = db.collection("notifications")
+                .whereEqualTo("user_ref", db.document("users/$userId"))
+                .whereEqualTo("related_user_ref", db.document("users/$relatedUserId"))
+                .whereEqualTo("type", "chat")
+                .get().await()
+
+            val notif = n.documents.first()
+            if(notif != null) {
+                // Notification already exists --> update the createdAt
+                db.collection("notifications")
+                    .document(notif.id)
+                    .update("createdAt", Timestamp.now()).await()
+
+                return
+            }
+        }
+
         val notification = hashMapOf(
             "content" to "This is a content",
             "createdAt" to Timestamp.now(),
