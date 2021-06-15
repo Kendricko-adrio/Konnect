@@ -18,7 +18,8 @@ class ChatDetailViewModel : ViewModel(){
     }
 
     fun listenToNewChat(doc: String, fromPhoto: String?, toPhoto: String?){
-
+            // onsuccesslistener
+        // dengerin perubahan
             ChatRepository.listenChatText(doc).addSnapshotListener{ documentSnapshot, e ->
                 if (e != null) {
                     Log.w("error", "Listen failed.", e)

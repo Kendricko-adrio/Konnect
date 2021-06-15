@@ -29,6 +29,10 @@ class ConnectionListAdapter(private val connectionList : MutableList<DocumentRef
     override fun onBindViewHolder(holder: ConnectionListHolder, position: Int) {
         val fbuser = FirebaseAuth.getInstance().currentUser
         val doc = connectionList[position]
+        doc.id
+        doc.get().addOnSuccessListener {
+            val id = it["apa gitu"]
+        }
         doc.get().addOnSuccessListener {
             Glide.with(holder.itemView).load(it["photoUrl"].toString()).apply(RequestOptions().override(150, 150)).into(holder.iv_profilePic)
             holder.tv_name.text = it["name"].toString()
