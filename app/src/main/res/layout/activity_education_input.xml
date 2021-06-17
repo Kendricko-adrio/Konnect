@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="School"
+        android:text="@string/school"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:textColor="@color/gray_900"/>
 
@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Degree"
+        android:text="@string/degree"
         android:layout_marginTop="15dp"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:textColor="@color/gray_900"/>
@@ -38,7 +38,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Study Field"
+        android:text="@string/study_field"
         android:layout_marginTop="15dp"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:textColor="@color/gray_900"/>
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/list_detail_title_fontsize"
-            android:hint="Start date"
+            android:hint="@string/start_date"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/list_detail_title_fontsize"
-            android:hint="End date"
+            android:hint="@string/end_date"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
@@ -83,7 +83,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="@string/description"
         android:layout_marginTop="15dp"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:textColor="@color/gray_900"/>
@@ -104,7 +104,7 @@
             android:id="@+id/education_input_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:text="@string/save" />
 
     </LinearLayout>
 

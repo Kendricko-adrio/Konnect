@@ -8,12 +8,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.Skill
 import edu.bluejack20_2.Konnect.viewmodels.SkillInputViewModel
 import kotlinx.android.synthetic.main.activity_skill_input.*
 import kotlinx.coroutines.launch
 
-class SkillInputActivity : AppCompatActivity() {
+class SkillInputActivity : BaseActivity() {
 
     private val TAG = "SKILL_INPUT_ACTIVITY"
 
@@ -23,6 +24,7 @@ class SkillInputActivity : AppCompatActivity() {
     private lateinit var skillId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skill_input)
 

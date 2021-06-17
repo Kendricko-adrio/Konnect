@@ -27,7 +27,7 @@
             android:id="@+id/experience_row_institution_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Institution Name"
+            android:text="@string/institution_name"
             android:textSize="@dimen/list_detail_title_fontsize"
             style="@style/font_detail_color"
             android:textStyle="bold"
@@ -37,7 +37,7 @@
             android:id="@+id/experience_row_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Experience Title"
+            android:text="@string/experience_title"
             android:textSize="@dimen/list_detail_detail_fontsize"
             style="@style/font_detail_color" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/experience_row_employment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Employment Type"
+            android:text="@string/employment_type"
             android:textSize="@dimen/list_detail_detail_fontsize"
             style="@style/font_detail_color"
             />
@@ -54,7 +54,7 @@
             android:id="@+id/experience_row_period"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Period"
+            android:text="@string/period"
             android:textSize="@dimen/list_detail_detail_fontsize"
             style="@style/font_detail_color"
             />

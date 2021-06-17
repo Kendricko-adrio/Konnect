@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title"
+        android:text="@string/title"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:textColor="@color/gray_900"/>
 
@@ -20,13 +20,13 @@
         android:id="@+id/experience_input_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="CEO of Konnect"
-        android:textSize="@dimen/list_detail_title_fontsize" />
+        android:hint="@string/ceo_of_konnect"
+       />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Employment Type"
+        android:text="@string/employment_type"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:layout_marginTop="15dp"
         android:textColor="@color/gray_900"/>
@@ -39,7 +39,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Institution"
+        android:text="@string/institution"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:layout_marginTop="15dp"
         android:textColor="@color/gray_900"/>
@@ -53,12 +53,12 @@
         android:id="@+id/edit_experience_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I currently work in this role" />
+        android:text="@string/i_currently_work_in_this_role" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start date"
+        android:text="@string/start_date"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:layout_marginTop="15dp"
         android:textColor="@color/gray_900"/>
@@ -73,8 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/list_detail_title_fontsize"
-            android:hint="start date"
+            android:hint="@string/start_date"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
@@ -86,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/list_detail_title_fontsize"
-            android:hint="end date"
+            android:hint="@string/end_date"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
@@ -98,7 +97,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="@string/description"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:layout_marginTop="15dp"
         android:textColor="@color/gray_900" />
@@ -110,8 +109,7 @@
         android:gravity="top"
         android:minLines="3"
         android:maxLines="5"
-        android:textSize="@dimen/list_detail_title_fontsize"
-        android:hint="Tell us about your work experience" />
+        android:hint="@string/tell_us_about_your_work_experience" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -123,14 +121,14 @@
             android:id="@+id/experience_input_delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
+            android:text="@string/delete"
             android:layout_marginHorizontal="5dp"/>
 
         <Button
             android:id="@+id/experience_input_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/save"
             android:layout_marginHorizontal="5dp"/>
 
     </LinearLayout>

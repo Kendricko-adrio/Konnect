@@ -38,8 +38,8 @@ class ChatDetailAdapter(private val userChats: MutableList<ChatDetail>) : Recycl
         holder.lastMessage.text = user.lastMessage
         Glide.with(holder.itemView).load(user.photoURL).apply(RequestOptions().override(150, 150)).into(holder.photoURL)
         holder.itemView.setOnClickListener(View.OnClickListener {
-            Toast.makeText(holder.itemView.context , "untuk orang : " + user.connectionName +
-                    " dengan doc : " + user.connectionDoc, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(holder.itemView.context , "untuk orang : " + user.connectionName +
+//                    " dengan doc : " + user.connectionDoc, Toast.LENGTH_SHORT).show()
             UserRepository.getUserByDoc(FirebaseAuth.getInstance().currentUser.uid).get().addOnSuccessListener {
                 user.fromPhotoUrl = it["photoUrl"].toString()
                 var chatDetail = Intent(holder.itemView.context, ChatDetailActivity::class.java)

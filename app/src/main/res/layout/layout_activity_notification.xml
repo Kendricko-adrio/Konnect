@@ -36,25 +36,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="Notification Title"
-                android:textColor="@color/black"
+                android:text="@string/notification_title"
+
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/notification_content_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                android:maxLines="3"
-                android:textColor="@color/black" />
+                android:maxLines="3" />
 
             <TextView
                 android:id="@+id/notification_content_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
-                android:text="Date" />
+                android:text="@string/date" />
 
         </LinearLayout>
 

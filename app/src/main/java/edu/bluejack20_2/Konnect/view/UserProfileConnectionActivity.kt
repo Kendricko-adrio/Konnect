@@ -7,12 +7,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.UserProfileConnectionRecyclerAdapter
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.viewmodels.UserProfileConnectionViewModel
 import kotlinx.android.synthetic.main.activity_user_profile_connection.*
 import kotlinx.coroutines.launch
 
-class UserProfileConnectionActivity : AppCompatActivity() {
+class UserProfileConnectionActivity : BaseActivity() {
 
     private val TAG = "USER_PROF_CONNECT_ACT"
     private val viewModel = UserProfileConnectionViewModel()
@@ -23,6 +24,7 @@ class UserProfileConnectionActivity : AppCompatActivity() {
     private var userConnectionAdapter : UserProfileConnectionRecyclerAdapter = UserProfileConnectionRecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile_connection)
 

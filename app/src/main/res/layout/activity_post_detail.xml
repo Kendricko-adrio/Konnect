@@ -41,7 +41,7 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="User Full Name"/>
+            android:text="@string/user_full_name"/>
 
         <TextView
             android:id="@+id/post_detail_identity_date"
@@ -54,7 +54,7 @@
             android:paddingVertical="3dp"
             android:textSize="12sp"
             android:textColor="@color/gray_700"
-            android:text="Post Date" />
+            android:text="@string/post_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -68,7 +68,9 @@
         android:paddingBottom="20dp"
         android:paddingHorizontal="10dp"
         android:layout_marginTop="15dp"
-        android:text="Post Content" />
+        android:text="@string/post_content1"
+        style="@style/textFont"
+        />
 
     <LinearLayout
         android:id="@+id/post_detail_like_comment_container"
@@ -152,7 +154,7 @@
         android:id="@+id/post_detail_comment_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Leave your thoughts here..."
+        android:hint="@string/leave_your_thoughts_here"
         android:padding="15dp"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

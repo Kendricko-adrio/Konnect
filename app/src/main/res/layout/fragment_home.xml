@@ -14,6 +14,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:visibility="gone"
+        style="@style/spinner"
         android:layout_marginTop="50dp" />
 
     <androidx.recyclerview.widget.RecyclerView

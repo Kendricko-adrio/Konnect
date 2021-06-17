@@ -2,11 +2,13 @@ package edu.bluejack20_2.Konnect.view
 
 import android.app.Notification
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.lifecycleScope
@@ -39,12 +41,15 @@ class UserProfileActivity : BaseActivity() {
     private val CHANNEL_ID: String = "Channel1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
         loadIntentExtras()
         loadData()
     }
+
+
 
     private fun checkBlock(){
 
@@ -66,7 +71,7 @@ class UserProfileActivity : BaseActivity() {
             for(data in currentUser.block_user_ref){
                 if(data == userRef){
                     startActivity(Intent(this@UserProfileActivity, HomeActivity::class.java))
-                    Toast.makeText(this@UserProfileActivity, "You have block this user", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@UserProfileActivity, getString(R.string.have_block), Toast.LENGTH_SHORT).show()
                     finish()
                     break
                 }
@@ -75,7 +80,7 @@ class UserProfileActivity : BaseActivity() {
             for(data in user.block_user_ref){
                 if(data == currUserRef){
                     startActivity(Intent(this@UserProfileActivity, HomeActivity::class.java))
-                    Toast.makeText(this@UserProfileActivity, "You have been block by this user", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@UserProfileActivity, getString(R.string.have_been_block), Toast.LENGTH_SHORT).show()
                     finish()
                     break
                 }
@@ -105,7 +110,7 @@ class UserProfileActivity : BaseActivity() {
         loadImage()
         if(user.experiences.size > 0) {
             val firstExperience = user.experiences.first()
-            user_profile_identity_title.text = firstExperience.title + " at " + firstExperience.institution.name
+            user_profile_identity_title.text = firstExperience.title + " "+ getString(R.string.at) +" " + firstExperience.institution.name
         }else {
             user_profile_identity_title.text = getString(R.string.no_exp)
         }

@@ -54,7 +54,7 @@ class UserProfileConnectionRecyclerAdapter : RecyclerView.Adapter<RecyclerView.V
         fun bind(user: User) {
             userName.text = user.name
             if(user.experiences.size == 0) {
-                userTitle.text = "No Experience!"
+                userTitle.text = itemView.context.getText(R.string.no_exp)
             }
             userCity.text = user.city.name
 

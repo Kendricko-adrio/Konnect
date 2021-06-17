@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Skill name"
+        android:text="@string/skill_name"
         android:textSize="@dimen/list_detail_detail_fontsize"
         android:textColor="@color/gray_900"/>
 
@@ -20,8 +20,7 @@
         android:id="@+id/skill_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Web Development"
-        android:textSize="@dimen/list_detail_title_fontsize" />
+        android:hint="@string/web_development" />
 
     <LinearLayout
         android:gravity="center"
@@ -32,7 +31,7 @@
             android:id="@+id/skill_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add" />
+            android:text="@string/add" />
 
     </LinearLayout>
 

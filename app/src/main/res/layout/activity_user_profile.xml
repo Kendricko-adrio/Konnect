@@ -99,7 +99,7 @@
                     android:visibility="gone"
 
                     style="@style/button_profile"
-                    android:text="Edit Profile" />
+                    android:text="@string/edit_profile" />
 
                 <Button
                     android:id="@+id/user_profile_message_btn"
@@ -108,7 +108,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:visibility="gone"
                     style="@style/button_profile"
-                    android:text="Message" />
+                    android:text="@string/message" />
 
                 <Button
                     android:id="@+id/user_profile_add_btn"
@@ -117,7 +117,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:visibility="gone"
                     style="@style/button_profile"
-                    android:text="Add Friend" />
+                    android:text="@string/add_friend" />
 
                 <Button
                     android:id="@+id/user_profile_cancel_btn"
@@ -126,7 +126,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:visibility="gone"
                     style="@style/button_profile"
-                    android:text="Cancel" />
+                    android:text="@string/cancel" />
 
                 <Button
                     android:id="@+id/user_profile_accept_btn"
@@ -135,7 +135,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:visibility="gone"
                     style="@style/button_profile"
-                    android:text="Accept" />
+                    android:text="@string/accept" />
 
                 <Button
                     android:id="@+id/user_profile_decline_btn"
@@ -144,7 +144,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:visibility="gone"
                     style="@style/button_profile"
-                    android:text="Decline" />
+                    android:text="@string/decline" />
 
             </LinearLayout>
 
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/purple_200"
 
-                android:text="User Connections" />
+                android:text="@string/user_connections" />
 
             <Button
                 android:id="@+id/button_add_post"

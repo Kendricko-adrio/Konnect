@@ -46,8 +46,8 @@ class HomeFragment : Fragment() {
             home_progress_bar.visibility = View.VISIBLE
             val data = viewModel.getAllPosts()
             if(data.size == 0){
-                tv_nopost_aware.visibility = View.VISIBLE
-                home_post_recycler_view.visibility = View.GONE
+                tv_nopost_aware?.visibility = View.VISIBLE
+                home_post_recycler_view?.visibility = View.GONE
             }
             val users = viewModel.getAllUsers()
             user = viewModel.getCurrentUser()

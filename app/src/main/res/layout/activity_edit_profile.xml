@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:text="Profile photo" />
+            android:text="@string/profile_photo" />
 
         <RelativeLayout
             android:layout_width="100dp"
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/name"
             android:textSize="@dimen/list_detail_detail_fontsize"
             android:textColor="@color/gray_900" />
 
@@ -69,13 +69,13 @@
             android:id="@+id/edit_profile_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="John Doe"
-            android:textSize="@dimen/list_detail_title_fontsize" />
+            android:hint="@string/john_doe"
+             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date of Birth"
+            android:text="@string/date_of_birth"
             android:textSize="@dimen/list_detail_detail_fontsize"
             android:textColor="@color/gray_900"
             android:layout_marginTop="10dp"/>
@@ -93,7 +93,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Summary"
+            android:text="@string/summary"
             android:textSize="@dimen/list_detail_detail_fontsize"
             android:textColor="@color/gray_900" />
 
@@ -103,9 +103,8 @@
             android:layout_height="wrap_content"
             android:minLines="3"
             android:maxLines="10"
-            android:hint="This is my summary"
-            android:gravity="top"
-            android:textSize="@dimen/list_detail_title_fontsize" />
+            android:hint="@string/this_is_my_summary"
+            android:gravity="top" />
 
     </LinearLayout>
 
@@ -126,7 +125,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset"/>
+            android:text="@string/reset"/>
 
         <Button
             android:id="@+id/edit_profile_save_button"
@@ -135,7 +134,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"/>
+            android:text="@string/save"/>
 
     </LinearLayout>
 

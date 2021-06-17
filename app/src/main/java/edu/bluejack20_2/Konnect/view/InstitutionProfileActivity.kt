@@ -62,7 +62,7 @@ class InstitutionProfileActivity : AppCompatActivity() {
 
         inst_profile_identity_name.text = institution.name
         inst_profile_identity_website.text = institution.website
-        inst_profile_identity_location.text = "Located in " + institution.city.name + ", " + institution.city.countryName
+        inst_profile_identity_location.text = getString(R.string.located_in) + " " + institution.city.name + ", " + institution.city.countryName
         inst_profile_summary.text = institution.summary
 
         val relationAdapter = UserRelationAdapter(this, R.layout.listview_row_user_relation, relations)

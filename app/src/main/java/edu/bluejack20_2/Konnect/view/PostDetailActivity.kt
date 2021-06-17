@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.CommentAdapter
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.ActivityPost
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.services.DateUtil
@@ -22,7 +23,7 @@ import edu.bluejack20_2.Konnect.viewmodels.PostDetailViewModel
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.coroutines.launch
 
-class PostDetailActivity : AppCompatActivity() {
+class PostDetailActivity : BaseActivity() {
 
     private val TAG = "POST_DETAIL_ACTIVITY"
 
@@ -34,6 +35,7 @@ class PostDetailActivity : AppCompatActivity() {
     private lateinit var users: List<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_detail)
 

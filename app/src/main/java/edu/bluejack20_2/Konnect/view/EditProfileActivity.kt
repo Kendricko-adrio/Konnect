@@ -2,6 +2,7 @@ package edu.bluejack20_2.Konnect.view
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,10 +11,12 @@ import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.services.GlideApp
 import edu.bluejack20_2.Konnect.viewmodels.EditProfileViewModel
@@ -22,7 +25,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity : BaseActivity() {
     private val TAG = "EDIT_PROFILE_ACTIVITY"
     val calendar = Calendar.getInstance()
 
@@ -33,11 +36,14 @@ class EditProfileActivity : AppCompatActivity() {
     private var filepath: Uri = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        changeFont()
+        super.changeFont()
+        loadIntentExtras()
+        loadData()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-        loadIntentExtras()
-        loadData()
+
     }
 
     private fun loadIntentExtras() {

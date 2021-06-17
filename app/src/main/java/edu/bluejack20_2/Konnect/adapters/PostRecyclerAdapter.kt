@@ -75,7 +75,6 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             identityTitle.setText("Student at Binus University")
             identityDate.setText(DateUtil.timestampToStandardTime(post.createdAt))
 
-
             GlideApp.with(itemView.context)
                 .load(post.user.photoUrl)
                 .into(identityProfilePicture)

@@ -150,8 +150,85 @@
     <string name="about_us">About us</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="living_at">Living In </string>
-    <string name="no_exp">No experience yet</string>
     <string name="no_sum">No summary</string>
     <string name="birthday">Birth date, </string>
     <string name="connections"> connections</string>
+    <string name="login_and_get_started_with_konnect">Login and get started with Konnect</string>
+    <string name="viewed_your_profile">viewed your profile</string>
+    <string name="upcoming_invite">You have an upcoming invitation from</string>
+    <string name="tagger">tagged you in a post</string>
+    <string name="have_message_from">You have a new message from</string>
+    <string name="username">username</string>
+    <string name="message">Message</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="user_connections">User Connections</string>
+    <string name="institution_photo">Institution photo</string>
+    <string name="institution_name">Institution name</string>
+    <string name="organization_x">Organization X</string>
+    <string name="city">City</string>
+    <string name="about_organization_x">About Organization X</string>
+    <string name="period">Period</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="have_block">"You have block this user"</string>
+    <string name="have_been_block">You have been block by this user</string>
+    <string name="john_doe">John Doe</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="at">at</string>
+    <string name="add_story">"Add Image Story"</string>
+    <string name="this_is_my_summary">This is my summary</string>
+    <string name="reset">Reset</string>
+    <string name="no_exp">No Experience!</string>
+    <string name="add_story_video">Add Video Story</string>
+    <string name="located_in">Located in</string>
+    <string name="school">School</string>
+    <string name="degree">Degree</string>
+    <string name="study_field">Study Field</string>
+
+    <string name="end_date">End date</string>
+
+
+
+    <string name="ceo_of_konnect">CEO of Konnect</string>
+
+    <string name="institution">Institution</string>
+    <string name="i_currently_work_in_this_role">I currently work in this role</string>
+    <string name="start_date">Start date</string>
+    <string name="description">Description</string>
+    <string name="tell_us_about_your_work_experience">Tell us about your work experience</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="our_relations">Our Relations</string>
+
+    <string name="post_date">Post Date</string>
+    <string name="post_content1">Post Content</string>
+    <string name="leave_your_thoughts_here">Leave your thoughts here...</string>
+    <string name="skill_name">Skill name</string>
+    <string name="web_development">Web Development</string>
+    <string name="add">Add</string>
+
+
+    <string name="textview">TextView</string>
+
+    <string name="notification_title">Notification Title</string>
+    <string name="date">Date</string>
+    <string name="user_full_name">User Full Name</string>
+    <string name="laboratory_assistant_at_bina_nusantara">Laboratory Assistant at Bina Nusantara</string>
+    <string name="posted_3_days_ago">Posted 3 days ago</string>
+
+    <string name="user_title">User title</string>
+    <string name="user_city">User city</string>
+
+    <string name="posted_at">Posted at</string>
+    <string name="comment_content">Comment content</string>
+    <string name="education_title">Education Title</string>
+
+    <string name="experience_title">Experience Title</string>
+    <string name="employment_type">Employment Type</string>
+
+    <string name="user_name">User name</string>
+
+
 </resources>

@@ -29,7 +29,7 @@
             android:id="@+id/education_institution_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Institution Name"
+            android:text="@string/institution_name"
             android:textSize="@dimen/list_detail_title_fontsize"
             style="@style/font_detail_color"
             android:textStyle="bold" />
@@ -38,7 +38,7 @@
             android:id="@+id/education_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Education Title"
+            android:text="@string/education_title"
             android:textSize="@dimen/list_detail_detail_fontsize"
             style="@style/font_detail_color" />
 
@@ -46,7 +46,7 @@
             android:id="@+id/education_period"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Period"
+            android:text="@string/period"
             android:textSize="@dimen/list_detail_detail_fontsize"
             style="@style/font_detail_color" />
 

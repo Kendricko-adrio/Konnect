@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.InvitationsConnectionAdapter
 import edu.bluejack20_2.Konnect.adapters.InvitationsConnectionHolder
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.viewmodels.InvitationsConnectionViewModel
 
-class InvitationsConnectionActivity : AppCompatActivity() {
+class InvitationsConnectionActivity : BaseActivity() {
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invitations_connection)
 

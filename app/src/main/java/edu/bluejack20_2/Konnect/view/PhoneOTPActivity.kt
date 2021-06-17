@@ -13,12 +13,13 @@ import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.RegisterData
 import kotlinx.android.synthetic.main.activity_phone_o_t_p.*
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
-class PhoneOTPActivity : AppCompatActivity() {
+class PhoneOTPActivity : BaseActivity() {
 
     val fbAuth = FirebaseAuth.getInstance()
 
@@ -31,6 +32,7 @@ class PhoneOTPActivity : AppCompatActivity() {
     lateinit var phoneFromLogin: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_o_t_p)
 

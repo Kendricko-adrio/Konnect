@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
             android:paddingVertical="3dp"
-            android:text="User Full Name"
+            android:text="@string/user_full_name"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/identity_date"

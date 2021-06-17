@@ -22,9 +22,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/profile_title_size"
-                android:textColor="@color/gray_900"
                 android:textStyle="bold"
-                android:text="Experience"/>
+                android:text="@string/experience"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/edit_detail_profile_add_experience_button"
@@ -51,9 +50,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/profile_title_size"
-                android:textColor="@color/gray_900"
                 android:textStyle="bold"
-                android:text="Skill"/>
+                android:text="@string/skill"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/edit_detail_profile_skill_button"
@@ -80,9 +78,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/profile_title_size"
-                android:textColor="@color/gray_900"
                 android:textStyle="bold"
-                android:text="Education"/>
+                android:text="@string/education"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/edit_detail_profile_education_button"

@@ -64,18 +64,19 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             itemView.notification_content_title.text = notification.relatedUser.username
             itemView.notification_content_date.text = DateUtil.timestampToStandardTime(notification.createdAt)
+
             when (notification.type) {
                 "viewer" -> {
-                    itemView.notification_content_content.text = "${notification.relatedUser.username} viewed your profile"
+                    itemView.notification_content_content.text = "${notification.relatedUser.username} ${itemView.context.getString(R.string.viewed_your_profile)} "
                 }
                 "invitation" -> {
-                    itemView.notification_content_content.text = "You have an upcoming invitation from ${notification.relatedUser.username}"
+                    itemView.notification_content_content.text = "${itemView.context.getString(R.string.upcoming_invite)} ${notification.relatedUser.username}"
                 }
                 "tag" -> {
-                    itemView.notification_content_content.text = "${notification.relatedUser.username} tagged you in a post"
+                    itemView.notification_content_content.text = "${notification.relatedUser.username} ${itemView.context.getString(R.string.tagger)}"
                 }
                 "chat" -> {
-                    itemView.notification_content_content.text = "You have a new message from ${notification.relatedUser.username}"
+                    itemView.notification_content_content.text = "${itemView.context.getString(R.string.have_message_from)} ${notification.relatedUser.username}"
                 }
             }
         }

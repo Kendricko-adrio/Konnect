@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Timestamp
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.EmploymentType
 import edu.bluejack20_2.Konnect.models.Experience
 import edu.bluejack20_2.Konnect.models.Institution
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ExperienceInputActivity : AppCompatActivity() {
+class ExperienceInputActivity : BaseActivity() {
 
     private val TAG = "EXPERIENCE_INPUT_ACT"
 
@@ -41,6 +42,7 @@ class ExperienceInputActivity : AppCompatActivity() {
     private var isWorking: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_experience_input)
 

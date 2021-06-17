@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseFunction
 import edu.bluejack20_2.Konnect.repositories.UserRepository
 import edu.bluejack20_2.Konnect.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -34,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
         super.onCreate(savedInstanceState)
         val check = checkAuth()
         if(check){

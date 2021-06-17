@@ -23,7 +23,7 @@
             android:id="@+id/user_relation_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User name"
+            android:text="@string/user_name"
             style="@style/font_detail_color"
             android:textSize="@dimen/list_detail_title_fontsize"
             android:textStyle="bold" />
@@ -32,7 +32,7 @@
             android:id="@+id/user_relation_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="username"
+            android:text="@string/username"
             android:textSize="@dimen/list_detail_detail_fontsize"
             style="@style/font_detail_color"/>
 

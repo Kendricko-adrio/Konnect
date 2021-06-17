@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.City
 import edu.bluejack20_2.Konnect.models.Institution
 import edu.bluejack20_2.Konnect.services.GlideApp
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_edit_detail_institution.edit_prof
 import kotlinx.coroutines.launch
 import java.util.*
 
-class EditDetailInstitutionActivity : AppCompatActivity() {
+class EditDetailInstitutionActivity : BaseActivity() {
     private val TAG = "EDIT_DETAIL_INST_ACT"
     private lateinit var institution: Institution
     private lateinit var institutionId: String
@@ -36,6 +37,7 @@ class EditDetailInstitutionActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_detail_institution)
 

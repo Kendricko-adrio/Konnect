@@ -48,7 +48,7 @@ class StoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                             // Add Story
                             val alertDialog = AlertDialog.Builder(holder.itemView.context).create()
 
-                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Add Image Story",
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, holder.itemView.context.getString(R.string.add_story),
                                 object : DialogInterface.OnClickListener {
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
                                         val intent = Intent(
@@ -62,7 +62,7 @@ class StoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                                     }
                                 })
 
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Add Video Story",
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, holder.itemView.context.getString(R.string.add_story_video),
                                 object : DialogInterface.OnClickListener {
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
                                         val intent = Intent(

@@ -22,9 +22,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:textColor="@color/black"
-            android:text="Institution photo" />
+            android:text="@string/institution_photo" />
 
         <RelativeLayout
             android:layout_width="100dp"
@@ -63,7 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Institution name"
+            android:text="@string/institution_name"
             android:textSize="@dimen/list_detail_detail_fontsize"
             android:textColor="@color/gray_900" />
 
@@ -71,13 +70,12 @@
             android:id="@+id/edit_institution_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Organization X"
-            android:textSize="@dimen/list_detail_title_fontsize" />
+            android:hint="@string/organization_x" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="City"
+            android:text="@string/city"
             android:textSize="@dimen/list_detail_detail_fontsize"
             android:textColor="@color/gray_900" />
 
@@ -89,7 +87,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Summary"
+            android:text="@string/summary"
             android:textSize="@dimen/list_detail_detail_fontsize"
             android:textColor="@color/gray_900" />
 
@@ -99,9 +97,8 @@
             android:layout_height="wrap_content"
             android:minLines="3"
             android:maxLines="10"
-            android:hint="About Organization X"
-            android:gravity="top"
-            android:textSize="@dimen/list_detail_title_fontsize" />
+            android:hint="@string/about_organization_x"
+            android:gravity="top"/>
 
     </LinearLayout>
 
@@ -117,7 +114,7 @@
             android:id="@+id/edit_institution_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:text="@string/save" />
 
     </LinearLayout>
 

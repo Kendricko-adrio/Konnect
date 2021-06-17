@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Timestamp
 import edu.bluejack20_2.Konnect.R
+import edu.bluejack20_2.Konnect.base.BaseActivity
 import edu.bluejack20_2.Konnect.models.*
 import edu.bluejack20_2.Konnect.viewmodels.EducationInputViewModel
 import kotlinx.android.synthetic.main.activity_education_input.*
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EducationInputActivity : AppCompatActivity() {
+class EducationInputActivity : BaseActivity() {
     private val TAG = "EDUCATION_INPUT_ACT"
 
     private val viewModel = EducationInputViewModel()
@@ -38,6 +39,7 @@ class EducationInputActivity : AppCompatActivity() {
     private lateinit var selectedField: StudyField
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        changeFont()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_education_input)
 
