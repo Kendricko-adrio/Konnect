@@ -28,8 +28,10 @@ object StoryRepository {
 
         // Get all connection
         var connections = UserRepository.getConnections(userId)
-        val user = UserRepository.getUserByDocument(userId)!!
-        connections.add(0, user)
+        val user = UserRepository.getUserByDocument(userId)
+        if (user != null) {
+            connections.add(0, user)
+        }
         Log.wtf(TAG, now.toString())
 
         val currentUser = UserRepository.getCurrentUser()

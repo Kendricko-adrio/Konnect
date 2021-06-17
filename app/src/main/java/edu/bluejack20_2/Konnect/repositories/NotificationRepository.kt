@@ -1,5 +1,6 @@
 package edu.bluejack20_2.Konnect.repositories
 
+import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -19,13 +20,13 @@ object NotificationRepository {
                 .whereEqualTo("type", "chat")
                 .get().await()
 
-            val notif = n.documents.first()
-            if(notif != null) {
+            if(n.documents.isNotEmpty()) {
+                val notif = n.documents.first()
+                Log.wtf(TAG, notif.toString())
                 // Notification already exists --> update the createdAt
                 db.collection("notifications")
                     .document(notif.id)
                     .update("createdAt", Timestamp.now()).await()
-
                 return
             }
         }
