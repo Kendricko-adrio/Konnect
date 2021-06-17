@@ -20,6 +20,7 @@
         android:id="@+id/skill_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/edit_text_border"
         android:hint="@string/web_development" />
 
     <LinearLayout

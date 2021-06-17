@@ -41,47 +41,6 @@ class SettingFragment : Fragment() {
 
         fontSizeSetting(view)
 
-//        val sizeArr = arrayListOf("Large", "Medium", "Small")
-//
-//        val adapter = context?.let { ArrayAdapter<String>(it, R.layout.support_simple_spinner_dropdown_item, sizeArr) }
-//        val font_size = view.findViewById<Spinner>(R.id.spn_font_size)
-//        font_size.adapter = adapter
-
-
-//        font_size.setSelection(defSize)
-//
-//        font_size.onItemSelectedListener = object :
-//            OnItemSelectedListener {
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//
-//            }
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                Log.wtf("Test", sizeArr[position])
-//                if(position == 0){
-//                    sharedPrefsEdit.putString("FONT_SIZE", "Large")
-//
-//                }else if(position == 1){
-//                    sharedPrefsEdit.putString("FONT_SIZE", "Medium")
-//
-//                }else if(position == 2){
-//                    sharedPrefsEdit.putString("FONT_SIZE", "Small")
-//
-//                }
-//
-//                sharedPrefsEdit.apply()
-////                activity?.finish()
-////                activity?.()
-//
-////                startActivity(Intent(context, HomeActivity::class.java))
-//            }
-//
-//        }
-
         val btn_change_theme = view.findViewById<Button>(R.id.btn_change_theme)
         btn_change_theme.setOnClickListener {
             if(isNightMode){

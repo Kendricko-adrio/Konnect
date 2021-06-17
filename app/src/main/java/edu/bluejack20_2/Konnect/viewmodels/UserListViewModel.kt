@@ -18,10 +18,12 @@ class UserListViewModel: ViewModel() {
         val tempList = mutableListOf<DocumentReference>()
         UserRepository.getUserByDoc(FirebaseAuth.getInstance().currentUser.uid).get().addOnSuccessListener{
 
-            val temp = it["connections_ref"] as List<DocumentReference>
-            for(doc in temp){
-                Log.wtf("data yang masuk", doc.toString())
-                tempList.add(doc)
+            val temp = it["connections_ref"] as List<DocumentReference>?
+            if (temp != null) {
+                for(doc in temp){
+                    Log.wtf("data yang masuk", doc.toString())
+                    tempList.add(doc)
+                }
             }
             connectionList.value = tempList
         }

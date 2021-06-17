@@ -476,6 +476,7 @@ object UserRepository {
     }
 
     suspend fun updateUserProfile(user: User) {
+
         db.collection("users").document(user.id).update(
             "name", user.name,
             "photoUrl", user.photoUrl,
