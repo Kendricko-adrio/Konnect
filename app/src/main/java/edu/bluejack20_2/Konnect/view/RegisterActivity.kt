@@ -26,15 +26,15 @@ class RegisterActivity : BaseActivity() {
             val name = et_register_name.text.toString()
 
             if (email == "" || password == "" || name == "") {
-                Toast.makeText(applicationContext, "Field must be filled with value!", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, getString(R.string.fill_empty), Toast.LENGTH_SHORT)
                     .show()
 
             } else if (!email.matches(emailPatter.toRegex())) {
-                Toast.makeText(applicationContext, "Invalid Email Format!", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, getString(R.string.email_wrong), Toast.LENGTH_SHORT)
                     .show()
 
             } else if (password.length < 6) {
-                Toast.makeText(applicationContext, "Password must be more than 6 characters!", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, getString(R.string.password_wrong), Toast.LENGTH_SHORT)
                     .show()
             }else{
                 Log.wtf("asdfasdf", "masuk")

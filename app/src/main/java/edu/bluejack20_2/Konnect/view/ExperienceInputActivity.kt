@@ -226,30 +226,30 @@ class ExperienceInputActivity : BaseActivity() {
             if(intent.hasExtra("experienceId")) {
                 Log.wtf(TAG, experience.toString())
                 viewModel.updateExperience(experience)
-                Toast.makeText(applicationContext, "Experience updated", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.exp_update), Toast.LENGTH_LONG).show()
             } else {
                 Log.wtf(TAG, experience.toString())
                 viewModel.addExperience(experience, userId)
-                Toast.makeText(applicationContext, "Experience added", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.exp_add), Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun clientValidation(): Boolean {
         if(experience_input_title.text.toString().isEmpty()) {
-            Toast.makeText(applicationContext, "Title cannot be empty!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.title_empty), Toast.LENGTH_SHORT).show()
             return false;
         }
         else if(Timestamp(startCalendar.time) > Timestamp.now()) {
-            Toast.makeText(applicationContext, "Start date cannot exceed today's date", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.start_exceed), Toast.LENGTH_SHORT).show()
             return false;
         }
         else if(isWorking && Timestamp(startCalendar.time) > Timestamp(endCalendar.time)) {
-            Toast.makeText(applicationContext, "Start date cannot exceed end date", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.start_exceed_end), Toast.LENGTH_SHORT).show()
             return false;
         }
         else if(experience_input_desription.text.toString().isEmpty()) {
-            Toast.makeText(applicationContext, "Description cannot be empty!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.desc_empty, Toast.LENGTH_SHORT).show()
             return false;
         }
         return true;

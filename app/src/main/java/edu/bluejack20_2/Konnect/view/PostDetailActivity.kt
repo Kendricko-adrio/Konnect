@@ -62,11 +62,11 @@ class PostDetailActivity : BaseActivity() {
         likeButtonUpdate()
         resetMedia()
         post_detail_identity_name.text = post.user.name
-        post_detail_identity_date.text = "Posted at " + DateUtil.timestampToStandardTime(post.createdAt)
+        post_detail_identity_date.text = getString(R.string.post_at) + DateUtil.timestampToStandardTime(post.createdAt)
         post_detail_content.text = preprocessPost(post.content)
         post_detail_content.movementMethod = LinkMovementMethod.getInstance()
-        post_detail_like_count.text = post.likes.size.toString() + " likes"
-        post_detail_comment_count.text = post.comments.size.toString() + " comments"
+        post_detail_like_count.text = post.likes.size.toString() + getString(R.string.likes)
+        post_detail_comment_count.text = post.comments.size.toString() + getString(R.string.comments)
 
         GlideApp.with(applicationContext)
             .load(post.user.photoUrl)
@@ -158,13 +158,13 @@ class PostDetailActivity : BaseActivity() {
     private fun addComment() {
         val comment = post_detail_comment_input.text
         if(comment.toString() == "") {
-            Toast.makeText(applicationContext, "Please input your comment!", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.input_command), Toast.LENGTH_LONG).show()
         }
         else {
             lifecycleScope.launch {
                 postDetailViewModel.addPostComment(postId, user.id, comment.toString())
                 loadData()
-                Toast.makeText(applicationContext, "Comment added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.command_added), Toast.LENGTH_SHORT).show()
             }
         }
     }

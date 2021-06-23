@@ -71,11 +71,11 @@ class LoginActivity : AppCompatActivity() {
                 if(it != null){
 
                     val intent = Intent(this, PhoneOTPActivity::class.java)
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()
                     intent.putExtra("phone", it)
                     startActivity(intent)
                 }else{
-                    Toast.makeText(this, "User or password is incorrect", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.incorrect), Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -135,7 +135,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun goToHome(user: FirebaseUser){
         if(user != null){
-            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }else{

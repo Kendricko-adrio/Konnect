@@ -45,7 +45,7 @@ class SkillInputActivity : BaseActivity() {
     private fun deleteSkill() {
         lifecycleScope.launch {
             viewModel.deleteSkill(skillId, userId)
-            Toast.makeText(applicationContext, "Skill deleted!", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.skill_delete), Toast.LENGTH_LONG).show()
             finish()
         }
     }
@@ -58,7 +58,7 @@ class SkillInputActivity : BaseActivity() {
                 skill.name = text
                 lifecycleScope.launch {
                     viewModel.addSkill(skill, userId)
-                    Toast.makeText(applicationContext, "Skill added", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, getString(R.string.skill_add), Toast.LENGTH_LONG).show()
                 }
             }
         }

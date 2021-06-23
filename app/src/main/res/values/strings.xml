@@ -229,6 +229,39 @@
     <string name="employment_type">Employment Type</string>
 
     <string name="user_name">User name</string>
-
-
+    <string name="post_at">Posted at&#160;</string>
+    <string name="likes">&#160;likes</string>
+    <string name="comments">&#160;comments</string>
+    <string name="input_command">Please input your comment!</string>
+    <string name="command_added">Comment added!</string>
+    <string name="something">Something went wrong!</string>
+    <string name="story_added">Story Added!</string>
+    <string name="upload_fail">Upload image failed!</string>
+    <string name="upload_success">Upload image success!</string>
+    <string name="uploading_image">Uploading image</string>
+    <string name="uploading_video">Uploading video</string>
+    <string name="text_empty">Text cannot be empty</string>
+    <string name="insti_updated">Institution Updated!</string>
+    <string name="file_upload">File Uploaded</string>
+    <string name="profile_updated">Profile Updated!</string>
+    <string name="name_empty">User name cannot be empty!</string>
+    <string name="dob_exceed">Date of Birth cannot exceed today\'s date</string>
+    <string name="summary_empty">Summary cannot be empty!</string>
+    <string name="edu_update">Education updated!</string>
+    <string name="edu_add">Education added</string>
+    <string name="start_exceed">Start date cannot exceed today\'s date!</string>
+    <string name="desc_empty">Description cannot be empty!</string>
+    <string name="exp_update">Experience updated</string>
+    <string name="exp_add">Experience added</string>
+    <string name="title_empty">Title cannot be empty!</string>
+    <string name="start_exceed_end">Start date cannot exceed end date</string>
+    <string name="success">success!</string>
+    <string name="incorrect">User or password is incorrect</string>
+    <string name="phone_same">Phone Number must be the same as in Database!</string>
+    <string name="wrong_otp">Wrong OTP Code</string>
+    <string name="fill_empty">Field must be filled with value!</string>
+    <string name="email_wrong">Invalid Email Format!</string>
+    <string name="password_wrong">Password must be more than 6 characters!</string>
+    <string name="skill_delete">Skill deleted!</string>
+    <string name="skill_add">Skill added</string>
 </resources>

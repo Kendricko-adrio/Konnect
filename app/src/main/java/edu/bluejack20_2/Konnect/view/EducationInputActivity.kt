@@ -227,26 +227,22 @@ class EducationInputActivity : BaseActivity() {
         lifecycleScope.launch {
             if(intent.hasExtra("educationId")) {
                 viewModel.updateEducation(education)
-                Toast.makeText(applicationContext, "Education updated", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.edu_update), Toast.LENGTH_LONG).show()
             }
             else {
                 viewModel.addEducation(education, userId)
-                Toast.makeText(applicationContext, "Education added", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.edu_add), Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun clientValidation(): Boolean {
         if(Timestamp(startCalendar.time) > Timestamp(endCalendar.time)) {
-            Toast.makeText(applicationContext, "Start date cannot exceed end date!", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(Timestamp(startCalendar.time) > Timestamp.now()) {
-            Toast.makeText(applicationContext, "Start date cannot exceed today's date!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.start_exceed), Toast.LENGTH_SHORT).show()
             return false
         }
         else if(education_input_description_input.text.toString().isEmpty()) {
-            Toast.makeText(applicationContext, "Description cannot be empty!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.desc_empty), Toast.LENGTH_SHORT).show()
             return false
         }
         return true

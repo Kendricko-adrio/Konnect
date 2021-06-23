@@ -92,18 +92,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:buttonTint="@color/purple_500"
             android:text="@string/large" />
 
         <RadioButton
             android:id="@+id/rb_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:buttonTint="@color/purple_500"
             android:text="@string/medium" />
 
         <RadioButton
             android:id="@+id/rb_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/purple_500"
             android:text="@string/small" />
 
     </RadioGroup>

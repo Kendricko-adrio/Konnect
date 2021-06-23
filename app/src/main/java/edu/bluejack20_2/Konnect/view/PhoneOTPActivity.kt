@@ -97,7 +97,7 @@ class PhoneOTPActivity : BaseActivity() {
             val phoneNumber = et_phone_number.text.toString()
 
             if(!isRegister && phoneNumber != phoneFromLogin){
-                Toast.makeText(this, "Phone Number must be the same as in Database!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.phone_same), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -140,7 +140,7 @@ class PhoneOTPActivity : BaseActivity() {
             finish()
         }.addOnFailureListener{
             pd.dismiss()
-            Toast.makeText(this, "Wrong OTP Code", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.wrong_otp), Toast.LENGTH_SHORT).show()
         }
     }
 

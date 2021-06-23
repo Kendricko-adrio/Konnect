@@ -152,7 +152,7 @@ class EditDetailInstitutionActivity : BaseActivity() {
     private fun uploadFirestore() {
         lifecycleScope.launch {
             viewModel.updateInstitution(institution)
-            Toast.makeText(applicationContext, "Institution Updated!", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.insti_updated), Toast.LENGTH_LONG).show()
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
