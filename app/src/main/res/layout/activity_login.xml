@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@color/purple_500"
+    style="@style/header_background"
     tools:context=".view.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
