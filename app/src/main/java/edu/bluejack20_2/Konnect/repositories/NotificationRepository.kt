@@ -3,6 +3,7 @@ package edu.bluejack20_2.Konnect.repositories
 import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
 object NotificationRepository {

@@ -4,9 +4,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
-import edu.bluejack20_2.Konnect.models.ActivityPost
-import edu.bluejack20_2.Konnect.models.PostComment
-import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.models.*
 import kotlinx.coroutines.tasks.await
 
 object ActivityPostRepository {
@@ -16,6 +14,7 @@ object ActivityPostRepository {
     private val storageRef = FirebaseStorage.getInstance()
 
     suspend fun getAll(): List<ActivityPost> {
+        val expList = mutableListOf<Experience>()
         val list = mutableListOf<ActivityPost>()
         val currUser =
             db.collection("users").document(FirebaseAuth.getInstance().currentUser.uid).get()
@@ -54,7 +53,29 @@ object ActivityPostRepository {
 
                 var uObj = user.toObject(User::class.java)
 
+                val experiences = mutableListOf<Experience>()
+                if(user["experiences_ref"] != null) {
+                    val experiencesRef = user["experiences_ref"] as List<DocumentReference>
+                    for (experienceRef in experiencesRef) {
+                        val experience = ExperienceRepository.getExperienceDocRef(experienceRef)
+                        val experienceObj = experience.toObject(Experience::class.java)
+
+                        // Experience's Institution
+                        val institutionRef = experience["institution_ref"] as DocumentReference
+                        val institution = InstitutionRepository.getInstitutionDocRef(institutionRef)
+                        val institutionObj = institution.toObject(Institution::class.java)!!
+                        institutionObj.id = institution.id
+
+                        if (experienceObj != null) {
+                            experienceObj.id = experience.id
+                            experienceObj.institution = institutionObj
+                            experiences.add(experienceObj)
+                        }
+                    }
+                }
+
                 if (uObj != null) {
+                    uObj.experiences = experiences
                     pObj.user = uObj
                     list.add(pObj)
                 }

@@ -70,9 +70,14 @@ class PostRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val postMedia = itemView.post_media
 
         fun bind(post: ActivityPost, users: List<User>) {
-
             identityName.setText(post.user.name)
-            identityTitle.setText("Student at Binus University")
+            if(post.user.experiences.isEmpty()) {
+                identityTitle.text = "No experience"
+            }
+            else {
+                identityTitle.text = post.user.experiences[0].title +
+                        " at " + post.user.experiences[0].institution.name
+            }
             identityDate.setText(DateUtil.timestampToStandardTime(post.createdAt))
 
             GlideApp.with(itemView.context)
