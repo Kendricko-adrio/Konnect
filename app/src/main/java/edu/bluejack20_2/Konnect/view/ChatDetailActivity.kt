@@ -64,7 +64,7 @@ class ChatDetailActivity : BaseActivity() {
         Glide.with(this).load(R.drawable.send).apply(RequestOptions().override(50, 50)).into(btn)
         btn.setOnClickListener(View.OnClickListener {
             if(msg.text.toString() == ""){
-                Toast.makeText(applicationContext, "Text cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.text_empty), Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
             val userRef = FirebaseFirestore.getInstance().collection("users")

@@ -94,7 +94,7 @@ class AddStoryActivity : AppCompatActivity() {
         }
         else {
             // Neither
-            Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.something), Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
@@ -111,7 +111,7 @@ class AddStoryActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             viewModel.addStory(storyObj)
-            Toast.makeText(applicationContext, "Story Added!", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.story_added), Toast.LENGTH_LONG).show()
             startActivity(Intent(this@AddStoryActivity, HomeActivity::class.java))
             finish()
         }
@@ -124,9 +124,9 @@ class AddStoryActivity : AppCompatActivity() {
 
         var uploadTask = ref.putBytes(data)
         uploadTask.addOnFailureListener {
-            Toast.makeText(applicationContext, "Upload image failed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener { taskSnapshot ->
-            Toast.makeText(applicationContext, "Upload image success!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
             ref.downloadUrl
                 .addOnSuccessListener {
                     val path = it.toString()
@@ -134,7 +134,7 @@ class AddStoryActivity : AppCompatActivity() {
                 }
         }.addOnProgressListener {
             val progress = (100.0 * it.bytesTransferred / it.totalByteCount)
-            Toast.makeText(applicationContext, "Uploading image $progress%", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.uploading_image) + " $progress%", Toast.LENGTH_SHORT).show()
             Log.wtf(TAG, progress.toString())
         }
     }
@@ -146,9 +146,9 @@ class AddStoryActivity : AppCompatActivity() {
 
         val uploadTask = ref.putFile(uri)
         uploadTask.addOnFailureListener {
-            Toast.makeText(applicationContext, "Upload video failed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener { taskSnapshot ->
-            Toast.makeText(applicationContext, "Upload video success!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
             ref.downloadUrl
                 .addOnSuccessListener {
                     val path = it.toString()
@@ -157,7 +157,7 @@ class AddStoryActivity : AppCompatActivity() {
         }.addOnProgressListener {
             val progress = (100.0 * it.bytesTransferred / it.totalByteCount)
             Log.wtf(TAG, progress.toString())
-            Toast.makeText(applicationContext, "Uploading video $progress%", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.uploading_video)+" $progress%", Toast.LENGTH_SHORT).show()
         }
     }
 }

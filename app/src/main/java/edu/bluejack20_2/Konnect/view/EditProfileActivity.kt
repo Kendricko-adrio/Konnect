@@ -141,7 +141,7 @@ class EditProfileActivity : BaseActivity() {
 
         imageRef.putFile(filepath)
             .addOnSuccessListener {
-                Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.file_upload), Toast.LENGTH_LONG).show()
                 // If success get the downloadUrl
                 imageRef.downloadUrl
                     .addOnSuccessListener {
@@ -177,7 +177,7 @@ class EditProfileActivity : BaseActivity() {
         lifecycleScope.launch {
             viewModel.updateUserProfile(user)
             edit_profile_progress_bar.visibility = View.GONE
-            Toast.makeText(applicationContext, "Profile Updated!", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.profile_updated), Toast.LENGTH_LONG).show()
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
@@ -185,15 +185,15 @@ class EditProfileActivity : BaseActivity() {
 
     private fun clientValidation(): Boolean {
         if(edit_profile_name_input.text.toString().isEmpty()) {
-            Toast.makeText(applicationContext, "User name cannot be empty!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.name_empty), Toast.LENGTH_SHORT).show()
             return false;
         }
         else if(Timestamp(calendar.time).compareTo(Timestamp.now()) > 0) {
-            Toast.makeText(applicationContext, "Date of Birth cannot exceed today's date", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.dob_exceed), Toast.LENGTH_SHORT).show()
             return false;
         }
         else if(edit_profile_summary_input.text.toString().isEmpty()) {
-            Toast.makeText(applicationContext, "Summary cannot be empty!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.summary_empty), Toast.LENGTH_SHORT).show()
             return false;
         }
         return true;
