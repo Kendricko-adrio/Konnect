@@ -39,6 +39,8 @@ class NotificationViewModel : ViewModel() {
             }
             if(value != null) {
                 notificationList.value = mutableListOf<Notification>()
+                Log.wtf(TAG, "Notification List")
+                Log.wtf(TAG, notificationList.toString())
                 val temp: MutableList<Notification> = mutableListOf()
                  for(data in value) {
                      var notif = data.toObject(Notification::class.java)

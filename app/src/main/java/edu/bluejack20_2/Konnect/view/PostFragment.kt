@@ -119,7 +119,9 @@ class PostFragment : Fragment() {
 
     private fun initializeComponents() {
         resetMediaContainer()
-        add_post_header_name.text = currentUser.name
+        if(add_post_header_name != null) {
+            add_post_header_name.text = currentUser.name
+        }
         loadImage()
 
         sendButton = add_post_send_button

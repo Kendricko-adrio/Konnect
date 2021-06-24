@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
+    android:gravity="center"
     android:padding="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -18,8 +19,9 @@
         android:id="@+id/comment_detail_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:orientation="vertical"
-        android:background="@color/gray_200"
+        android:background="@color/gray_100"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp">
 
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/posted_at"
             android:textColor="@color/gray_900"
+            android:textStyle="italic"
             android:textSize="12sp" />
 
         <TextView

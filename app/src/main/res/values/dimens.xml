@@ -4,7 +4,7 @@
     <dimen name="user_profile_content_fontsize">14sp</dimen>
     <dimen name="list_detail_title_fontsize">18sp</dimen>
     <dimen name="list_detail_detail_fontsize">14sp</dimen>
-    <dimen name="listview_row_image_size">75dp</dimen>
+    <dimen name="listview_row_image_size">100dp</dimen>
     <dimen name="profile_title_size">20sp</dimen>
     <dimen name="icon_standard_size">30dp</dimen>
     <dimen name="icon_small_size">20dp</dimen>

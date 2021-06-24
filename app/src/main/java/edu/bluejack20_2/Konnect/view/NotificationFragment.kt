@@ -12,7 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.bluejack20_2.Konnect.R
 import edu.bluejack20_2.Konnect.adapters.NotificationAdapter
+import edu.bluejack20_2.Konnect.models.Notification
 import edu.bluejack20_2.Konnect.models.User
+import edu.bluejack20_2.Konnect.services.DateUtil
 import edu.bluejack20_2.Konnect.viewmodels.NotificationViewModel
 import kotlinx.android.synthetic.main.fragment_notification.*
 import kotlinx.coroutines.launch
@@ -46,8 +48,10 @@ class NotificationFragment : Fragment() {
             viewModel.getNotificationList().observe(viewLifecycleOwner, Observer {
                 // Update UI
                 initRecyclerView()
-                Log.wtf(TAG, it.toString())
-                notificationAdapter.submitData(it)
+                // sort the data here
+                val list: MutableList<Notification> = it
+                val sortedList = list.sortedByDescending { it.createdAt }
+                notificationAdapter.submitData(sortedList)
             })
         }
     }
