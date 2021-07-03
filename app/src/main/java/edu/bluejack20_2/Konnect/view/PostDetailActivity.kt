@@ -164,6 +164,7 @@ class PostDetailActivity : BaseActivity() {
             lifecycleScope.launch {
                 postDetailViewModel.addPostComment(postId, user.id, comment.toString())
                 loadData()
+                post_detail_comment_input.setText("")
                 Toast.makeText(applicationContext, getString(R.string.command_added), Toast.LENGTH_SHORT).show()
             }
         }
