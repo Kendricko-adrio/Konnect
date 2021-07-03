@@ -24,6 +24,7 @@ import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
 import edu.bluejack20_2.Konnect.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
+import java.util.*
 
 class HomeActivity : BaseActivity() {
 
@@ -37,6 +38,8 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+
 
         hideToolbar()
 

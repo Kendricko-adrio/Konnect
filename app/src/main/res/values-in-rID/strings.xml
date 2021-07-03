@@ -30,7 +30,7 @@
     <string name="location">Lokasi</string>
     <string name="dob">Tanggal Lahir</string>
     <string name="activity">Aktivitas</string>
-    <string name="start_a_post">Mulai Mempublish</string>
+    <string name="start_a_post">Mulai Memposting!</string>
     <string name="about_me">Tentang Saya</string>
     <string name="summary">Ringkasan</string>
     <string name="experience">Pengalaman</string>
@@ -47,7 +47,7 @@
     <string name="medium">Sedang</string>
     <string name="small">Kecil</string>
     <string name="chat">Obrolan</string>
-    <string name="connection">Koneksi</string>
+    <string name="connection">&#160;Koneksi</string>
     <string name="home">Beranda</string>
     <string name="my_network">Koneksiku</string>
     <string name="post">Posting</string>
@@ -58,11 +58,11 @@
     <string name="institution_post">Postingan Institusi</string>
     <string name="about_us">Tentang Kami</string>
     <string name="edit_profile">Ubah Profil</string>
-    <string name="living_at">"Tinggal di "</string>
+    <string name="living_at">Tinggal di&#160;</string>
     <string name="no_exp">Belum ada pengalaman</string>
     <string name="no_sum">Belum ada ringkasan</string>
     <string name="birthday">"Tanggal Lahir, "</string>
-    <string name="connections">" koneksi"</string>
+    <string name="connections">&#160;koneksi</string>
     <string name="login_and_get_started_with_konnect">Masuk dan bergabung dengan Konnect</string>
     <string name="viewed_your_profile">telah melihat profilemu</string>
     <string name="upcoming_invite">Kamu mendapat undangan pertemanan dari</string>
@@ -127,7 +127,7 @@
     <string name="located_in">Terletak di</string>
     <string name="post_at">Diposting pada&#160;</string>
     <string name="likes">&#160;suka</string>
-    <string name="comments">&#160;komen</string>
+    <string name="comments">&#160;komentar</string>
     <string name="input_command">Plis masukan komenmu!</string>
     <string name="command_added">Komen ditambah!</string>
     <string name="something">Sesuatu tidak benar!</string>
@@ -160,4 +160,9 @@
     <string name="password_wrong">Kata sandi harus lebih dari 6 karakter!</string>
     <string name="skill_delete">Keterempilan telah dihapus!</string>
     <string name="skill_add">Keterampilan ditambah!</string>
+    <string name="parttime">Pekerja Paruh Waktu</string>
+    <string name="fulltime">Pegawai Penuh Waktu</string>
+    <string name="selfemployed">Wirausaha</string>
+    <string name="freelance">Pekerja Lepas</string>
+    <string name="internship">Magang</string>
 </resources>

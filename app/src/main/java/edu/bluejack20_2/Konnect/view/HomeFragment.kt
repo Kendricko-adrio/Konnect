@@ -16,6 +16,7 @@ import edu.bluejack20_2.Konnect.models.User
 import edu.bluejack20_2.Konnect.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -55,7 +56,6 @@ class HomeFragment : Fragment() {
 
             home_progress_bar?.visibility = View.GONE
             initRecyclerView()
-
             postAdapter.submitData(data, users)
             storyAdapter.submitData(map, user.id)
         }

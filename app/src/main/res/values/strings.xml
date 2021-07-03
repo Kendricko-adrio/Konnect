@@ -138,7 +138,7 @@
     <string name="medium">Medium</string>
     <string name="small">Small</string>
     <string name="skill">Skill</string>
-    <string name="connection">Connection</string>
+    <string name="connection">&#160;Connection</string>
     <string name="home">Home</string>
     <string name="my_network">My Network</string>
     <string name="post">Post</string>
@@ -149,10 +149,10 @@
     <string name="institution_post">Institution Post</string>
     <string name="about_us">About us</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="living_at">Living In </string>
+    <string name="living_at">Living In&#160;</string>
     <string name="no_sum">No summary</string>
     <string name="birthday">Birth date, </string>
-    <string name="connections"> connections</string>
+    <string name="connections">&#160;connections</string>
     <string name="login_and_get_started_with_konnect">Login and get started with Konnect</string>
     <string name="viewed_your_profile">viewed your profile</string>
     <string name="upcoming_invite">You have an upcoming invitation from</string>
@@ -264,4 +264,9 @@
     <string name="password_wrong">Password must be more than 6 characters!</string>
     <string name="skill_delete">Skill deleted!</string>
     <string name="skill_add">Skill added</string>
+    <string name="parttime">Part-Time</string>
+    <string name="fulltime">Full-Time</string>
+    <string name="selfemployed">Self-Employed</string>
+    <string name="freelance">Freelance</string>
+    <string name="internship">Internship</string>
 </resources>
