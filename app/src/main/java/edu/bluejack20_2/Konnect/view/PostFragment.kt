@@ -97,7 +97,7 @@ class PostFragment : Fragment() {
         )
 
         var notificationBuilder = NotificationCompat.Builder(activity?.applicationContext!!, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_profile_placeholder)
+            .setSmallIcon(R.mipmap.ic_konnect_logo_round)
             .setContentTitle("Congratulations ${currentUser.username}, you have successfully added a new post to your network!")
             .setContentText(content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
